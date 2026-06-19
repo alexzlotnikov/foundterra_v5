@@ -1,0 +1,6 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='380' height='80' viewBox='0 0 380 80' fill='none'>
+  <circle cx='24' cy='40' r='18' stroke='#ff2f7f' stroke-width='4'/>
+  <path d='M24 20L30 40L24 60L18 40L24 20Z' fill='#ff2f7f'/>
+  <text x='54' y='45' fill='#f0eeff' font-size='30' font-family='Manrope, sans-serif' font-weight='700'>flashpoint</text>
+  <text x='276' y='45' fill='#9f67ff' font-size='30' font-family='Manrope, sans-serif' font-weight='700'>VC</text>
+</svg>

@@ -1,0 +1,49 @@
+{
+  "socialLinks": {
+    "telegram": {
+      "enabled": true,
+      "url": "https://t.me/found_terra",
+      "label": "Telegram"
+    },
+    "linkedin": {
+      "enabled": true,
+      "url": "https://linkedin.com/company/foundterra",
+      "label": "LinkedIn"
+    },
+    "discord": {
+      "enabled": false,
+      "url": "https://discord.gg/foundterra",
+      "label": "Discord"
+    },
+    "tiktok": {
+      "enabled": false,
+      "url": "https://tiktok.com/@foundterra",
+      "label": "TikTok"
+    },
+    "instagram": {
+      "enabled": false,
+      "url": "https://instagram.com/foundterra",
+      "label": "Instagram"
+    },
+    "facebook": {
+      "enabled": false,
+      "url": "https://www.facebook.com/foundterra",
+      "label": "Foundterra on Facebook"
+    },
+    "whatsapp": {
+      "enabled": true,
+      "url": "https://chat.whatsapp.com/DsFfSJjnWLf3zXQwDiJAov?mode=gi_t",
+      "label": "WhatsApp"
+    },
+    "x": {
+      "enabled": true,
+      "url": "https://x.com/foundterra",
+      "label": "X (Twitter)"
+    },
+    "youtube": {
+      "enabled": true,
+      "url": "https://www.youtube.com/@foundterra",
+      "label": "Foundterra on YouTube"
+    }
+  }
+}

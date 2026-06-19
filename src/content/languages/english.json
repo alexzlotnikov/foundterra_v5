@@ -1,0 +1,623 @@
+{
+  "meta": {
+    "title": "Foundterra | Venture-Led Fundraising Advisory & Preparation",
+    "description": "Stop guessing what investors want to see. Institutional-standard preparation for pre-Seed and Seed rounds led by an active Venture Associate. Master decks, math, and research."
+  },
+  "navigation": {
+    "logo": "Foundterra",
+    "services": "Services",
+    "packages": "Packages",
+    "process": "Process",
+    "about": "About",
+    "resources": "Resources",
+    "contact": "Contact",
+    "languages": {
+      "english": "English",
+      "hebrew": "עברית",
+      "russian": "Русский"
+    }
+  },
+  "cta": {
+    "bookSession": "Book Free Consultation",
+    "bookCall": "Book a Call",
+    "explorePackages": "View Packages",
+    "accessResources": "Access Resources",
+    "contact": "Contact Us",
+    "calendlyLink": "https://calendly.com/foundterra/30min"
+  },
+  "hero": {
+    "title": "Your pitch deck is costing you meetings. Stop guessing what investors want to see.",
+    "subtitle": "Most founders get a \"pass\" because their materials don't meet the institutional standard. Foundterra is a boutique strategy agency led by an active Venture Associate. We provide the research, modeling, and design required to present your business the way VCs actually want to see it.",
+    "features": [],
+    "limitedOffer": ""
+  },
+  "problem": {
+    "title": "Why Great Founders Get Passed Over",
+    "subtitle": "It's rarely the business idea. It's usually the communication.",
+    "items": [
+      {
+        "title": "The Narrative is Unclear",
+        "description": "If an investor can't explain your business to their partner after skimming your deck, it's a pass. We restructure your flow for logic and clarity."
+      },
+      {
+        "title": "The Financials Are Unrealistic",
+        "description": "Sloppy unit economics or assumptions that don't scale are red flags. We sanity-check your model to ensure it aligns with standard market benchmarks."
+      },
+      {
+        "title": "The Presentation Looks \"Early\"",
+        "description": "Design signals competence. A cluttered deck can make execution look risky. We apply a professional, clean aesthetic suitable for institutional investors."
+      },
+      {
+        "title": "The \"Why Now\" is Missing",
+        "description": "Investors need to understand the urgency. We help you highlight market signals and traction to show why this opportunity exists today."
+      }
+    ]
+  },
+  "about": {
+    "title": "For Founders Building an Investor-Ready Pitch Deck",
+    "subtitle": "Foundterra acts as your strategic partner to prepare your materials for the raise.",
+    "qualifications": [
+      {
+        "title": "The Solo Founder",
+        "description": "You have the vision, but need a partner to organize it into a professional format."
+      },
+      {
+        "title": "The Technical Team",
+        "description": "You have a strong product, but need help translating features into a business case."
+      },
+      {
+        "title": "The Pre-Seed Founder",
+        "description": "You are preparing to raise and need to ensure your materials meet industry standards before you start outreach."
+      }
+    ],
+    "closing": ""
+  },
+  "packages": {
+    "title": "Complete Fundraising Packages for Founders. Raise with Confidence!",
+    "subtitle": "We build your materials using the same logic and scrutiny found in institutional venture firms. Every project starts with a 20-Slide Master Repository designed to answer the questions VCs actually ask.",
+    "mostPopular": "Most Popular",
+    "discountBanner": "",
+    "plans": [
+      {
+        "name": "The Narrative Blueprint",
+        "price": "$1,500",
+        "duration": "1 Week",
+        "description": "For founders with data who need an institutional-grade story and design.",
+        "features": [
+          "20-Slide Master Repository",
+          "Pitch & Screening Decks (10/15 slides)",
+          "Story & Logic Architecture",
+          "Custom Design",
+          "Elevator Pitch Strategy",
+          "1 Professional Revision"
+        ],
+        "popular": false,
+        "cta": "Select Blueprint"
+      },
+      {
+        "name": "The Funding Standard",
+        "price": "$3,000",
+        "duration": "2 Weeks",
+        "description": "The complete kit for founders who need to prove their market and financials.",
+        "features": [
+          "Everything in Blueprint, plus:",
+          "TAM/SAM/SOM Analysis",
+          "Competitor Benchmarking",
+          "Baseline Financials",
+          "2 Professional Revisions"
+        ],
+        "popular": true,
+        "cta": "Get Funded"
+      },
+      {
+        "name": "The Venture Partner",
+        "price": "$5,000",
+        "duration": "3 Weeks",
+        "description": "Our recommended tier for Seed rounds. Proving your market and financials.",
+        "features": [
+          "Everything in Standard, plus:",
+          "Deep Market Research",
+          "Full Financial Model",
+          "GTM Roadmap",
+          "Venture Investment Memo",
+          "1-Hour Strategic Consultation",
+          "5 Professional Revisions"
+        ],
+        "popular": false,
+        "cta": "Select Partner"
+      }
+    ]
+  },
+  "entryPoints": {
+    "title": "Get Immediate Results",
+    "items": [
+      {
+        "title": "Review Service",
+        "price": "$250",
+        "duration": "48 Hours",
+        "description": "For founders who want a professional opinion before emailing investors. We review your deck and provide a detailed video critique and written action list.",
+        "cta": "Get Feedback"
+      },
+      {
+        "title": "Waitlist and Landing Page",
+        "price": "$750",
+        "duration": "7 Days",
+        "description": "Ensure you have a professional digital presence. We build a clean, responsive landing page designed to capture emails and track visitor interest.",
+        "cta": "Build Landing Page"
+      }
+    ]
+  },
+  "additionalServices": {
+    "title": "Complete Your Fundraising Toolkit",
+    "services": [
+      {
+        "title": "Incorporation Support",
+        "description": "Start on solid legal ground.",
+        "details": "Our partners help coordinate your Delaware C-Corp setup, standard founder agreements, and tax compliance so your administrative house is in order.",
+        "features": [
+          "Delaware C-Corp establishment",
+          "Founder agreements preparation",
+          "Cap table setup and management",
+          "Tax compliance coordination"
+        ],
+        "cta": "Get Incorporated"
+      },
+      {
+        "title": "Investor Introductions",
+        "description": "Network with relevance.",
+        "details": "We facilitate warm introductions to our investor network—but only when the fit is right. We also provide pitch coaching to ensure you are ready for the meeting.",
+        "features": [
+          "Warm introductions to relevant VCs",
+          "Personalized outreach strategy",
+          "Pitch coaching and preparation",
+          "Follow-up strategy development"
+        ],
+        "cta": "Learn About Intros"
+      }
+    ]
+  },
+  "process": {
+    "title": "Our Process for Founders",
+    "subtitle": "",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Free 30-Min Consultation",
+        "description": "We discuss your current stage and identify which package aligns with your needs."
+      },
+      {
+        "number": "02",
+        "title": "Kickoff",
+        "description": "You share your existing materials, data, and notes. We handle the organization."
+      },
+      {
+        "number": "03",
+        "title": "Drafting & Design",
+        "description": "We build the narrative structure, financial models, and visual design."
+      },
+      {
+        "number": "04",
+        "title": "Review & Refine",
+        "description": "You receive the drafts. We iterate based on your feedback to ensure accuracy."
+      },
+      {
+        "number": "05",
+        "title": "Final Delivery",
+        "description": "You receive editable files and ready-to-share PDFs."
+      },
+      {
+        "number": "06",
+        "title": "You Are Ready to Raise!",
+        "description": "Investors will be thrilled to see your deck! Send it to them!"
+      }
+    ],
+    "result": "",
+    "cta": "Start the Process"
+  },
+  "investorPerspective": {
+    "title": "The Investor Perspective",
+    "subtitle": "",
+    "quote": "I founded Foundterra to help founders communicate the value I know they have.",
+    "name": "Aleksandr Zlotnikov",
+    "role": "Senior Venture Scout at LvlUp Ventures • Venture Associate at GGW Ventures • Mentor at Founder Institute • Deal Partner at Boardy Ventures",
+    "description": "For the past year, I have hosted regular pitch sessions for early-stage founders. I actively review pitch decks for VC firms. I understand the criteria investors use to evaluate opportunities. My goal is to apply that perspective to your materials, ensuring you avoid common pitfalls and present your business in the best possible light."
+  },
+  "resources": {
+    "title": "Free Tools to Help You Prepare",
+    "highlight": "",
+    "subtitle": "",
+    "items": [
+      {
+        "title": "Pitch Deck Structure",
+        "description": "A standard outline based on what VCs typically expect to see.",
+        "icon": "FileText",
+        "cta": "Download Now →"
+      },
+      {
+        "title": "Investor Database",
+        "description": "A list of pre-seed investors who are active in the market.",
+        "icon": "Users",
+        "cta": "Access Database →"
+      },
+      {
+        "title": "Accelerators Database",
+        "description": "A curated list of startup accelerators to match your stage and vertical.",
+        "icon": "CheckSquare",
+        "cta": "View Database →"
+      },
+      {
+        "title": "Viral Startup Launch Checklist",
+        "description": "A practical checklist to plan and execute a high-impact startup launch.",
+        "icon": "TrendingUp",
+        "cta": "Get Checklist →"
+      }
+    ],
+    "cta": "Access Resources",
+    "ctaSubtext": "Enter your email to get instant access to all resources",
+    "emailDialog": {
+      "title": "Get Your Free Startup Resources",
+      "description": "Enter your email address to receive instant access to our exclusive startup templates and guides.",
+      "form": {
+        "emailLabel": "Email Address",
+        "emailPlaceholder": "Enter your email address",
+        "submit": "Get Free Access",
+        "submitting": "Sending...",
+        "cancel": "Cancel",
+        "privacy": "We respect your privacy. No spam, just valuable resources."
+      },
+      "success": {
+        "title": "Success!",
+        "description": "Your resources are ready! Redirecting to your exclusive content...",
+        "redirectMessage": "Redirecting in {countdown} seconds...",
+        "accessButton": "Access Resources Now"
+      },
+      "error": {
+        "title": "Something went wrong",
+        "description": "Please try again or contact us at info@foundterra.com"
+      }
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "",
+    "questions": [
+      {
+        "question": "Do you take equity?",
+        "answer": "No. We work on a fixed-fee service basis."
+      },
+      {
+        "question": "Who works on my deck?",
+        "answer": "Strategy and review are overseen by Aleksandr. Design and modeling are handled by our design and business analyst experts."
+      },
+      {
+        "question": "Can you guarantee I will raise money?",
+        "answer": "No service can guarantee investment. We guarantee that your materials will be professional, logical, and aligned with industry standards."
+      },
+      {
+        "question": "How fast is the turnaround?",
+        "answer": "Reviews take 48 hours. Full packages range from 4 days to 3 weeks, depending on the complexity and revision speed."
+      },
+      {
+        "question": "Do you sign NDAs?",
+        "answer": "Yes. We are happy to sign an NDA to keep your data confidential."
+      }
+    ]
+  },
+  "finalCTA": {
+    "title": "Ready to Professionalize Your Pitch",
+    "highlight": "",
+    "offer": "",
+    "cardTitle": "",
+    "cardSubtitle": "Let's review what you have and discuss the best path forward.",
+    "benefits": [],
+    "primaryButton": "Book Free 30-Min Consultation",
+    "alternativeText": "No pitch. No pressure. Just actionable feedback.",
+    "email": "info@foundterra.com",
+    "finalPush": {
+      "title": "",
+      "subtitle": "",
+      "primaryButton": "",
+      "secondaryButton": ""
+    }
+  },
+  "footer": {
+    "tagline": "Helping founders build professional, investor-grade materials.",
+    "email": "info@foundterra.com",
+    "sections": [
+      {
+        "title": "Services",
+        "links": [
+          {
+            "label": "The Narrative Blueprint",
+            "href": "/#packages"
+          },
+          {
+            "label": "The Funding Standard",
+            "href": "/#packages"
+          },
+          {
+            "label": "The Venture Partner",
+            "href": "/#packages"
+          },
+          {
+            "label": "Review Service",
+            "href": "/#services"
+          },
+          {
+            "label": "Waitlist & Landing Page",
+            "href": "/#services"
+          }
+        ]
+      },
+      {
+        "title": "Resources",
+        "links": [
+          {
+            "label": "Templates",
+            "href": "/get-resources"
+          },
+          {
+            "label": "Investor Database",
+            "href": "/get-resources"
+          },
+          {
+            "label": "Fundraising Checklist",
+            "href": "/get-resources"
+          },
+          {
+            "label": "Traction Guide",
+            "href": "/get-resources"
+          },
+          {
+            "label": "Blog",
+            "href": "/blog"
+          }
+        ]
+      },
+      {
+        "title": "Company",
+        "links": [
+          {
+            "label": "About",
+            "href": "/#investor-perspective"
+          },
+          {
+            "label": "Process",
+            "href": "/#process"
+          },
+          {
+            "label": "Contact",
+            "href": "/#final-cta"
+          },
+          {
+            "label": "Affiliate Program",
+            "href": "/referral"
+          }
+        ]
+      },
+      {
+        "title": "Legal",
+        "links": [
+          {
+            "label": "Privacy Policy",
+            "href": "/privacy"
+          },
+          {
+            "label": "Terms of Service",
+            "href": "/terms"
+          }
+        ]
+      }
+    ],
+    "copyright": "© 2026 Foundterra. All rights reserved."
+  },
+  "pages": {
+    "contact": {
+      "title": "Get in Touch",
+      "subtitle": "Ready to discuss your project? Reach out and let's talk.",
+      "email": {
+        "title": "Email",
+        "description": "Send us an email anytime"
+      },
+      "phone": {
+        "title": "Phone",
+        "description": "Call us during business hours",
+        "value": "+1 (555) 123-4567"
+      },
+      "calendly": {
+        "title": "Schedule a Call",
+        "description": "Book a free 30-minute consultation"
+      },
+      "cta": {
+        "title": "Ready to Start?",
+        "description": "Book a free strategy session and let's discuss how we can help you become investor-ready.",
+        "button": "Schedule Your Free Call"
+      }
+    },
+    "referral": {
+      "title": "Foundterra Affiliate Program",
+      "subtitle": "Earn 10% commission by helping fellow founders get investor-ready",
+      "how": {
+        "title": "How It Works",
+        "steps": [
+          {
+            "title": "Make an Introduction",
+            "description": "Introduce founders to us via email - simply CC us on your intro or forward their details"
+          },
+          {
+            "title": "They Get Started",
+            "description": "When the founder you introduced purchases a package, you earn a commission"
+          },
+          {
+            "title": "Earn Rewards",
+            "description": "Receive 10% commission on every purchase from your introductions"
+          }
+        ]
+      },
+      "benefits": {
+        "title": "Program Benefits",
+        "items": [
+          {
+            "title": "10% Commission",
+            "description": "Earn 10% of every successful referral's purchase"
+          },
+          {
+            "title": "Help Fellow Founders",
+            "description": "Connect founders with professional pitch deck services"
+          },
+          {
+            "title": "No Limits",
+            "description": "Refer as many founders as you want - no cap on earnings"
+          },
+          {
+            "title": "Easy Tracking",
+            "description": "Track all your referrals and earnings in your dashboard"
+          }
+        ]
+      },
+      "cta": {
+        "title": "Ready to Start Earning?",
+        "description": "Join our affiliate program and help founders while earning rewards",
+        "button": "Join Affiliate Program",
+        "terms": "By joining, you agree to our affiliate program terms"
+      }
+    }
+  },
+  "blog": {
+    "title": "Startup Insights",
+    "subtitle": "Expert guides and strategies to help you build, launch, and grow your startup",
+    "readMore": "Read More",
+    "backToBlog": "Back to Blog",
+    "latestPosts": "Latest Posts",
+    "featured": "Featured",
+    "categories": {
+      "all": "All Posts",
+      "pitchDeck": "Pitch Deck",
+      "mvp": "MVP Development",
+      "fundraising": "Fundraising",
+      "growth": "Growth"
+    }
+  },
+  "whyChoose": {
+    "title": "Why Choose Foundterra",
+    "subtitle": "We help you build like a founder, but think like an investor",
+    "reasons": [
+      {
+        "title": "VC-Standard Deliverables",
+        "description": "Every deliverable is built to VC standards and tested with real investors"
+      },
+      {
+        "title": "Execution Speed",
+        "description": "Get investment-ready in 6-8 weeks, not 6+ months"
+      },
+      {
+        "title": "Built for Due Diligence",
+        "description": "All deliverables are designed to pass investor due diligence"
+      },
+      {
+        "title": "No Equity Taken",
+        "description": "Keep 100% ownership of your startup - we're consultants, not investors"
+      }
+    ]
+  },
+  "bridge": {
+    "title": "Your Idea → Investor: We Bridge the Gap",
+    "subtitle": "You've got the spark: A great concept, a vision for change, and you've spotted a real need in the market.",
+    "steps": [
+      {
+        "number": "1",
+        "title": "Crafting Your Story",
+        "description": "Investors don't just fund products, they fund compelling stories. We shape your idea into a powerful narrative."
+      },
+      {
+        "number": "2",
+        "title": "Building Something Real",
+        "description": "Investors need to see more than a pitch deck. We build a functional version that proves your concept works."
+      },
+      {
+        "number": "3",
+        "title": "Proving People Want It",
+        "description": "We help you get feedback and early traction. This transforms your 'We think...' into 'We know...' with real data."
+      },
+      {
+        "number": "4",
+        "title": "The Complete Package",
+        "description": "We package everything: Your story, your prototype, and your validation into a polished, investor-ready presentation."
+      }
+    ]
+  },
+  "services": {
+    "title": "From Idea to Investor-Ready Startup",
+    "subtitle": "Turn your idea into your first paying users and an investor-ready pitch deck in just 4–8 weeks.",
+    "pitchDecks": {
+      "title": "Pitch Deck Services",
+      "description": "Professional pitch decks designed to get meetings and funding.",
+      "price": "From $250",
+      "features": [
+        "Pitch deck review and feedback",
+        "Narrative restructuring",
+        "Visual design overhaul",
+        "Financial model formatting",
+        "Market sizing analysis"
+      ],
+      "subServices": [
+        {
+          "name": "Deck Review",
+          "price": "$250"
+        },
+        {
+          "name": "Pitch Package",
+          "price": "$1,500"
+        },
+        {
+          "name": "Story Package",
+          "price": "$2,800"
+        },
+        {
+          "name": "Validation Package",
+          "price": "$5,000"
+        }
+      ]
+    },
+    "mvpDevelopment": {
+      "title": "Landing Page & Capture",
+      "description": "Build a professional digital presence to capture interest.",
+      "price": "$750",
+      "features": [
+        "Clean, responsive design",
+        "Email capture integration",
+        "Visitor tracking setup",
+        "Mobile optimization",
+        "5-day delivery"
+      ],
+      "subServices": [
+        {
+          "name": "Landing Page Build",
+          "price": "$750"
+        }
+      ]
+    },
+    "earlyTraction": {
+      "title": "Investor Readiness",
+      "description": "Complete your fundraising toolkit with incorporation and introductions.",
+      "price": "Custom",
+      "features": [
+        "Delaware C-Corp setup",
+        "Founder agreements",
+        "Warm investor introductions",
+        "Pitch coaching",
+        "Follow-up strategy"
+      ],
+      "subServices": [
+        {
+          "name": "Incorporation Support",
+          "price": "Custom"
+        },
+        {
+          "name": "Investor Introductions",
+          "price": "Custom"
+        }
+      ]
+    }
+  }
+}
