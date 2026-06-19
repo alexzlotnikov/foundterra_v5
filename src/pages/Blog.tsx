@@ -1,34 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '@/hooks/useLanguage';
 import Header from '@/components/Header';
 import RelatedServices from "@/components/RelatedServices";
-import { getPostsFromIndex, BlogPost } from '@/utils/blogUtils';
+import { getPublishedPosts } from '@/utils/blogUtils';
 import BlogCard from '@/components/BlogCard';
-import { Loader2 } from 'lucide-react';
 
 export default function Blog() {
   const { content, language } = useLanguage();
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const loadPosts = async () => {
-      try {
-        setLoading(true);
-        const fetchedPosts = await getPostsFromIndex();
-        setPosts(fetchedPosts);
-      } catch (err) {
-        setError('Failed to load blog posts');
-        console.error('Error loading posts:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadPosts();
-  }, []);
+  const posts = getPublishedPosts();
 
   // Keep blog content LTR regardless of language
   useEffect(() => {
@@ -69,18 +49,7 @@ export default function Blog() {
           </div>
 
           {/* Content */}
-          {loading ? (
-            <div className="flex items-center justify-center py-12 md:py-16">
-              <Loader2 className="h-6 w-6 md:h-8 md:w-8 animate-spin text-primary" />
-              <span className="ml-3 text-muted-foreground text-sm md:text-base">
-                {content.blog?.loading || 'Loading posts...'}
-              </span>
-            </div>
-          ) : error ? (
-            <div className="text-center py-12 md:py-16 px-4">
-              <p className="text-destructive text-base md:text-lg">{error}</p>
-            </div>
-          ) : posts.length === 0 ? (
+          {posts.length === 0 ? (
             <div className="text-center py-12 md:py-16 px-4">
               <h2 className="text-xl md:text-2xl font-semibold mb-4">
                 {content.blog?.noPosts || 'No posts yet'}

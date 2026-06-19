@@ -1,0 +1,25 @@
+# Foundterra
+
+Foundterra helps pre-seed and seed founders prepare investor-ready pitch decks, financial models, market analysis, and fundraising strategy.
+
+## Main pages
+
+- [Foundterra English](https://www.foundterra.com/)
+- [Foundterra Hebrew](https://www.foundterra.com/he)
+- [Startup fundraising blog](https://www.foundterra.com/blog)
+- [Startup resources](https://www.foundterra.com/resources)
+
+## Free founder tools
+
+- [Pitch Deck Review](https://www.foundterra.com/pitch-review)
+- [Deck Architect](https://www.foundterra.com/deck-architect)
+- [Startup Financial Model](https://www.foundterra.com/financial-model)
+- [Market Size Tool](https://www.foundterra.com/market-size)
+- [SaaS Metric Auditor](https://www.foundterra.com/saas-metric-auditor)
+- [Investor Readiness Check](https://www.foundterra.com/investor-ready)
+
+## Policies
+
+- [Privacy](https://www.foundterra.com/privacy)
+- [Terms](https://www.foundterra.com/terms)
+- [Cookies](https://www.foundterra.com/cookies)

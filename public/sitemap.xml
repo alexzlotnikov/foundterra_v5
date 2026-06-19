@@ -1,313 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <url>
-    <loc>https://www.foundterra.com/</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/resources</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/get-resources</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/deck-architect</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/saas-metric-auditor</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/financial-model</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/financial-model"/>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/financial-model"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/financial-model"/>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/he/financial-model</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/financial-model"/>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/pitch-review</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/investor-ready</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/investor-ready"/>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/investor-ready"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/investor-ready"/>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/he/investor-ready</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/investor-ready"/>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/market-size</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/market-size"/>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/market-size"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/market-size"/>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/he/market-size</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/market-size"/>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/paid-consultation</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/paid-consultation"/>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/paid-consultation"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/paid-consultation"/>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/he/paid-consultation</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/paid-consultation"/>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/referral</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/privacy</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/terms</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/cookies</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/pitch-deck-review-checklist-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/financial-scenario-planning-for-founders-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/landing-page-copy-for-waitlist-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/pre-seed-vs-seed-deck-differences-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/seed-data-room-checklist-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/investor-q-and-a-prep-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/pitch-deck-design-system-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/ask-slide-fundraising-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/competition-slide-positioning-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/team-slide-that-converts-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/traction-slide-benchmarks-seed-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/market-slide-bottom-up-tam-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/solution-slide-storytelling-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/problem-slide-framework-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/pitch-deck-title-slide-examples-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/llm-seo-for-startup-content-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/startup-kpi-dashboard-for-seed-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/fundraising-timeline-pre-seed-to-seed-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/how-much-traction-for-pre-seed-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/pitch-deck-design-principles-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/go-to-market-for-b2b-saas-seed-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/seed-investor-updates-that-build-momentum-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/ai-pitch-deck-mistakes-founders-make-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/waitlist-strategy-for-pre-seed-startups-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/landing-page-strategy-for-startups-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/financial-modeling-for-pre-seed-and-seed-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/business-model-design-for-startups-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/seed-round-readiness-checklist-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/pre-seed-fundraising-benchmarks-2026</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.foundterra.com/blog/pitch-deck-2026-structure-for-pre-seed-and-seed</loc>
-    <lastmod>2026-03-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+<url><loc>https://www.foundterra.com/</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/"/></url>
+<url><loc>https://www.foundterra.com/he</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/"/></url>
+<url><loc>https://www.foundterra.com/resources</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources"/></url>
+<url><loc>https://www.foundterra.com/he/resources</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources"/></url>
+<url><loc>https://www.foundterra.com/get-resources</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/get-resources"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/get-resources"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/get-resources"/></url>
+<url><loc>https://www.foundterra.com/he/get-resources</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/get-resources"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/get-resources"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/get-resources"/></url>
+<url><loc>https://www.foundterra.com/saas-metric-auditor</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/saas-metric-auditor"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/saas-metric-auditor"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/saas-metric-auditor"/></url>
+<url><loc>https://www.foundterra.com/he/saas-metric-auditor</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/saas-metric-auditor"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/saas-metric-auditor"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/saas-metric-auditor"/></url>
+<url><loc>https://www.foundterra.com/deck-architect</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/deck-architect"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/deck-architect"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/deck-architect"/></url>
+<url><loc>https://www.foundterra.com/he/deck-architect</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/deck-architect"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/deck-architect"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/deck-architect"/></url>
+<url><loc>https://www.foundterra.com/financial-model</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/financial-model"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/financial-model"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/financial-model"/></url>
+<url><loc>https://www.foundterra.com/he/financial-model</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/financial-model"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/financial-model"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/financial-model"/></url>
+<url><loc>https://www.foundterra.com/investor-ready</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/investor-ready"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/investor-ready"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/investor-ready"/></url>
+<url><loc>https://www.foundterra.com/he/investor-ready</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/investor-ready"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/investor-ready"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/investor-ready"/></url>
+<url><loc>https://www.foundterra.com/paid-consultation</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/paid-consultation"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/paid-consultation"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/paid-consultation"/></url>
+<url><loc>https://www.foundterra.com/he/paid-consultation</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/paid-consultation"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/paid-consultation"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/paid-consultation"/></url>
+<url><loc>https://www.foundterra.com/market-size</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/market-size"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/market-size"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/market-size"/></url>
+<url><loc>https://www.foundterra.com/he/market-size</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/market-size"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/market-size"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/market-size"/></url>
+<url><loc>https://www.foundterra.com/pitch-review</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/pitch-review"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/pitch-review"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/pitch-review"/></url>
+<url><loc>https://www.foundterra.com/he/pitch-review</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/pitch-review"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/pitch-review"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/pitch-review"/></url>
+<url><loc>https://www.foundterra.com/startup-deals</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/startup-deals"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/startup-deals"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/startup-deals"/></url>
+<url><loc>https://www.foundterra.com/he/startup-deals</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/startup-deals"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/startup-deals"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/startup-deals"/></url>
+<url><loc>https://www.foundterra.com/blog</loc><lastmod>2026-06-19</lastmod></url>
+<url><loc>https://www.foundterra.com/privacy</loc><lastmod>2026-06-19</lastmod></url>
+<url><loc>https://www.foundterra.com/terms</loc><lastmod>2026-06-19</lastmod></url>
+<url><loc>https://www.foundterra.com/cookies</loc><lastmod>2026-06-19</lastmod></url>
+<url><loc>https://www.foundterra.com/referral</loc><lastmod>2026-06-19</lastmod></url>
+<url><loc>https://www.foundterra.com/resources/pre-seed-checklist</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/pre-seed-checklist"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/pre-seed-checklist"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/pre-seed-checklist"/></url>
+<url><loc>https://www.foundterra.com/he/resources/pre-seed-checklist</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/pre-seed-checklist"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/pre-seed-checklist"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/pre-seed-checklist"/></url>
+<url><loc>https://www.foundterra.com/resources/vc-list</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/vc-list"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/vc-list"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/vc-list"/></url>
+<url><loc>https://www.foundterra.com/he/resources/vc-list</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/vc-list"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/vc-list"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/vc-list"/></url>
+<url><loc>https://www.foundterra.com/resources/how-to-cold-reach-investors</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/how-to-cold-reach-investors"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/how-to-cold-reach-investors"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/how-to-cold-reach-investors"/></url>
+<url><loc>https://www.foundterra.com/he/resources/how-to-cold-reach-investors</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/how-to-cold-reach-investors"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/how-to-cold-reach-investors"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/how-to-cold-reach-investors"/></url>
+<url><loc>https://www.foundterra.com/resources/viral-startup-launch-checklist</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/viral-startup-launch-checklist"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/viral-startup-launch-checklist"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/viral-startup-launch-checklist"/></url>
+<url><loc>https://www.foundterra.com/he/resources/viral-startup-launch-checklist</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/viral-startup-launch-checklist"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/viral-startup-launch-checklist"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/viral-startup-launch-checklist"/></url>
+<url><loc>https://www.foundterra.com/resources/early-traction-metrics</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/early-traction-metrics"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/early-traction-metrics"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/early-traction-metrics"/></url>
+<url><loc>https://www.foundterra.com/he/resources/early-traction-metrics</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/early-traction-metrics"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/early-traction-metrics"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/early-traction-metrics"/></url>
+<url><loc>https://www.foundterra.com/resources/customer-interview-script-framework</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/customer-interview-script-framework"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/customer-interview-script-framework"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/customer-interview-script-framework"/></url>
+<url><loc>https://www.foundterra.com/he/resources/customer-interview-script-framework</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/customer-interview-script-framework"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/customer-interview-script-framework"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/customer-interview-script-framework"/></url>
+<url><loc>https://www.foundterra.com/resources/how-to-estimate-market-size</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/how-to-estimate-market-size"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/how-to-estimate-market-size"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/how-to-estimate-market-size"/></url>
+<url><loc>https://www.foundterra.com/he/resources/how-to-estimate-market-size</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/how-to-estimate-market-size"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/how-to-estimate-market-size"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/how-to-estimate-market-size"/></url>
+<url><loc>https://www.foundterra.com/resources/startup-competitive-analysis</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/startup-competitive-analysis"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/startup-competitive-analysis"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/startup-competitive-analysis"/></url>
+<url><loc>https://www.foundterra.com/he/resources/startup-competitive-analysis</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/startup-competitive-analysis"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/startup-competitive-analysis"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/startup-competitive-analysis"/></url>
+<url><loc>https://www.foundterra.com/resources/how-to-calculate-cash-runway</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/how-to-calculate-cash-runway"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/how-to-calculate-cash-runway"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/how-to-calculate-cash-runway"/></url>
+<url><loc>https://www.foundterra.com/he/resources/how-to-calculate-cash-runway</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/how-to-calculate-cash-runway"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/how-to-calculate-cash-runway"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/how-to-calculate-cash-runway"/></url>
+<url><loc>https://www.foundterra.com/resources/feature-prioritization-framework</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/feature-prioritization-framework"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/feature-prioritization-framework"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/feature-prioritization-framework"/></url>
+<url><loc>https://www.foundterra.com/he/resources/feature-prioritization-framework</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/feature-prioritization-framework"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/feature-prioritization-framework"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/feature-prioritization-framework"/></url>
+<url><loc>https://www.foundterra.com/resources/startup-data-room</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/startup-data-room"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/startup-data-room"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/startup-data-room"/></url>
+<url><loc>https://www.foundterra.com/he/resources/startup-data-room</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/startup-data-room"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/startup-data-room"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/startup-data-room"/></url>
+<url><loc>https://www.foundterra.com/resources/investors-update-system</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/investors-update-system"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/investors-update-system"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/investors-update-system"/></url>
+<url><loc>https://www.foundterra.com/he/resources/investors-update-system</loc><lastmod>2026-06-19</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://www.foundterra.com/resources/investors-update-system"/><xhtml:link rel="alternate" hreflang="he" href="https://www.foundterra.com/he/resources/investors-update-system"/><xhtml:link rel="alternate" hreflang="x-default" href="https://www.foundterra.com/resources/investors-update-system"/></url>
+<url><loc>https://www.foundterra.com/blog/pitch-deck-review-checklist-2026</loc><lastmod>2026-03-15</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/financial-scenario-planning-for-founders-2026</loc><lastmod>2026-03-14</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/landing-page-copy-for-waitlist-2026</loc><lastmod>2026-03-13</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/pre-seed-vs-seed-deck-differences-2026</loc><lastmod>2026-03-12</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/seed-data-room-checklist-2026</loc><lastmod>2026-03-11</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/investor-q-and-a-prep-2026</loc><lastmod>2026-03-10</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/pitch-deck-design-system-2026</loc><lastmod>2026-03-09</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/ask-slide-fundraising-2026</loc><lastmod>2026-03-08</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/competition-slide-positioning-2026</loc><lastmod>2026-03-07</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/team-slide-that-converts-2026</loc><lastmod>2026-03-06</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/traction-slide-benchmarks-seed-2026</loc><lastmod>2026-03-05</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/market-slide-bottom-up-tam-2026</loc><lastmod>2026-03-04</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/solution-slide-storytelling-2026</loc><lastmod>2026-03-03</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/problem-slide-framework-2026</loc><lastmod>2026-03-02</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/pitch-deck-title-slide-examples-2026</loc><lastmod>2026-03-01</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/llm-seo-for-startup-content-2026</loc><lastmod>2026-02-28</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/startup-kpi-dashboard-for-seed-2026</loc><lastmod>2026-02-24</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/fundraising-timeline-pre-seed-to-seed-2026</loc><lastmod>2026-02-21</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/how-much-traction-for-pre-seed-2026</loc><lastmod>2026-02-17</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/pitch-deck-design-principles-2026</loc><lastmod>2026-02-13</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/go-to-market-for-b2b-saas-seed-2026</loc><lastmod>2026-02-09</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/seed-investor-updates-that-build-momentum-2026</loc><lastmod>2026-02-05</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/ai-pitch-deck-mistakes-founders-make-2026</loc><lastmod>2026-02-01</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/waitlist-strategy-for-pre-seed-startups-2026</loc><lastmod>2026-01-28</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/landing-page-strategy-for-startups-2026</loc><lastmod>2026-01-25</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/financial-modeling-for-pre-seed-and-seed-2026</loc><lastmod>2026-01-22</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/business-model-design-for-startups-2026</loc><lastmod>2026-01-18</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/seed-round-readiness-checklist-2026</loc><lastmod>2026-01-15</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/pre-seed-fundraising-benchmarks-2026</loc><lastmod>2026-01-11</lastmod></url>
+<url><loc>https://www.foundterra.com/blog/pitch-deck-2026-structure-for-pre-seed-and-seed</loc><lastmod>2026-01-08</lastmod></url>
 </urlset>

@@ -146,7 +146,7 @@ const EntryPoints = () => {
             >
               {plan.featured && <div className="absolute inset-x-0 top-0 h-1.5 hero-gradient" aria-hidden="true" />}
               <CardContent className={`p-6 sm:p-8 flex flex-col h-full ${isHebrew ? "text-right" : ""}`}>
-                <span className="w-fit px-3 py-1 rounded-full bg-primary/15 text-primary text-xs tracking-wide uppercase font-semibold mb-4">{plan.badge}</span>
+                <span className="w-fit px-3 py-1 rounded-full bg-primary/20 text-[#c4b5fd] text-xs tracking-wide uppercase font-semibold mb-4">{plan.badge}</span>
                 <h3 className="text-2xl font-bold mb-2 font-serif">{plan.title}</h3>
                 <p className="text-4xl font-bold gradient-text mb-4">{plan.price}<span className="text-base text-muted-foreground">{isHebrew ? "/חודש" : "/month"}</span></p>
                 <p className="text-muted-foreground mb-5 font-body">{plan.description}</p>
@@ -159,7 +159,7 @@ const EntryPoints = () => {
                   ))}
                 </ul>
                 <Button asChild variant={plan.featured ? "hero" : "outline"} className="w-full mt-auto whitespace-normal leading-snug min-h-12 py-3">
-                  <a href={plan.ctaHref}>{t.subscribe}</a>
+                  <a href={plan.ctaHref} aria-label={`${t.subscribe}: ${plan.title}`}>{t.subscribe}</a>
                 </Button>
               </CardContent>
             </Card>

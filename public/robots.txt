@@ -1,39 +1,19 @@
-User-agent: Googlebot
-Allow: /
-Allow: /financial-model
-Allow: /investor-ready
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
-User-agent: GPTBot
-Allow: /financial-model
-Allow: /investor-ready
-Allow: /pitch-review
-
-User-agent: Claude-Web
-Allow: /financial-model
-Allow: /investor-ready
-Allow: /pitch-review
-
-User-agent: PerplexityBot
-Allow: /financial-model
-Allow: /investor-ready
-Allow: /pitch-review
-
 User-agent: *
 Allow: /
-Allow: /financial-model
-Allow: /investor-ready
-Allow: /he/financial-model
-Allow: /he/investor-ready
-Allow: /pitch-review
-Allow: /he/pitch-review
+Disallow: /pay/
+Disallow: /he/pay/
+Disallow: /redirecting
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
 
 Sitemap: https://www.foundterra.com/sitemap.xml

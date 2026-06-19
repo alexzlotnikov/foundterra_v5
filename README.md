@@ -4,10 +4,9 @@ Transform your idea into an investor-ready startup in just 4 weeks.
 
 ## 🌍 Language System Overview
 
-Your website supports 3 languages:
+Your website supports 2 languages:
 - **English** (`en`) - Default language
 - **Hebrew** (`he`) - Right-to-left language
-- **Russian** (`ru`) - Additional language
 
 All content is stored in separate JSON files for each language.
 
@@ -16,7 +15,6 @@ All content is stored in separate JSON files for each language.
 ### Main Content Files
 - **English**: `src/content/languages/english.json`
 - **Hebrew**: `src/content/languages/hebrew.json`
-- **Russian**: `src/content/languages/russian.json`
 
 ### Legal Content Files
 - **Privacy Policy**: `src/content/legal/privacy-[language].json`
@@ -50,8 +48,7 @@ All content is stored in separate JSON files for each language.
     "contact": "Contact",
     "languages": {
       "en": "English",
-      "he": "עברית", 
-      "ru": "Русский"
+      "he": "עברית"
     }
   }
 }

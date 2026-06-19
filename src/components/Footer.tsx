@@ -35,8 +35,12 @@ const Footer = () => {
         {/* Brand Section */}
         <div className="text-center mb-12 sm:mb-16">
           <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
-            <img loading="lazy" decoding="async" 
-              src="/lovable-uploads/e5057dbc-fcd7-4f62-9bda-98df3c222f20.png" 
+            <img loading="lazy" decoding="async"
+              src="/brand/foundterra-logo-32.webp"
+              srcSet="/brand/foundterra-logo-32.webp 32w, /brand/foundterra-logo-64.webp 64w"
+              sizes="(max-width: 639px) 24px, 32px"
+              width="32"
+              height="32"
               alt="Foundterra Logo" 
               className="h-6 w-6 sm:h-8 sm:w-8 invert"
             />
@@ -75,7 +79,7 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-6 sm:gap-8 mb-8 sm:mb-12">
           {content.footer.sections.map((section, index) => (
             <div key={index}>
-              <h4 className="font-semibold text-foreground mb-3 sm:mb-4 responsive-text-xs font-serif">{section.title}</h4>
+              <h2 className="font-semibold text-foreground mb-3 sm:mb-4 responsive-text-xs font-serif">{section.title}</h2>
               <ul className="space-y-1.5 sm:space-y-2">
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
@@ -91,7 +95,7 @@ const Footer = () => {
             </div>
           ))}
           <div>
-            <h4 className="font-semibold text-foreground mb-3 sm:mb-4 responsive-text-xs font-serif">Free Services</h4>
+            <h2 className="font-semibold text-foreground mb-3 sm:mb-4 responsive-text-xs font-serif">Free Services</h2>
             <ul className="space-y-1.5 sm:space-y-2">
               <li><Link to="/pitch-review" className="text-muted-foreground hover:text-primary transition-colors responsive-text-xs font-body">Pitch Deck Review</Link></li>
               <li><Link to="/deck-architect" className="text-muted-foreground hover:text-primary transition-colors responsive-text-xs font-body">Deck Architect</Link></li>

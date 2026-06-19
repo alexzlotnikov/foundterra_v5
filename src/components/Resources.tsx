@@ -69,16 +69,30 @@ const Resources = () => {
           </p>
 
           <div className="mt-6 flex justify-center">
-            <iframe
-              src="https://foundterra.substack.com/embed"
-              width="480"
-              height="320"
-              style={{ border: '1px solid #EEE', background: 'white' }}
-              frameBorder="0"
-              scrolling="no"
-              title="Foundterra Substack subscription"
-              className="w-full max-w-[480px]"
-            />
+            <form
+              action="https://foundterra.substack.com/subscribe"
+              method="get"
+              target="_blank"
+              className="w-full max-w-[480px] rounded-lg border border-[#EEE] bg-white p-6 text-left text-slate-950"
+            >
+              <label htmlFor="substack-email" className="sr-only">
+                Subscribe to Foundterra
+              </label>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <input
+                  id="substack-email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  placeholder="Email"
+                  className="min-w-0 flex-1 rounded border border-slate-300 px-4 py-3 text-sm"
+                />
+                <button type="submit" className="rounded bg-[#7c3aed] px-5 py-3 text-sm font-semibold text-white">
+                  Subscribe
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

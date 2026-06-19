@@ -145,6 +145,7 @@ const Checkout = () => {
       <Helmet>
         <title>{config.title} | Foundterra</title>
         <meta name="description" content={config.subtitle} />
+        <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
       <Header />

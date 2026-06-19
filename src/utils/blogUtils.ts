@@ -1,9 +1,12 @@
+import generatedPosts from "@/generated/blog-posts.json";
+
 export interface BlogPost {
   title: string;
   date: string;
   excerpt: string;
   slug: string;
   coverImage?: string;
+  author?: string;
   content: string;
 }
 
@@ -56,28 +59,11 @@ const parseFrontmatter = (markdownContent: string) => {
 };
 
 export const getPostBySlug = async (slug: string): Promise<BlogPost | null> => {
-  try {
-    const response = await fetch(`/posts/${slug}.md`);
-    if (!response.ok) {
-      return null;
-    }
-    
-    const markdownContent = await response.text();
-    const { data, content } = parseFrontmatter(markdownContent);
-    
-    return {
-      title: data.title || '',
-      date: data.date || '',
-      excerpt: data.excerpt || '',
-      slug: data.slug || slug,
-      coverImage: data.coverImage,
-      content
-    };
-  } catch (error) {
-    console.error(`Error loading post ${slug}:`, error);
-    return null;
-  }
+  return getPostBySlugSync(slug);
 };
+
+export const getPostBySlugSync = (slug: string): BlogPost | null =>
+  (generatedPosts as BlogPost[]).find((post) => post.slug === slug) ?? null;
 
 export const formatDate = (dateString: string): string => {
   try {
@@ -94,24 +80,7 @@ export const formatDate = (dateString: string): string => {
 
 // Helper function to get all posts from a manually maintained index
 export const getPostsFromIndex = async (): Promise<BlogPost[]> => {
-  try {
-    const response = await fetch('/posts/index.json');
-    if (!response.ok) {
-      return [];
-    }
-    
-    const postSlugs: string[] = await response.json();
-    const posts = await Promise.all(
-      postSlugs.map(async (slug) => {
-        const post = await getPostBySlug(slug);
-        return post;
-      })
-    );
-    
-    return posts.filter((post): post is BlogPost => post !== null)
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  } catch (error) {
-    console.error('Error loading posts from index:', error);
-    return [];
-  }
+  return getPublishedPosts();
 };
+
+export const getPublishedPosts = (): BlogPost[] => generatedPosts as BlogPost[];

@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 
 const Hero = () => {
-  const [pointer, setPointer] = useState({ x: 50, y: 50 });
+  const sectionRef = useRef<HTMLElement>(null);
   const rafRef = useRef<number | null>(null);
   const { language } = useLanguage();
   const isHebrew = language === "he";
@@ -51,7 +51,8 @@ const Hero = () => {
     }
 
     rafRef.current = requestAnimationFrame(() => {
-      setPointer({ x, y });
+      sectionRef.current?.style.setProperty("--pointer-x", `${x}%`);
+      sectionRef.current?.style.setProperty("--pointer-y", `${y}%`);
     });
   }, []);
 
@@ -63,17 +64,16 @@ const Hero = () => {
 
   return (
     <section
+      ref={sectionRef}
       className="relative min-h-[78vh] sm:min-h-[88vh] flex items-center section-padding pt-24 sm:pt-32 lg:pt-40 pb-10 sm:pb-0 overflow-hidden"
       onMouseMove={handleMove}
+      style={{ "--pointer-x": "50%", "--pointer-y": "50%" } as React.CSSProperties}
     >
       <div className="hero-aurora" aria-hidden="true" />
       <div className="hero-gridfx" aria-hidden="true" />
       <div
         className="hero-cursor-glow"
         aria-hidden="true"
-        style={{
-          background: `radial-gradient(560px circle at ${pointer.x}% ${pointer.y}%, rgba(124,58,237,0.22), transparent 60%)`,
-        }}
       />
 
       <div className="container-max relative z-10">
@@ -111,7 +111,7 @@ const Hero = () => {
             <div className="glass-card rounded-2xl p-6 sm:p-7 relative overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(124,58,237,0.20),transparent_38%)]" />
               <div className={`relative z-10 ${isHebrew ? "text-right" : ""}`}>
-                <h3 className="text-2xl sm:text-3xl font-semibold font-serif mb-4">{t.cardTitle}</h3>
+                <h2 className="text-2xl sm:text-3xl font-semibold font-serif mb-4">{t.cardTitle}</h2>
                 <div className="space-y-3">
                   {t.cardLines.map((line) => (
                     <div key={line} className="flex items-start gap-2 border-b border-primary/20 pb-2">

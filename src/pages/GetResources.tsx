@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 import FreeStartupTools from "@/components/FreeStartupTools";
 import RelatedServices from "@/components/RelatedServices";
 import { useLanguage } from "@/hooks/useLanguage";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 const GetResources = () => {
+  const [showSignupForm, setShowSignupForm] = useState(false);
   const { language } = useLanguage();
   const isHebrew = language === "he";
   const t = isHebrew
@@ -43,8 +46,12 @@ const GetResources = () => {
         <div className="py-8 px-4">
           <div className="container-max max-w-4xl mx-auto flex justify-center">
             <Link to={isHebrew ? "/he" : "/"} className="flex items-center justify-center gap-3 group">
-              <img loading="eager" fetchPriority="high" decoding="async"
-                src="/lovable-uploads/e5057dbc-fcd7-4f62-9bda-98df3c222f20.png"
+              <img loading="eager" decoding="async"
+                src="/brand/foundterra-logo-64.webp"
+                srcSet="/brand/foundterra-logo-32.webp 32w, /brand/foundterra-logo-64.webp 64w"
+                sizes="(max-width: 639px) 40px, 48px"
+                width="48"
+                height="48"
                 alt="Foundterra Logo"
                 className="h-10 w-10 sm:h-12 sm:w-12 transition-transform group-hover:scale-105 invert"
               />
@@ -84,14 +91,31 @@ const GetResources = () => {
             </div>
 
             <div className="max-w-2xl mx-auto animate-slide-up">
-              <iframe
-                src="https://2f7b1624.sibforms.com/serve/MUIFAFHPuF7CY4GtAaTSqbLtqOqYhdbKZcA1l5Vrm2adbkNBrc74Vy-UOTg9trle5vG9kTAlPTfE7b0y14nhnnSbVl27tmAS5PSfTlYLW8NsEjPuZt5hpUIxepM8swQpg6Uxud9_TNHlaWzprO-VubAOEKPJUNiFFQ3R3IR5NKlMDmCmhUNSCUsAIwwuPXym4eaMppd4Lcok0BhVeg=="
-                frameBorder="0"
-                scrolling="no"
-                allowFullScreen
-                className="w-full min-h-[500px] border-0"
-                title="Email Signup Form"
-              />
+              {showSignupForm ? (
+                <iframe
+                  src="https://2f7b1624.sibforms.com/serve/MUIFAFHPuF7CY4GtAaTSqbLtqOqYhdbKZcA1l5Vrm2adbkNBrc74Vy-UOTg9trle5vG9kTAlPTfE7b0y14nhnnSbVl27tmAS5PSfTlYLW8NsEjPuZt5hpUIxepM8swQpg6Uxud9_TNHlaWzprO-VubAOEKPJUNiFFQ3R3IR5NKlMDmCmhUNSCUsAIwwuPXym4eaMppd4Lcok0BhVeg=="
+                  frameBorder="0"
+                  scrolling="no"
+                  allowFullScreen
+                  loading="lazy"
+                  className="w-full min-h-[500px] border-0"
+                  title="Email Signup Form"
+                />
+              ) : (
+                <div className="flex min-h-[300px] flex-col items-center justify-center rounded-xl border border-primary/30 bg-card p-8 text-center">
+                  <Button type="button" variant="hero" size="lg" onClick={() => setShowSignupForm(true)}>
+                    {isHebrew ? "פתחו את טופס ההרשמה" : "Open signup form"}
+                  </Button>
+                  <a
+                    href="https://foundterra.substack.com/subscribe"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 text-sm text-primary underline underline-offset-4"
+                  >
+                    {isHebrew ? "או הירשמו בחלון חדש" : "Or subscribe in a new window"}
+                  </a>
+                </div>
+              )}
               <div className="md:hidden text-center mt-2">
                 <Link
                   to={isHebrew ? "/he/resources" : "/resources"}

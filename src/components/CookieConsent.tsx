@@ -83,6 +83,7 @@ const CookieConsent = () => {
               size="sm"
               onClick={() => setIsVisible(false)}
               className="hover:bg-destructive/10 hover:text-destructive"
+              aria-label="Close cookie preferences"
             >
               <X className="w-4 h-4" />
             </Button>

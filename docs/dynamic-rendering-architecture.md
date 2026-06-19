@@ -266,7 +266,7 @@ function renderHandler(input):
 
 ```pseudo
 function onContentPublish(event):
-  changedUrls = resolveAffectedUrls(event.contentId, locales=["en","he","ru"])
+  changedUrls = resolveAffectedUrls(event.contentId, locales=["en","he"])
 
   for url in changedUrls:
     keyPatterns = deriveCacheKeys(url)

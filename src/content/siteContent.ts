@@ -1,18 +1,14 @@
 // Content loader functions
 import englishContent from './languages/english.json';
 import hebrewContent from './languages/hebrew.json';
-import russianContent from './languages/russian.json';
 
 // Legal content loaders
 import privacyEn from './legal/privacy-en.json';
 import privacyHe from './legal/privacy-he.json';
-import privacyRu from './legal/privacy-ru.json';
 import termsEn from './legal/terms-en.json';
 import termsHe from './legal/terms-he.json';
-import termsRu from './legal/terms-ru.json';
 import cookiesEn from './legal/cookies-en.json';
 import cookiesHe from './legal/cookies-he.json';
-import cookiesRu from './legal/cookies-ru.json';
 
 export interface SiteContent {
   meta: {
@@ -30,7 +26,6 @@ export interface SiteContent {
     languages: {
       english: string;
       hebrew: string;
-      russian: string;
     };
   };
   cta: {
@@ -158,7 +153,7 @@ export interface SiteContent {
     title: string;
     highlight: string;
     subtitle: string;
-    items: { title: string; description: string; icon: string; }[];
+    items: { title: string; description: string; icon: string; cta?: string; }[];
     cta: string;
     ctaSubtext: string;
     emailDialog: {
@@ -268,14 +263,13 @@ export interface SiteContent {
 }
 
 // Enhanced content with legal pages
-const getEnhancedContent = (language: 'en' | 'he' | 'ru'): SiteContent => {
-  const baseContent = language === 'en' ? englishContent : 
-                     language === 'he' ? hebrewContent : russianContent;
+const getEnhancedContent = (language: 'en' | 'he'): SiteContent => {
+  const baseContent = language === 'he' ? hebrewContent : englishContent;
   
   const legalContent = {
-    privacy: language === 'en' ? privacyEn : language === 'he' ? privacyHe : privacyRu,
-    terms: language === 'en' ? termsEn : language === 'he' ? termsHe : termsRu,
-    cookies: language === 'en' ? cookiesEn : language === 'he' ? cookiesHe : cookiesRu
+    privacy: language === 'he' ? privacyHe : privacyEn,
+    terms: language === 'he' ? termsHe : termsEn,
+    cookies: language === 'he' ? cookiesHe : cookiesEn
   };
   
   return {
@@ -286,11 +280,11 @@ const getEnhancedContent = (language: 'en' | 'he' | 'ru'): SiteContent => {
       terms: legalContent.terms,
       cookies: legalContent.cookies
     }
-  } as SiteContent;
+  } as unknown as SiteContent;
 };
 
 // Function to get content by language
-export const getContentByLanguage = (language: 'en' | 'he' | 'ru'): SiteContent => {
+export const getContentByLanguage = (language: 'en' | 'he'): SiteContent => {
   return getEnhancedContent(language);
 };
 
@@ -298,8 +292,7 @@ export const getContentByLanguage = (language: 'en' | 'he' | 'ru'): SiteContent 
 export const content = {
   english: englishContent as unknown as SiteContent,
   hebrew: hebrewContent as unknown as SiteContent,
-  russian: russianContent as unknown as SiteContent,
 };
 
 // Export individual content for components that need it
-export { englishContent, hebrewContent, russianContent };
+export { englishContent, hebrewContent };

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 const Redirecting = () => {
   const navigate = useNavigate();
@@ -15,6 +16,10 @@ const Redirecting = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-primary/5 to-background">
+      <Helmet>
+        <title>Preparing Resources | Foundterra</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <div className="text-center animate-fade-in">
         <div className="mb-8 flex justify-center">
           <Loader2 className="w-16 h-16 text-primary animate-spin" />

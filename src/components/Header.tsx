@@ -23,7 +23,7 @@ const Header = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const handleLanguageChange = (lang: "en" | "he" | "ru") => {
+  const handleLanguageChange = (lang: "en" | "he") => {
     setLanguage(lang);
     if (lang === "he" && !location.pathname.startsWith("/he")) {
       navigate(location.pathname === "/" ? "/he" : `/he${location.pathname}`);
@@ -58,7 +58,17 @@ const Header = () => {
       <div className="container-max">
         <div className="flex items-center justify-between h-16 sm:h-20 gap-2 sm:gap-4">
           <button onClick={() => handleNavigation("/")} className={`flex items-center gap-2 sm:gap-3 group bg-transparent border-none cursor-pointer shrink-0 min-w-0 ${language === "he" ? "space-x-reverse" : ""}`}>
-            <img loading="eager" fetchPriority="high" decoding="async" src="/lovable-uploads/e5057dbc-fcd7-4f62-9bda-98df3c222f20.png" alt="Foundterra Logo" className="h-8 w-8 sm:h-12 sm:w-12 lg:h-16 lg:w-16 transition-transform group-hover:scale-105 invert" />
+            <img
+              loading="eager"
+              decoding="async"
+              src="/brand/foundterra-logo-64.webp"
+              srcSet="/brand/foundterra-logo-32.webp 32w, /brand/foundterra-logo-64.webp 64w, /brand/foundterra-logo-128.webp 128w"
+              sizes="(max-width: 639px) 32px, (max-width: 1023px) 48px, 64px"
+              width="64"
+              height="64"
+              alt="Foundterra Logo"
+              className="h-8 w-8 sm:h-12 sm:w-12 lg:h-16 lg:w-16 transition-transform group-hover:scale-105 invert"
+            />
             <span className="hidden sm:inline text-xl sm:text-2xl lg:text-3xl font-serif font-light text-foreground transition-opacity group-hover:opacity-80 truncate">Foundterra</span>
           </button>
 

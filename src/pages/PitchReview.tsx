@@ -55,6 +55,15 @@ type FeedbackTier = "high" | "mid" | "low";
 
 type DimensionMeta = { label: string; description: string };
 
+type DimensionScore = {
+  key: ScoreKey;
+  label: string;
+  score: number;
+  outOf: number;
+  explanation: string;
+  improvement: string;
+};
+
 type ReviewResult = {
   score: number;
   slides: number;

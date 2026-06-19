@@ -10,8 +10,8 @@ import { ChevronDown, Globe } from "lucide-react";
 import { englishContent } from "@/content/siteContent";
 
 interface LanguageDropdownProps {
-  currentLanguage: 'en' | 'he' | 'ru';
-  onLanguageChange: (language: 'en' | 'he' | 'ru') => void;
+  currentLanguage: 'en' | 'he';
+  onLanguageChange: (language: 'en' | 'he') => void;
 }
 
 const LanguageDropdown = ({ currentLanguage, onLanguageChange }: LanguageDropdownProps) => {

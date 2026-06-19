@@ -1,30 +1,38 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const carouselImages = [
-  "https://cdn.jsdelivr.net/gh/alexzlotnikov/carousel@main/1%20-%20Copy%20(2).avif",
-  "https://cdn.jsdelivr.net/gh/alexzlotnikov/carousel@main/1%20-%20Copy.avif",
-  "https://cdn.jsdelivr.net/gh/alexzlotnikov/carousel@main/1.avif",
-  "https://cdn.jsdelivr.net/gh/alexzlotnikov/carousel@main/10%20-%20Copy.avif",
-  "https://cdn.jsdelivr.net/gh/alexzlotnikov/carousel@main/10.avif",
-  "https://cdn.jsdelivr.net/gh/alexzlotnikov/carousel@main/11.avif",
-  "https://cdn.jsdelivr.net/gh/alexzlotnikov/carousel@main/12.avif",
-  "https://cdn.jsdelivr.net/gh/alexzlotnikov/carousel@main/13.avif",
+  "/carousel/slide-01.avif",
+  "/carousel/slide-02.avif",
+  "/carousel/slide-03.avif",
+  "/carousel/slide-04.avif",
+  "/carousel/slide-05.avif",
+  "/carousel/slide-06.avif",
+  "/carousel/slide-07.avif",
+  "/carousel/slide-08.avif",
 ];
 
 const carouselImages2 = [
-  "https://cdn.jsdelivr.net/gh/alexzlotnikov/carousel@main/4%20-%20Copy%20(2).avif",
-  "https://cdn.jsdelivr.net/gh/alexzlotnikov/carousel@main/4%20-%20Copy.avif",
-  "https://cdn.jsdelivr.net/gh/alexzlotnikov/carousel@main/5%20-%20Copy%20(2).avif",
-  "https://cdn.jsdelivr.net/gh/alexzlotnikov/carousel@main/5%20-%20Copy.avif",
-  "https://cdn.jsdelivr.net/gh/alexzlotnikov/carousel@main/5.avif",
-  "https://cdn.jsdelivr.net/gh/alexzlotnikov/carousel@main/6%20-%20Copy%20(2).avif",
-  "https://cdn.jsdelivr.net/gh/alexzlotnikov/carousel@main/6%20-%20Copy.avif",
-  "https://cdn.jsdelivr.net/gh/alexzlotnikov/carousel@main/6.avif",
+  "/carousel/slide-09.avif",
+  "/carousel/slide-10.avif",
+  "/carousel/slide-11.avif",
+  "/carousel/slide-12.avif",
+  "/carousel/slide-13.avif",
+  "/carousel/slide-14.avif",
+  "/carousel/slide-15.avif",
+  "/carousel/slide-16.avif",
 ];
 
 const ImageCarousel = () => {
   const row1Ref = useRef<HTMLDivElement>(null);
   const row2Ref = useRef<HTMLDivElement>(null);
+  const [showAll, setShowAll] = useState(false);
+  const row1Images = useMemo(() => showAll ? carouselImages : carouselImages.slice(0, 4), [showAll]);
+  const row2Images = useMemo(() => showAll ? carouselImages2 : carouselImages2.slice(0, 4), [showAll]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setShowAll(true), 5000);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const row1 = row1Ref.current;
@@ -57,13 +65,18 @@ const ImageCarousel = () => {
 
     const animationId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationId);
-  }, []);
+  }, [showAll]);
 
   const imageWidth = 250;
   const imageHeight = 140;
 
   return (
-    <section dir="ltr" className="py-6 sm:py-8 overflow-hidden relative">
+    <section
+      dir="ltr"
+      className="py-6 sm:py-8 overflow-hidden relative"
+      onPointerEnter={() => setShowAll(true)}
+      onTouchStart={() => setShowAll(true)}
+    >
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="w-[600px] h-[200px] bg-primary/5 rounded-full blur-3xl" />
       </div>
@@ -72,15 +85,18 @@ const ImageCarousel = () => {
         <div className="space-y-3">
           <div className="relative overflow-hidden rounded-lg">
             <div ref={row1Ref} className="flex gap-3 will-change-transform" style={{ width: "max-content" }}>
-              {[...carouselImages, ...carouselImages].map((src, index) => (
+              {[...row1Images, ...row1Images].map((src, index) => (
                 <div
                   key={index}
+                  aria-hidden={index >= row1Images.length}
                   className="flex-shrink-0 rounded-lg overflow-hidden border border-[rgba(99,102,241,0.1)] opacity-50 hover:opacity-80 transition-opacity duration-300"
                   style={{ width: imageWidth, height: imageHeight }}
                 >
                   <img loading="lazy" decoding="async"
                     src={src}
-                    alt={`Foundterra client pitch deck example ${index + 1}`}
+                    width={imageWidth}
+                    height={imageHeight}
+                    alt={index >= row1Images.length ? "" : `Foundterra client pitch deck example ${index + 1}`}
                     className="w-full h-full object-cover object-center"
                   />
                 </div>
@@ -90,15 +106,18 @@ const ImageCarousel = () => {
 
           <div className="relative overflow-hidden rounded-lg">
             <div ref={row2Ref} className="flex gap-3 will-change-transform" style={{ width: "max-content" }}>
-              {[...carouselImages2, ...carouselImages2].map((src, index) => (
+              {[...row2Images, ...row2Images].map((src, index) => (
                 <div
                   key={index}
+                  aria-hidden={index >= row2Images.length}
                   className="flex-shrink-0 rounded-lg overflow-hidden border border-[rgba(99,102,241,0.1)] opacity-50 hover:opacity-80 transition-opacity duration-300"
                   style={{ width: imageWidth, height: imageHeight }}
                 >
                   <img loading="lazy" decoding="async"
                     src={src}
-                    alt={`Foundterra client pitch deck example ${index + 1}`}
+                    width={imageWidth}
+                    height={imageHeight}
+                    alt={index >= row2Images.length ? "" : `Foundterra client pitch deck example ${index + 1}`}
                     className="w-full h-full object-cover object-center"
                   />
                 </div>

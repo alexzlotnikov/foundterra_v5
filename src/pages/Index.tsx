@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Problem from "@/components/Problem";
 import Footer from "@/components/Footer";
+import DeferredSection from "@/components/DeferredSection";
 
 const ImageCarousel = lazy(() => import("@/components/ImageCarousel"));
 const About = lazy(() => import("@/components/About"));
@@ -93,35 +94,37 @@ const Index = () => {
       <Header />
       <main>
         <Hero />
-        <Suspense fallback={<div className="h-[220px]" aria-hidden="true" />}>
-          <ImageCarousel />
-        </Suspense>
+        <DeferredSection minHeight={220} rootMargin="700px 0px">
+          <Suspense fallback={<div className="h-[220px]" aria-hidden="true" />}>
+            <ImageCarousel />
+          </Suspense>
+        </DeferredSection>
         <div className="pb-12">
           <Problem />
         </div>
-        <Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
+        <DeferredSection minHeight={520}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
           <About />
-        </div></Suspense>
-        <Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
+        </div></Suspense></DeferredSection>
+        <DeferredSection minHeight={720}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
           <Packages />
-        </div></Suspense>
-        <Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
+        </div></Suspense></DeferredSection>
+        <DeferredSection minHeight={760}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
           <EntryPoints />
-        </div></Suspense>
-        <Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
+        </div></Suspense></DeferredSection>
+        <DeferredSection minHeight={700}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
           <Process />
-        </div></Suspense>
-        <Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
+        </div></Suspense></DeferredSection>
+        <DeferredSection minHeight={620}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
           <InvestorPerspective />
-        </div></Suspense>
-        <Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
+        </div></Suspense></DeferredSection>
+        <DeferredSection minHeight={780}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
           <Resources />
-        </div></Suspense>
-        <Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
+        </div></Suspense></DeferredSection>
+        <DeferredSection minHeight={760}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
           <FreeStartupTools highlighted />
-        </div></Suspense>
-        <Suspense fallback={<div className="h-24" aria-hidden="true" />}><FAQ /></Suspense>
-        <Suspense fallback={<div className="h-24" aria-hidden="true" />}><FinalCTA /></Suspense>
+        </div></Suspense></DeferredSection>
+        <DeferredSection minHeight={620}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><FAQ /></Suspense></DeferredSection>
+        <DeferredSection minHeight={520}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><FinalCTA /></Suspense></DeferredSection>
       </main>
       <Footer />
     </div>

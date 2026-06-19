@@ -1,42 +1,13 @@
-import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import Header from "@/components/Header";
-import { getPostBySlug, type BlogPost as BlogPostType, formatDate } from "@/utils/blogUtils";
-import { Loader2, ArrowLeft } from "lucide-react";
+import { getPostBySlugSync, formatDate } from "@/utils/blogUtils";
+import { ArrowLeft } from "lucide-react";
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
-  const [post, setPost] = useState<BlogPostType | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const loadPost = async () => {
-      if (!slug) {
-        setLoading(false);
-        return;
-      }
-
-      setLoading(true);
-      const fetchedPost = await getPostBySlug(slug);
-      setPost(fetchedPost);
-      setLoading(false);
-    };
-
-    loadPost();
-  }, [slug]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
-        <Header />
-        <main className="container mx-auto px-4 py-16 mt-20 flex items-center justify-center">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        </main>
-      </div>
-    );
-  }
+  const post = slug ? getPostBySlugSync(slug) : null;
 
   if (!post) {
     return (
@@ -61,7 +32,24 @@ export default function BlogPost() {
         <meta property="og:title" content={`${post.title} | Foundterra Blog`} />
         <meta property="og:description" content={post.excerpt} />
         <meta property="og:type" content="article" />
+        <meta property="article:published_time" content={post.date} />
         <link rel="canonical" href={`https://www.foundterra.com/blog/${post.slug}`} />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: post.title,
+          description: post.excerpt,
+          datePublished: post.date,
+          dateModified: post.date,
+          author: { "@type": "Organization", name: post.author || "Foundterra" },
+          publisher: {
+            "@type": "Organization",
+            name: "Foundterra",
+            logo: { "@type": "ImageObject", url: "https://www.foundterra.com/brand/foundterra-logo-256.webp" },
+          },
+          mainEntityOfPage: `https://www.foundterra.com/blog/${post.slug}`,
+          image: post.coverImage || "https://www.foundterra.com/brand/foundterra-og.webp",
+        })}</script>
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
