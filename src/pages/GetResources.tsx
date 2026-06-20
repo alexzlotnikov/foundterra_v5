@@ -47,13 +47,11 @@ const GetResources = () => {
           <div className="container-max max-w-4xl mx-auto flex justify-center">
             <Link to={isHebrew ? "/he" : "/"} className="flex items-center justify-center gap-3 group">
               <img loading="eager" decoding="async"
-                src="/brand/foundterra-logo-64.webp"
-                srcSet="/brand/foundterra-logo-32.webp 32w, /brand/foundterra-logo-64.webp 64w"
-                sizes="(max-width: 639px) 40px, 48px"
+                src="/brand/foundterra-logo-white.svg"
                 width="48"
                 height="48"
                 alt="Foundterra Logo"
-                className="h-10 w-10 sm:h-12 sm:w-12 transition-transform group-hover:scale-105 invert"
+                className="h-10 w-10 sm:h-12 sm:w-12 transition-transform group-hover:scale-105"
               />
               <span className="text-2xl sm:text-3xl font-bold gradient-text transition-opacity group-hover:opacity-80">Foundterra</span>
             </Link>

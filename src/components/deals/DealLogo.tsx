@@ -33,7 +33,7 @@ const providerList = (domain: string, size: number) => [
   `https://icons.duckduckgo.com/ip3/${domain}.ico`,
   `https://www.google.com/s2/favicons?domain=${domain}&sz=${Math.max(32, size * 2)}`,
   `https://unavatar.io/${domain}`,
-  '/favicon.ico',
+  '/brand/favicon.svg',
 ];
 
 const cacheKey = (domain: string) => `deal-logo-provider:${domain}`;

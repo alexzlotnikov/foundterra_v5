@@ -61,20 +61,18 @@ const Header = () => {
             <img
               loading="eager"
               decoding="async"
-              src="/brand/foundterra-logo-64.webp"
-              srcSet="/brand/foundterra-logo-32.webp 32w, /brand/foundterra-logo-64.webp 64w, /brand/foundterra-logo-128.webp 128w"
-              sizes="(max-width: 639px) 32px, (max-width: 1023px) 48px, 64px"
+              src="/brand/foundterra-logo-white.svg"
               width="64"
               height="64"
               alt="Foundterra Logo"
-              className="h-8 w-8 sm:h-12 sm:w-12 lg:h-16 lg:w-16 transition-transform group-hover:scale-105 invert"
+              className="h-8 w-8 sm:h-12 sm:w-12 lg:h-16 lg:w-16 transition-transform group-hover:scale-105"
             />
             <span className="hidden sm:inline text-xl sm:text-2xl lg:text-3xl font-serif font-light text-foreground transition-opacity group-hover:opacity-80 truncate">Foundterra</span>
           </button>
 
           <nav className={`hidden lg:flex items-center gap-5 xl:gap-7 ${language === "he" ? "space-x-reverse" : ""}`} dir={language === "he" ? "rtl" : "ltr"}>
             <button onClick={() => handleNavigation("/", "plans")} className="text-muted-foreground hover:text-foreground transition-colors responsive-text-xs whitespace-nowrap px-1 bg-transparent border-none cursor-pointer tracking-[0.06em]">{content.navigation.services}</button>
-            <button onClick={() => handleNavigation("/", "investor-perspective")} className="text-muted-foreground hover:text-foreground transition-colors responsive-text-xs whitespace-nowrap px-1 bg-transparent border-none cursor-pointer tracking-[0.06em]">{content.navigation.about}</button>
+            <button onClick={() => handleNavigation("/", "team")} className="text-muted-foreground hover:text-foreground transition-colors responsive-text-xs whitespace-nowrap px-1 bg-transparent border-none cursor-pointer tracking-[0.06em]">{content.navigation.about}</button>
             <button onClick={() => handleNavigation("/", "resources")} className="text-muted-foreground hover:text-foreground transition-colors responsive-text-xs whitespace-nowrap px-1 bg-transparent border-none cursor-pointer tracking-[0.06em]">{content.navigation.resources}</button>
             <button onClick={() => handleNavigation("/", "free-startup-tools")} className="text-muted-foreground hover:text-foreground transition-colors responsive-text-xs whitespace-nowrap px-1 bg-transparent border-none cursor-pointer tracking-[0.06em]">{language === "he" ? "כלים חינמיים" : "Free Tools"}</button>
             <button onClick={() => handleNavigation("/", "final-cta")} className="text-muted-foreground hover:text-foreground transition-colors responsive-text-xs whitespace-nowrap px-1 bg-transparent border-none cursor-pointer tracking-[0.06em]">{content.navigation.contact}</button>
@@ -104,7 +102,7 @@ const Header = () => {
                 <div className="glass-panel rounded-xl p-6 mx-4">
                   <nav className="flex flex-col space-y-5">
                     <button onClick={() => { handleNavigation("/", "plans"); setIsMobileMenuOpen(false); }} className="text-muted-foreground hover:text-foreground transition-colors responsive-text-base font-medium py-2 px-3 rounded-lg hover:bg-[rgba(99,102,241,0.08)] bg-transparent border-none cursor-pointer text-left rtl:text-right w-full">{content.navigation.services}</button>
-                    <button onClick={() => { handleNavigation("/", "investor-perspective"); setIsMobileMenuOpen(false); }} className="text-muted-foreground hover:text-foreground transition-colors responsive-text-base font-medium py-2 px-3 rounded-lg hover:bg-[rgba(99,102,241,0.08)] bg-transparent border-none cursor-pointer text-left rtl:text-right w-full">{content.navigation.about}</button>
+                    <button onClick={() => { handleNavigation("/", "team"); setIsMobileMenuOpen(false); }} className="text-muted-foreground hover:text-foreground transition-colors responsive-text-base font-medium py-2 px-3 rounded-lg hover:bg-[rgba(99,102,241,0.08)] bg-transparent border-none cursor-pointer text-left rtl:text-right w-full">{content.navigation.about}</button>
                     <button onClick={() => { handleNavigation("/", "resources"); setIsMobileMenuOpen(false); }} className="text-muted-foreground hover:text-foreground transition-colors responsive-text-base font-medium py-2 px-3 rounded-lg hover:bg-[rgba(99,102,241,0.08)] bg-transparent border-none cursor-pointer text-left rtl:text-right w-full">{content.navigation.resources}</button>
                     <button onClick={() => { handleNavigation("/", "free-startup-tools"); setIsMobileMenuOpen(false); }} className="text-muted-foreground hover:text-foreground transition-colors responsive-text-base font-medium py-2 px-3 rounded-lg hover:bg-[rgba(99,102,241,0.08)] bg-transparent border-none cursor-pointer text-left rtl:text-right w-full">{language === "he" ? "כלים חינמיים" : "Free Tools"}</button>
                     <button onClick={() => { handleNavigation("/", "final-cta"); setIsMobileMenuOpen(false); }} className="text-muted-foreground hover:text-foreground transition-colors responsive-text-base font-medium py-2 px-3 rounded-lg hover:bg-[rgba(99,102,241,0.08)] bg-transparent border-none cursor-pointer text-left rtl:text-right w-full">{content.navigation.contact}</button>

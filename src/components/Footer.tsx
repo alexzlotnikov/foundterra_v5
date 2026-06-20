@@ -36,13 +36,11 @@ const Footer = () => {
         <div className="text-center mb-12 sm:mb-16">
           <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
             <img loading="lazy" decoding="async"
-              src="/brand/foundterra-logo-32.webp"
-              srcSet="/brand/foundterra-logo-32.webp 32w, /brand/foundterra-logo-64.webp 64w"
-              sizes="(max-width: 639px) 24px, 32px"
+              src="/brand/foundterra-logo-white.svg"
               width="32"
               height="32"
               alt="Foundterra Logo" 
-              className="h-6 w-6 sm:h-8 sm:w-8 invert"
+              className="h-6 w-6 sm:h-8 sm:w-8"
             />
             <span className="responsive-text-lg font-bold text-foreground font-serif">Foundterra</span>
           </div>

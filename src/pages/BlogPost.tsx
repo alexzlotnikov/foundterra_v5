@@ -45,7 +45,7 @@ export default function BlogPost() {
           publisher: {
             "@type": "Organization",
             name: "Foundterra",
-            logo: { "@type": "ImageObject", url: "https://www.foundterra.com/brand/foundterra-logo-256.webp" },
+            logo: { "@type": "ImageObject", url: "https://www.foundterra.com/brand/foundterra-logo-black.svg" },
           },
           mainEntityOfPage: `https://www.foundterra.com/blog/${post.slug}`,
           image: post.coverImage || "https://www.foundterra.com/brand/foundterra-og.webp",

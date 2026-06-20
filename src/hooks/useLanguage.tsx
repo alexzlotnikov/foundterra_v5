@@ -13,6 +13,12 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 const USER_LANGUAGE_KEY = 'preferred-language';
 
+const persistLanguageCookie = (lang: Language) => {
+  if (typeof document === 'undefined') return;
+  const secure = window.location.protocol === 'https:' ? '; Secure' : '';
+  document.cookie = `${USER_LANGUAGE_KEY}=${lang}; Max-Age=31536000; Path=/; SameSite=Lax${secure}`;
+};
+
 const getLanguageFromPath = (): Language => {
   if (typeof window === 'undefined') return 'en';
   return window.location.pathname.startsWith('/he') ? 'he' : 'en';
@@ -32,6 +38,7 @@ const getStoredLanguage = (): Language | null => {
 const setStoredLanguage = (lang: Language) => {
   if (typeof window === 'undefined') return;
   window.localStorage.setItem(USER_LANGUAGE_KEY, lang);
+  persistLanguageCookie(lang);
 };
 
 export const LanguageProvider = ({ children, initialLanguage }: { children: ReactNode; initialLanguage?: Language }) => {
@@ -43,6 +50,13 @@ export const LanguageProvider = ({ children, initialLanguage }: { children: Reac
     setStoredLanguage(lang);
 
   };
+
+  useEffect(() => {
+    const storedLanguage = getStoredLanguage();
+    if (storedLanguage) {
+      persistLanguageCookie(storedLanguage);
+    }
+  }, []);
 
   useEffect(() => {
     const syncFromPath = () => {

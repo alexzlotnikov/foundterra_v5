@@ -34,7 +34,7 @@ const InvestorPerspective = () => {
       };
 
   return (
-    <section id="investor-perspective" className="section-padding scroll-mt-24">
+    <section id="boundaries" className="section-padding scroll-mt-24">
       <div className="container-max">
         <Card className="bg-secondary border-primary/30 max-w-6xl mx-auto">
           <CardContent className="p-8 sm:p-12 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">

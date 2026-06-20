@@ -14,6 +14,8 @@ const Packages = lazy(() => import("@/components/Packages"));
 const EntryPoints = lazy(() => import("@/components/EntryPoints"));
 const Process = lazy(() => import("@/components/Process"));
 const FreeStartupTools = lazy(() => import("@/components/FreeStartupTools"));
+const FounderTeam = lazy(() => import("@/components/FounderTeam"));
+const Partners = lazy(() => import("@/components/Partners"));
 const InvestorPerspective = lazy(() => import("@/components/InvestorPerspective"));
 const Resources = lazy(() => import("@/components/Resources"));
 const FAQ = lazy(() => import("@/components/FAQ"));
@@ -30,7 +32,7 @@ const Index = () => {
     "@type": "Organization",
     name: "Foundterra",
     url: websiteUrl,
-    logo: `${websiteUrl}/favicon.ico`,
+    logo: `${websiteUrl}/brand/foundterra-logo-black.svg`,
     sameAs: ["https://www.linkedin.com/company/foundterra"],
     areaServed: ["US", "IL", "Global"],
     availableLanguage: ["en", "he"],
@@ -113,6 +115,12 @@ const Index = () => {
         </div></Suspense></DeferredSection>
         <DeferredSection minHeight={700}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
           <Process />
+        </div></Suspense></DeferredSection>
+        <DeferredSection minHeight={680}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
+          <FounderTeam />
+        </div></Suspense></DeferredSection>
+        <DeferredSection minHeight={520}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
+          <Partners />
         </div></Suspense></DeferredSection>
         <DeferredSection minHeight={620}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
           <InvestorPerspective />

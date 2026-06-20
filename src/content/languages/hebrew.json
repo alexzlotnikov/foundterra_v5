@@ -346,7 +346,7 @@
       {
         "title": "חברה",
         "links": [
-          { "label": "אודות", "href": "/#investor-perspective" },
+          { "label": "אודות", "href": "/#team" },
           { "label": "התהליך", "href": "/#process" },
           { "label": "צור קשר", "href": "/#final-cta" },
           { "label": "תוכנית שותפים", "href": "/referral" }
