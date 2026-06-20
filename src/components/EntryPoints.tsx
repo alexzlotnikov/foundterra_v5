@@ -129,8 +129,8 @@ const EntryPoints = () => {
   return (
     <section id="plans" className="section-padding scroll-mt-24">
       <div className="container-max">
-        <div className="text-center mb-12 sm:mb-16 max-w-4xl mx-auto rounded-2xl border border-primary/20 bg-[linear-gradient(135deg,rgba(124,58,237,0.16)_0%,rgba(124,58,237,0.04)_100%)] p-6 sm:p-8">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 gradient-text font-serif">{t.title}</h2>
+        <div className="mb-12 max-w-5xl">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 font-serif">{t.title}</h2>
           <p className="responsive-text-base text-muted-foreground font-body">{t.subtitle}</p>
         </div>
 
@@ -138,16 +138,15 @@ const EntryPoints = () => {
           {t.plans.map((plan, index) => (
             <Card
               key={plan.title}
-              className={`card-elevated animate-slide-up flex flex-col relative overflow-hidden ${
+              className={`flex flex-col relative overflow-hidden rounded-none border bg-transparent ${
                 plan.featured
-                  ? "border-primary/70 ring-2 ring-primary/35 shadow-[0_16px_50px_rgba(124,58,237,0.35)] lg:-translate-y-2"
-                  : "border-primary/25"
+                  ? "border-primary/70"
+                  : "border-white/15"
               }`}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              {plan.featured && <div className="absolute inset-x-0 top-0 h-1.5 hero-gradient" aria-hidden="true" />}
               <CardContent className={`p-6 sm:p-8 flex flex-col h-full ${isHebrew ? "text-right" : ""}`}>
-                <span className="w-fit px-3 py-1 rounded-full bg-primary/20 text-[#c4b5fd] text-xs tracking-wide uppercase font-semibold mb-4">{plan.badge}</span>
+                <span className="text-xs font-semibold uppercase tracking-[0.16em] text-primary mb-4">{plan.badge}</span>
                 <h3 className="text-2xl font-bold mb-2 font-serif">{plan.title}</h3>
                 <p className="text-4xl font-bold gradient-text mb-4">{plan.price}<span className="text-base text-muted-foreground">{isHebrew ? "/חודש" : "/month"}</span></p>
                 <p className="text-muted-foreground mb-5 font-body">{plan.description}</p>

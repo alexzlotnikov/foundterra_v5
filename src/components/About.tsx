@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/hooks/useLanguage";
 import { localizedPath } from "@/utils/localizedPath";
 
@@ -34,24 +32,21 @@ const About = () => {
   return (
     <section id="about" className="section-padding scroll-mt-24">
       <div className="container-max">
-        <div className="text-center mb-12 sm:mb-16 max-w-4xl mx-auto">
+        <div className="mb-14 max-w-4xl">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 font-serif">{t.title}</h2>
-          <p className="responsive-text-base text-muted-foreground max-w-3xl mx-auto font-body">{t.subtitle}</p>
+          <p className="responsive-text-base text-muted-foreground max-w-3xl font-body">{t.subtitle}</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+        <div className="grid border-y border-white/10 md:grid-cols-3">
           {t.paths.map(([tag, title, price, description, href, cta, variant], index) => (
-            <Card key={title} className="card-elevated animate-slide-up flex flex-col" style={{ animationDelay: `${index * 0.1}s` }}>
-              <CardContent className={`p-6 sm:p-8 flex flex-col h-full ${isHebrew ? "text-right" : ""}`}>
-                <span className="w-fit px-3 py-1 rounded-full bg-primary/20 text-[#c4b5fd] text-xs tracking-wide uppercase font-semibold mb-4">{tag}</span>
-                <h3 className="text-2xl font-bold mb-2 font-serif">{title}</h3>
-                <p className="text-xl font-semibold gradient-text mb-4">{price}</p>
-                <p className="text-muted-foreground leading-relaxed font-body mb-8">{description}</p>
-                <Button asChild variant={variant} className="w-full mt-auto">
-                  <a href={localizedPath(href, language)}>{cta}</a>
-                </Button>
-              </CardContent>
-            </Card>
+            <article key={title} className={`relative p-7 sm:p-9 md:border-e md:border-white/10 ${isHebrew ? "text-right" : ""}`}>
+              <span className="font-serif text-6xl font-light text-primary/80">0{index + 1}</span>
+              <p className="mt-5 text-sm font-semibold text-primary">{tag}</p>
+              <h3 className="mt-2 font-serif text-2xl font-semibold">{title}</h3>
+              <p className="mt-3 text-lg font-semibold text-foreground">{price}</p>
+              <p className="mt-4 min-h-24 text-sm leading-7 text-foreground/55">{description}</p>
+              <a className="mt-5 inline-flex border-b border-primary/60 pb-1 text-sm font-semibold text-primary" href={localizedPath(href, language)}>{cta}</a>
+            </article>
           ))}
         </div>
       </div>

@@ -492,3 +492,142 @@
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
+
+/* Deck-first editorial homepage */
+.editorial-hero {
+  background:
+    radial-gradient(720px circle at 72% 48%, rgba(124, 58, 237, 0.15), transparent 58%),
+    #07070d;
+  border-bottom: 0;
+}
+
+.editorial-button {
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 1px solid rgba(196, 181, 253, 0.32);
+  border-radius: 4px;
+  padding: 0 24px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.editorial-button:hover { transform: translateY(-2px); }
+.editorial-button-primary {
+  border-color: transparent;
+  background: linear-gradient(135deg, #6d28d9, #8b5cf6);
+  color: white;
+}
+.editorial-button-secondary { color: var(--text); background: rgba(255,255,255,0.015); }
+.editorial-button-secondary:hover { border-color: rgba(196, 181, 253, 0.65); }
+
+.hero-slide-stage {
+  position: relative;
+  min-height: 430px;
+  perspective: 1200px;
+}
+
+.hero-slide {
+  position: absolute;
+  width: min(82%, 640px);
+  border: 1px solid rgba(255,255,255,0.32);
+  border-radius: 8px;
+  box-shadow: 0 28px 60px rgba(0,0,0,0.5);
+}
+.hero-slide-1 { inset: 2% auto auto 3%; z-index: 3; transform: rotate(-5deg); }
+.hero-slide-2 { inset: 13% -1% auto auto; z-index: 2; transform: rotate(3deg); }
+.hero-slide-3 { inset: 43% 7% auto auto; z-index: 4; transform: rotate(1deg); }
+
+.deck-showcase {
+  background: #07070d !important;
+  border: 0 !important;
+}
+.deck-rails { display: grid; gap: 14px; }
+.deck-rail-viewport { overflow: hidden; outline: none; }
+.deck-rail-track {
+  display: flex;
+  width: max-content;
+  gap: 14px;
+  transform: translate3d(0,0,0);
+  animation: deckRailForward 52s linear infinite;
+  animation-play-state: paused;
+}
+.deck-rails.is-visible .deck-rail-track { animation-play-state: running; }
+.deck-rail-track.deck-rail-reverse { animation-name: deckRailReverse; }
+.deck-rails:hover .deck-rail-track,
+.deck-rail-viewport:focus .deck-rail-track,
+.deck-rail-viewport:focus-within .deck-rail-track { animation-play-state: paused; }
+.deck-rail-slide {
+  width: clamp(230px, 22vw, 340px);
+  aspect-ratio: 16 / 9;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 1px solid rgba(196,181,253,0.22);
+  border-radius: 7px;
+  background: #10101a;
+}
+.deck-rail-slide img { width: 100%; height: 100%; object-fit: cover; }
+@keyframes deckRailForward { to { transform: translate3d(calc(-50% - 7px),0,0); } }
+@keyframes deckRailReverse {
+  from { transform: translate3d(calc(-50% - 7px),0,0); }
+  to { transform: translate3d(0,0,0); }
+}
+
+.editorial-band {
+  background:
+    radial-gradient(700px circle at 85% 45%, rgba(124,58,237,0.08), transparent 60%),
+    #090910 !important;
+}
+
+main section:not(:first-of-type) {
+  background: #090910;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 0;
+  backdrop-filter: none;
+}
+
+main section:not(:first-of-type) .card-elevated,
+main section:not(:first-of-type) .glass-card,
+main section:not(:first-of-type) .glass-panel {
+  border-radius: 4px;
+  background: transparent;
+  box-shadow: none;
+}
+
+@media (max-width: 900px) {
+  .hero-slide-stage { min-height: 370px; }
+  .hero-slide { width: 76%; }
+}
+
+@media (max-width: 768px) {
+  .editorial-hero { padding-top: 7rem; }
+  .hero-slide-stage { min-height: 285px; margin-top: 0.5rem; }
+  .hero-slide { width: 78%; }
+  .hero-slide-1 { inset-inline-start: 0; }
+  .hero-slide-2 { inset-inline-end: 0; }
+  .hero-slide-3 { inset-block-start: 44%; inset-inline-end: 8%; }
+  .deck-rail-viewport {
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    padding-inline: 20px;
+  }
+  .deck-rail-viewport::-webkit-scrollbar { display: none; }
+  .deck-rail-track,
+  .deck-rail-track.deck-rail-reverse {
+    animation: none;
+    transform: none;
+  }
+  .deck-rail-track .deck-rail-slide:nth-child(n+9) { display: none; }
+  .deck-rail-slide { width: min(76vw, 300px); scroll-snap-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deck-rail-viewport { overflow-x: auto; }
+  .deck-rail-track,
+  .deck-rail-track.deck-rail-reverse { animation: none !important; transform: none !important; }
+  .deck-rail-track .deck-rail-slide:nth-child(n+9) { display: none; }
+}

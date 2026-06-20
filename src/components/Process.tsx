@@ -40,13 +40,13 @@ const Process = () => {
   return (
     <section id="services" className="section-padding scroll-mt-24 relative overflow-hidden">
       <div className="container-max relative z-10">
-        <div className="text-center mb-12 sm:mb-16 max-w-4xl mx-auto">
+        <div className="mb-12 max-w-4xl">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 font-serif">{t.title}</h2>
           <p className="responsive-text-base text-muted-foreground leading-relaxed font-body">{t.subtitle}</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-6 sm:gap-8 max-w-6xl mx-auto">
-          <Card className="bg-secondary border-primary/20">
+        <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 sm:gap-14">
+          <Card className="rounded-none border-white/15 bg-transparent">
             <CardContent className={`p-8 sm:p-10 ${isHebrew ? "text-right" : ""}`}>
               <h3 className="text-4xl font-bold mb-4 font-serif">{t.mainTitle}</h3>
               <p className="text-muted-foreground text-lg mb-6 leading-relaxed font-body">{t.mainText}</p>
@@ -57,17 +57,15 @@ const Process = () => {
             </CardContent>
           </Card>
 
-          <div className="space-y-4">
+          <div className="divide-y divide-white/10 border-y border-white/10">
             {t.services.map(([title, description], index) => (
-              <Card key={title} className="card-elevated animate-slide-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                <CardContent className={`p-6 flex items-center justify-between gap-4 ${isHebrew ? "text-right" : ""}`}>
+              <div key={title} className={`flex items-center justify-between gap-4 py-7 ${isHebrew ? "text-right" : ""}`}>
                   <div>
                     <h3 className="text-xl font-bold mb-1 font-serif">{title}</h3>
                     <p className="text-muted-foreground font-body">{description}</p>
                   </div>
                   <span className="text-sm sm:text-base font-semibold text-primary whitespace-nowrap">{t.addOn}</span>
-                </CardContent>
-              </Card>
+              </div>
             ))}
           </div>
         </div>

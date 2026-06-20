@@ -1,99 +1,36 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileText, Users, CheckSquare, TrendingUp } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Link } from "react-router-dom";
 
 const Resources = () => {
   const { content, language } = useLanguage();
-  const resourcesPath = language === "he" ? "/he/get-resources" : "/get-resources";
-  
-  const iconMap = {
-    FileText,
-    Users,
-    CheckSquare,
-    TrendingUp
-  };
+  const isHebrew = language === "he";
+  const resourcesPath = isHebrew ? "/he/get-resources" : "/get-resources";
+  const Arrow = isHebrew ? ArrowLeft : ArrowRight;
+  const [featured, ...rest] = content.resources.items;
 
   return (
     <section id="resources" className="section-padding scroll-mt-24">
-      <div className="container-max">
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 font-serif">
-            {content.resources.title} <span className="gradient-text">{content.resources.highlight}</span>
-          </h2>
-          <p className="text-xl text-muted-foreground font-body">
-            {content.resources.subtitle}
-          </p>
+      <div className="container-max grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-16">
+        <div className={isHebrew ? "text-right" : "text-left"}>
+          <h2>{isHebrew ? "משאבים מעשיים לגיוס שלכם." : "Practical resources for your raise."}</h2>
+          <p className="mt-5 max-w-md text-base leading-8 text-foreground/60">{content.resources.subtitle}</p>
+          <Link to={resourcesPath} className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-primary">{content.resources.cta}<Arrow className="h-4 w-4" /></Link>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-12">
-          {content.resources.items.map((resource, index) => {
-            const IconComponent = iconMap[resource.icon as keyof typeof iconMap];
-            return (
-                <Card 
-                  key={index} 
-                  className="card-elevated animate-slide-up cursor-pointer"
-                  style={{animationDelay: `${index * 0.1}s`}}
-                >
-                <CardHeader className="pb-4">
-                  <div className="w-12 h-12 icon-glow rounded-lg flex items-center justify-center mb-4">
-                    <IconComponent className="w-6 h-6 text-primary" />
-                  </div>
-                  <CardTitle className="text-lg font-serif">{resource.title}</CardTitle>
-                  <CardDescription className="font-body">{resource.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Link to={resourcesPath}>
-                    <Button variant="outline" className="w-full">
-                      {resource.cta}
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-
-        <div className="text-center">
-          <Link to={resourcesPath}>
-            <Button 
-              variant="hero" 
-              size="lg" 
-              className="text-lg px-8 py-6"
-            >
-              {content.resources.cta}
-            </Button>
+        <div className="grid gap-7 md:grid-cols-[1.05fr_0.95fr]">
+          <Link to={resourcesPath} className="group relative min-h-80 overflow-hidden border border-primary/55 p-7">
+            <h3 className="max-w-xs font-serif text-3xl font-semibold">{featured?.title}</h3>
+            <p className="mt-4 max-w-sm text-sm leading-7">{featured?.description}</p>
+            <img src="/carousel/slide-01.avif" alt="" width="800" height="450" loading="lazy" className="absolute -bottom-5 -end-20 w-72 rotate-2 border border-white/15 transition-transform group-hover:-translate-y-2" />
           </Link>
-          <p className="text-sm text-muted-foreground mt-3 font-body">
-            {content.resources.ctaSubtext}
-          </p>
-
-          <div className="mt-6 flex justify-center">
-            <form
-              action="https://foundterra.substack.com/subscribe"
-              method="get"
-              target="_blank"
-              className="w-full max-w-[480px] rounded-lg border border-[#EEE] bg-white p-6 text-left text-slate-950"
-            >
-              <label htmlFor="substack-email" className="sr-only">
-                Subscribe to Foundterra
-              </label>
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <input
-                  id="substack-email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  placeholder="Email"
-                  className="min-w-0 flex-1 rounded border border-slate-300 px-4 py-3 text-sm"
-                />
-                <button type="submit" className="rounded bg-[#7c3aed] px-5 py-3 text-sm font-semibold text-white">
-                  Subscribe
-                </button>
-              </div>
-            </form>
+          <div className="divide-y divide-white/10 border-y border-white/10">
+            {rest.map((resource, index) => (
+              <Link key={resource.title} to={resourcesPath} className="grid grid-cols-[2rem_1fr_auto] items-start gap-3 py-6">
+                <span className="text-primary">0{index + 1}</span>
+                <span><strong className="block text-foreground">{resource.title}</strong><span className="mt-2 block text-sm leading-6">{resource.description}</span></span>
+                <Arrow className="mt-1 h-4 w-4 text-primary" />
+              </Link>
+            ))}
           </div>
         </div>
       </div>
