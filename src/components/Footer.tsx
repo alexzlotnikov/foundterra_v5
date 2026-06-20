@@ -4,9 +4,12 @@ import { Linkedin } from "lucide-react";
 import { FaTelegram, FaDiscord, FaTiktok, FaYoutube, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import socialLinksData from "@/content/socialLinks.json";
+import { localizedPath } from "@/utils/localizedPath";
 
 const Footer = () => {
-  const { content } = useLanguage();
+  const { content, language } = useLanguage();
+  const isHebrew = language === "he";
+  const packageLabels = ["תכנון הנרטיב", "חבילת הגיוס", "שותף לגיוס"];
 
   const socialIcons = {
     telegram: FaTelegram,
@@ -82,10 +85,12 @@ const Footer = () => {
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
                     <Link 
-                      to={link.href}
+                      to={localizedPath(link.href, language)}
                       className="text-muted-foreground hover:text-primary transition-colors responsive-text-xs font-body"
                     >
-                      {link.label}
+                      {isHebrew && section.title === "שירותים" && link.href.includes("#packages") && linkIndex < packageLabels.length
+                        ? packageLabels[linkIndex]
+                        : link.label}
                     </Link>
                   </li>
                 ))}
@@ -93,13 +98,15 @@ const Footer = () => {
             </div>
           ))}
           <div>
-            <h2 className="font-semibold text-foreground mb-3 sm:mb-4 responsive-text-xs font-serif">Free Services</h2>
+            <h2 className="font-semibold text-foreground mb-3 sm:mb-4 responsive-text-xs font-serif">
+              {isHebrew ? "כלים חינמיים" : "Free Services"}
+            </h2>
             <ul className="space-y-1.5 sm:space-y-2">
-              <li><Link to="/pitch-review" className="text-muted-foreground hover:text-primary transition-colors responsive-text-xs font-body">Pitch Deck Review</Link></li>
-              <li><Link to="/deck-architect" className="text-muted-foreground hover:text-primary transition-colors responsive-text-xs font-body">Deck Architect</Link></li>
-              <li><Link to="/financial-model" className="text-muted-foreground hover:text-primary transition-colors responsive-text-xs font-body">Financial Model Tool</Link></li>
-              <li><Link to="/saas-metric-auditor" className="text-muted-foreground hover:text-primary transition-colors responsive-text-xs font-body">SaaS Metric Auditor</Link></li>
-              <li><Link to="/investor-ready" className="text-muted-foreground hover:text-primary transition-colors responsive-text-xs font-body">Investor Readiness Quiz</Link></li>
+              <li><Link to={localizedPath("/pitch-review", language)} className="text-muted-foreground hover:text-primary transition-colors responsive-text-xs font-body">{language === "he" ? "בדיקת מצגת" : "Pitch Deck Review"}</Link></li>
+              <li><Link to={localizedPath("/deck-architect", language)} className="text-muted-foreground hover:text-primary transition-colors responsive-text-xs font-body">{language === "he" ? "מבנה למצגת" : "Deck Architect"}</Link></li>
+              <li><Link to={localizedPath("/financial-model", language)} className="text-muted-foreground hover:text-primary transition-colors responsive-text-xs font-body">{language === "he" ? "כלי למודל פיננסי" : "Financial Model Tool"}</Link></li>
+              <li><Link to={localizedPath("/saas-metric-auditor", language)} className="text-muted-foreground hover:text-primary transition-colors responsive-text-xs font-body">{language === "he" ? "בדיקת מדדי SaaS" : "SaaS Metric Auditor"}</Link></li>
+              <li><Link to={localizedPath("/investor-ready", language)} className="text-muted-foreground hover:text-primary transition-colors responsive-text-xs font-body">{language === "he" ? "בדיקת מוכנות למשקיעים" : "Investor Readiness Quiz"}</Link></li>
             </ul>
           </div>
         </div>
@@ -107,7 +114,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="border-t border-[rgba(99,102,241,0.1)] pt-6 sm:pt-8 text-center">
           <p className="text-muted-foreground responsive-text-xs font-body">
-            © 2026 Foundterra. All rights reserved.
+            © 2026 Foundterra. {isHebrew ? "כל הזכויות שמורות." : "All rights reserved."}
           </p>
         </div>
       </div>

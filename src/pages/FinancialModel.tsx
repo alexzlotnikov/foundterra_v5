@@ -597,7 +597,7 @@ const FinancialModel = () => {
             <p className="text-muted-foreground max-w-2xl mx-auto mb-6">{t.readyText}</p>
             <div className="flex justify-center gap-3">
               <a href="/contact" className="bg-primary px-5 py-3 text-sm uppercase tracking-wider">{t.book}</a>
-              <Link to="/#packages" className="border border-border px-5 py-3 text-sm">{t.viewPackages}</Link>
+              <Link to={lang === "he" ? "/he#packages" : "/#packages"} className="border border-border px-5 py-3 text-sm">{t.viewPackages}</Link>
             </div>
           </div>
         </section>

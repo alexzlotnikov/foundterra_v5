@@ -637,7 +637,6 @@ const DeckArchitect = () => {
           name="description"
           content="The most advanced pitch deck structure generator for 2026. Get a custom slide order, investor narrative logic, and design strategy for your exact startup stage, vertical, and investor profile — free from Foundterra's pitch deck agency."
         />
-        <link rel="canonical" href="https://www.foundterra.com/deck-architect" />
       </Helmet>
 
       <div

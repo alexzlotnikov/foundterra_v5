@@ -12,15 +12,23 @@ const Header = () => {
   const homePath = language === "he" ? "/he" : "/";
 
   useEffect(() => {
+    let frame = 0;
     const onScroll = () => {
-      const header = document.querySelector("header.glass-nav");
-      if (!header) return;
-      header.classList.toggle("scrolled", window.scrollY > 60);
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        const header = document.querySelector("header.glass-nav");
+        if (!header) return;
+        header.classList.toggle("scrolled", window.scrollY > 60);
+      });
     };
 
     onScroll();
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   const handleLanguageChange = (lang: "en" | "he") => {

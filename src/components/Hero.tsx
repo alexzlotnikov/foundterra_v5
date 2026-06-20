@@ -1,11 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { useCallback, useEffect, useRef } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
+import { localizedPath } from "@/utils/localizedPath";
 
 const Hero = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const rafRef = useRef<number | null>(null);
   const { language } = useLanguage();
   const isHebrew = language === "he";
 
@@ -41,40 +39,11 @@ const Hero = () => {
         ],
       };
 
-  const handleMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-
-    if (rafRef.current) {
-      cancelAnimationFrame(rafRef.current);
-    }
-
-    rafRef.current = requestAnimationFrame(() => {
-      sectionRef.current?.style.setProperty("--pointer-x", `${x}%`);
-      sectionRef.current?.style.setProperty("--pointer-y", `${y}%`);
-    });
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
-
   return (
     <section
-      ref={sectionRef}
       className="relative min-h-[78vh] sm:min-h-[88vh] flex items-center section-padding pt-24 sm:pt-32 lg:pt-40 pb-10 sm:pb-0 overflow-hidden"
-      onMouseMove={handleMove}
-      style={{ "--pointer-x": "50%", "--pointer-y": "50%" } as React.CSSProperties}
     >
-      <div className="hero-aurora" aria-hidden="true" />
       <div className="hero-gridfx" aria-hidden="true" />
-      <div
-        className="hero-cursor-glow"
-        aria-hidden="true"
-      />
 
       <div className="container-max relative z-10">
         <div className={`grid grid-cols-1 lg:grid-cols-[1fr_0.85fr] gap-10 items-center ${isHebrew ? "text-right" : ""}`}>
@@ -95,7 +64,7 @@ const Hero = () => {
 
             <div className={`flex flex-col sm:flex-row gap-4 ${isHebrew ? "sm:flex-row-reverse" : ""}`}>
               <Button asChild variant="hero" size="lg" className="text-base px-8 py-6 group">
-                <a href="/pay/pitch-deck-review">
+                <a href={localizedPath("/pay/pitch-deck-review", language)}>
                   {t.ctaDiagnostic}
                   <ArrowRight className={`w-4 h-4 transition-transform group-hover:translate-x-1 ${isHebrew ? "mr-2 rotate-180" : "ml-2"}`} />
                 </a>
@@ -107,7 +76,6 @@ const Hero = () => {
           </div>
 
           <div className="relative">
-            <div className="hero-orbit hidden sm:block" aria-hidden="true" />
             <div className="glass-card rounded-2xl p-6 sm:p-7 relative overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(124,58,237,0.20),transparent_38%)]" />
               <div className={`relative z-10 ${isHebrew ? "text-right" : ""}`}>

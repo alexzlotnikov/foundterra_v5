@@ -1,18 +1,18 @@
-import React, { Suspense } from "react";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import { Analytics } from "@vercel/analytics/react";
 import { LanguageProvider } from "./hooks/useLanguage";
-import CookieConsent from "./components/CookieConsent";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { appRoutes, NotFoundPage } from "./routes";
 import RouteSeo from "./components/RouteSeo";
 
-const queryClient = new QueryClient();
+const CookieConsent = lazy(() => import("./components/CookieConsent"));
+const Toaster = lazy(() =>
+  import("@/components/ui/toaster").then((module) => ({ default: module.Toaster })),
+);
+const Analytics = lazy(() =>
+  import("@vercel/analytics/react").then((module) => ({ default: module.Analytics })),
+);
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -38,25 +38,22 @@ const AppContent = () => {
           </Routes>
         </Suspense>
         <RouteSeo />
-        <CookieConsent />
       </BrowserRouter>
     </ErrorBoundary>
   );
 };
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <HelmetProvider>
-      <LanguageProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <AppContent />
-          <Analytics />
-        </TooltipProvider>
-      </LanguageProvider>
-    </HelmetProvider>
-  </QueryClientProvider>
+  <HelmetProvider>
+    <LanguageProvider>
+      <AppContent />
+      <Suspense fallback={null}>
+        <Toaster />
+        <CookieConsent />
+        <Analytics />
+      </Suspense>
+    </LanguageProvider>
+  </HelmetProvider>
 );
 
 export default App;

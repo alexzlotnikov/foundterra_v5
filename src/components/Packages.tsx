@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/hooks/useLanguage";
+import { localizedPath } from "@/utils/localizedPath";
 
 const Packages = () => {
   const { language } = useLanguage();
@@ -46,7 +47,7 @@ const Packages = () => {
                 ))}
               </ul>
               <Button asChild variant="hero" size="lg" className="w-full sm:w-auto whitespace-normal leading-snug min-h-12 py-3 px-5">
-                <a href="/pay/pitch-deck-review">{t.cta}</a>
+                <a href={localizedPath("/pay/pitch-deck-review", language)}>{t.cta}</a>
               </Button>
             </CardContent>
           </Card>

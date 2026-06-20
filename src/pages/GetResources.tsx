@@ -34,11 +34,10 @@ const GetResources = () => {
   return (
     <>
       <Helmet>
-        <title>Access Free Startup Resources | Foundterra</title>
-        <meta name="description" content="Get instant access to our complete database of startup resources, templates, and guides. Free for entrepreneurs and founders." />
-        <link rel="canonical" href="https://www.foundterra.com/get-resources" />
-        <meta property="og:title" content="Access Free Startup Resources | Foundterra" />
-        <meta property="og:description" content="Get instant access to our complete database of startup resources, templates, and guides. Free for entrepreneurs and founders." />
+        <title>{isHebrew ? "מאגר משאבים חינמי ליזמים | Foundterra" : "Access Free Startup Resources | Foundterra"}</title>
+        <meta name="description" content={isHebrew ? "גישה חינמית למאגר תבניות, מדריכים וכלי גיוס ליזמים וסטארטאפים." : "Get instant access to our complete database of startup resources, templates, and guides. Free for entrepreneurs and founders."} />
+        <meta property="og:title" content={isHebrew ? "מאגר משאבים חינמי ליזמים | Foundterra" : "Access Free Startup Resources | Foundterra"} />
+        <meta property="og:description" content={isHebrew ? "תבניות, מדריכים וכלים מעשיים ליזמים בישראל." : "Get instant access to our complete database of startup resources, templates, and guides. Free for entrepreneurs and founders."} />
         <meta property="og:type" content="website" />
       </Helmet>
 
@@ -119,7 +118,7 @@ const GetResources = () => {
                   to={isHebrew ? "/he/resources" : "/resources"}
                   className="text-xs text-primary hover:text-primary/80 underline underline-offset-2"
                 >
-                  Get me to resources
+                  {isHebrew ? "מעבר למשאבים" : "Get me to resources"}
                 </Link>
               </div>
             </div>

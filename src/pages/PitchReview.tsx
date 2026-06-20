@@ -332,7 +332,6 @@ const PitchReview = () => {
       <Helmet>
         <title>{t.title}</title>
         <meta name="description" content={t.description} />
-        <link rel="canonical" href="https://www.foundterra.com/pitch-review" />
       </Helmet>
 
       <Header />

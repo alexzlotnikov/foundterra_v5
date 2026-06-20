@@ -5,9 +5,9 @@ import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Problem from "@/components/Problem";
-import Footer from "@/components/Footer";
 import DeferredSection from "@/components/DeferredSection";
 
+const Footer = lazy(() => import("@/components/Footer"));
 const ImageCarousel = lazy(() => import("@/components/ImageCarousel"));
 const About = lazy(() => import("@/components/About"));
 const Packages = lazy(() => import("@/components/Packages"));
@@ -36,6 +36,10 @@ const Index = () => {
     sameAs: ["https://www.linkedin.com/company/foundterra"],
     areaServed: ["US", "IL", "Global"],
     availableLanguage: ["en", "he"],
+    inLanguage: isHebrew ? "he-IL" : "en-US",
+    description: isHebrew
+      ? "ליווי גיוס, מצגות משקיעים, מודלים פיננסיים וכלים ליזמים בישראל."
+      : "Pitch deck, financial modeling, and fundraising support for founders.",
   };
 
   useEffect(() => {
@@ -49,9 +53,7 @@ const Index = () => {
   }, [location]);
 
   return (
-    <div className="min-h-screen opacity-100 transition-opacity duration-500">
-      <div className="ambient-orb orb-1" aria-hidden="true" />
-      <div className="ambient-orb orb-2" aria-hidden="true" />
+    <div className="min-h-screen">
       <Helmet>
         <title>{isHebrew ? "Foundterra | ליווי גיוס, מצגות ומודלים ליזמים" : "Foundterra | Pitch Deck & Fundraising Advisory for Founders"}</title>
         <meta
@@ -134,7 +136,9 @@ const Index = () => {
         <DeferredSection minHeight={620}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><FAQ /></Suspense></DeferredSection>
         <DeferredSection minHeight={520}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><FinalCTA /></Suspense></DeferredSection>
       </main>
-      <Footer />
+      <Suspense fallback={<div className="h-48 bg-[hsl(240_14%_2%)]" aria-hidden="true" />}>
+        <Footer />
+      </Suspense>
     </div>
   );
 };

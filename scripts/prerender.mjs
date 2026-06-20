@@ -79,6 +79,15 @@ for (const routePath of paths) {
     : path.join(distDir, routePath.slice(1), "index.html");
   await fs.mkdir(path.dirname(outputPath), { recursive: true });
   await fs.writeFile(outputPath, html);
+
+  // Emit a flat HTML counterpart for clean-URL hosts and local production
+  // previews. This guarantees that `/he/...` resolves to prerendered Hebrew
+  // HTML instead of falling back to the English SPA shell.
+  if (routePath !== "/") {
+    const cleanUrlPath = path.join(distDir, `${routePath.slice(1)}.html`);
+    await fs.mkdir(path.dirname(cleanUrlPath), { recursive: true });
+    await fs.writeFile(cleanUrlPath, html);
+  }
 }
 
 const notFound = await render("/404-test");

@@ -86,6 +86,18 @@ function AlternativeCard({ deal, slotIndex }: { deal: Deal; slotIndex: number })
   return <DealCard deal={deal} />;
 }
 
+const localizeDeal = (deal: Deal, isHebrew: boolean): Deal => {
+  if (!isHebrew) return deal;
+
+  const description = deal.category === 'credits'
+    ? `קרדיטים והטבות תשתית של ${deal.company} שנועדו להפחית עלויות ולהאריך את מסלול המזומנים של הסטארטאפ.`
+    : deal.category === 'partner'
+      ? `הטבה נבחרת של ${deal.company} עבור צוותי סטארטאפ בתחומי מוצר, צמיחה, תפעול וגיוס.`
+      : `חלופה חסכונית ל-${deal.alternativeTo || 'כלי SaaS נפוצים'}, עם דגש על עלות צפויה וגמישות לצוותים קטנים.`;
+
+  return { ...deal, description };
+};
+
 const sectionClass = 'container-max py-12 text-center sm:py-16';
 const strategicPartners = [
   {
@@ -128,6 +140,16 @@ const StartupDeals = () => {
 
   const middle = Math.ceil(alternatives.length / 2);
   const alternativesWithAdvisor = [...alternatives.slice(0, middle), advisorReviewDeal, ...alternatives.slice(middle)];
+  const localizedStrategicPartners = strategicPartners.map((partner) => ({
+    ...partner,
+    description: isHebrew
+      ? partner.name === 'Boardy'
+        ? 'מחבר מבוסס בינה מלאכותית שעוזר ליזמים להגיע לאנשים הנכונים בזמן הנכון.'
+        : partner.name === 'Michigan Israel'
+          ? 'מרחב עבודה ייעודי וכתובת בארצות הברית המסייעים לסטארטאפים ישראליים בפעילות העסקית.'
+          : 'צוות עיצוב SaaS גמיש למוצר, למותג ולחוויית משתמש, ללא צורך בהקמת מחלקה פנימית.'
+      : partner.description,
+  }));
 
   return (
     <div className="min-h-screen" style={{ fontFamily: 'var(--font-body)' }}>
@@ -151,27 +173,27 @@ const StartupDeals = () => {
         <section id="deals-start" className={sectionClass}>
           <h2 style={{ fontFamily: 'var(--font-body)', fontWeight: 800 }} className="mb-2 text-2xl text-[#EEEEF8] sm:text-3xl">{t.cloudTitle}</h2>
           <p className="mb-8 text-sm text-[#a4a8cb] sm:text-base">{t.cloudBody}</p>
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{credits.map((deal) => <DealCard key={deal.id} deal={deal} />)}</div>
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{credits.map((deal) => <DealCard key={deal.id} deal={localizeDeal(deal, isHebrew)} />)}</div>
         </section>
 
         <section className="container-max py-6 text-center sm:py-8">
           <div className="rounded-2xl border border-[#434389] bg-[linear-gradient(135deg,#13153d_0%,#10253a_100%)] p-6 sm:p-8">
             <h3 className="mb-2 text-2xl font-bold text-white">{t.bannerTitle}</h3>
             <p className="mx-auto mb-5 max-w-3xl text-sm text-[#d1d4f4] sm:text-base">{t.bannerBody}</p>
-            <a href="/get-resources" className="inline-flex rounded-lg bg-[#10d9a0] px-5 py-3 text-sm font-bold text-[#06271c]">{t.bannerCta}</a>
+            <a href={isHebrew ? "/he/get-resources" : "/get-resources"} className="inline-flex rounded-lg bg-[#10d9a0] px-5 py-3 text-sm font-bold text-[#06271c]">{t.bannerCta}</a>
           </div>
         </section>
 
         <section className={sectionClass}>
           <h2 style={{ fontFamily: 'var(--font-body)', fontWeight: 800 }} className="mb-2 text-2xl text-[#EEEEF8] sm:text-3xl">{t.partnersTitle}</h2>
           <p className="mb-8 text-sm text-[#a4a8cb] sm:text-base">{t.partnersBody}</p>
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{partners.map((deal) => <DealCard key={deal.id} deal={deal} />)}</div>
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{partners.map((deal) => <DealCard key={deal.id} deal={localizeDeal(deal, isHebrew)} />)}</div>
         </section>
 
         <section className={sectionClass}>
           <h2 style={{ fontFamily: 'var(--font-body)', fontWeight: 800 }} className="mb-8 text-2xl text-[#EEEEF8] sm:text-3xl">{t.strategicTitle}</h2>
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {strategicPartners.map((partner) => (
+            {localizedStrategicPartners.map((partner) => (
               <a
                 key={partner.name}
                 href={partner.href}
@@ -194,7 +216,9 @@ const StartupDeals = () => {
           <p className="mb-8 text-sm text-[#a4a8cb] sm:text-base">{t.altBody}</p>
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {alternativesWithAdvisor.map((deal, index) =>
-              deal.source === 'appsumo' ? <AlternativeCard key={deal.id} deal={deal} slotIndex={index} /> : <DealCard key={deal.id} deal={deal} />
+              deal.source === 'appsumo'
+                ? <AlternativeCard key={deal.id} deal={localizeDeal(deal, isHebrew)} slotIndex={index} />
+                : <DealCard key={deal.id} deal={localizeDeal(deal, isHebrew)} />
             )}
           </div>
         </section>

@@ -1,6 +1,7 @@
 import { ArrowRight, BarChart3, Briefcase, Calculator, FileSearch, LayoutTemplate, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/hooks/useLanguage";
+import { localizedPath } from "@/utils/localizedPath";
 
 type FreeStartupToolsProps = {
   className?: string;
@@ -47,6 +48,33 @@ const TOOLS = [
   },
 ];
 
+const HEBREW_TOOLS: Record<string, { title: string; description: string }> = {
+  "/pitch-review": {
+    title: "בדיקת מצגת משקיעים",
+    description: "קבלו ציון מוכנות למשקיעים והמלצות מעשיות לשיפור המצגת.",
+  },
+  "/deck-architect": {
+    title: "בניית מבנה למצגת",
+    description: "צרו מבנה ברור למצגת עבור סבבי Pre-Seed ו-Seed.",
+  },
+  "/financial-model": {
+    title: "מודל פיננסי",
+    description: "בנו הנחות מפתח ותחזית פיננסית שמותאמת לשיח עם משקיעים.",
+  },
+  "/market-size": {
+    title: "חישוב גודל שוק",
+    description: "העריכו TAM, SAM ו-SOM עבור השוק שאליו הסטארטאפ פונה.",
+  },
+  "/saas-metric-auditor": {
+    title: "בדיקת מדדי SaaS",
+    description: "השוו מדדי צמיחה, שימור ויעילות לטווחים המקובלים בשוק.",
+  },
+  "/investor-ready": {
+    title: "בדיקת מוכנות למשקיעים",
+    description: "בדקו האם החברה והחומרים מוכנים להתחלת פנייה למשקיעים.",
+  },
+};
+
 const FreeStartupTools = ({ className = "", sectionId = "free-startup-tools", highlighted = false }: FreeStartupToolsProps) => {
   const { language } = useLanguage();
   const isHebrew = language === "he";
@@ -88,17 +116,18 @@ const FreeStartupTools = ({ className = "", sectionId = "free-startup-tools", hi
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {TOOLS.map((tool) => {
               const Icon = tool.icon;
+              const localizedTool = isHebrew ? HEBREW_TOOLS[tool.href] : undefined;
               return (
                 <Link
-                  to={tool.href}
+                  to={localizedPath(tool.href, language)}
                   key={tool.href}
                   className="card-elevated border border-border/70 bg-card/80 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
                 >
                   <div className="w-11 h-11 rounded-lg icon-glow flex items-center justify-center mb-4">
                     <Icon className="w-5 h-5 text-primary" />
                   </div>
-                  <h3 className={`text-lg font-semibold mb-2 ${isHebrew ? "text-right" : ""}`}>{tool.title}</h3>
-                  <p className={`text-sm text-muted-foreground mb-4 ${isHebrew ? "text-right" : ""}`}>{tool.description}</p>
+                  <h3 className={`text-lg font-semibold mb-2 ${isHebrew ? "text-right" : ""}`}>{localizedTool?.title ?? tool.title}</h3>
+                  <p className={`text-sm text-muted-foreground mb-4 ${isHebrew ? "text-right" : ""}`}>{localizedTool?.description ?? tool.description}</p>
                   <span className="inline-flex items-center text-sm font-medium text-primary">
                     {t.open} <ArrowRight className={`w-4 h-4 ${isHebrew ? "mr-1 rotate-180" : "ml-1"}`} />
                   </span>

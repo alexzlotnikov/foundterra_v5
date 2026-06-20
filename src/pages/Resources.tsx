@@ -177,13 +177,43 @@ const Resources = () => {
       link: "/resources/investors-update-system"
     }
   ];
+  const hebrewCards: Record<string, { title: string; description: string; ctaLabel?: string }> = {
+    "Tools for Your Startup": { title: "כלים לסטארטאפ", description: "כלים, קרדיטים והטבות לבנייה וצמיחה", ctaLabel: "הטבות לסטארטאפים" },
+    "Pre-Seed Checklist": { title: "צ'קליסט Pre-Seed", description: "רשימת בדיקה להכנת הסטארטאפ לפני גיוס" },
+    "Pitch Deck Templates": { title: "תבניות למצגת משקיעים", description: "תבניות מקצועיות לבניית Pitch Deck" },
+    "VC List": { title: "מאגר קרנות הון סיכון", description: "מאגר קרנות ומשקיעים לסינון ממוקד" },
+    "Accelerators Database": { title: "מאגר אקסלרטורים", description: "מצאו תוכנית האצה שמתאימה לשלב ולתחום שלכם" },
+    "Investors Investing in Israel": { title: "משקיעים הפעילים בישראל", description: "רשימת משקיעים המתמקדים באקוסיסטם הישראלי" },
+    "How to Cold Reach Investors": { title: "פנייה קרה למשקיעים", description: "שיטות מעשיות ליצירת פנייה שמקבלת תגובות" },
+    "Viral Startup Launch Checklist": { title: "צ'קליסט להשקת סטארטאפ", description: "תוכנית מסודרת להשקה עם מומנטום וחשיפה" },
+    "Platforms to Promote Your Startup": { title: "פלטפורמות לקידום סטארטאפ", description: "קהילות ואתרים להשגת חשיפה ולקוחות ראשונים" },
+    "Early Traction Metrics That Matter": { title: "מדדי Traction מוקדמים", description: "המדדים החשובים למשקיעים בשלבים הראשונים" },
+    "Customer Interview Script Framework": { title: "תסריט לראיונות לקוחות", description: "מסגרת לראיונות שמגלים כאב וצרכים אמיתיים" },
+    "How to Estimate Market Size": { title: "חישוב גודל שוק", description: "חישוב והצגה של TAM, SAM ו-SOM" },
+    "Startup Competitive Analysis": { title: "ניתוח מתחרים", description: "מסגרת למיפוי השוק וחידוד הבידול" },
+    "Cap Table Template": { title: "תבנית Cap Table", description: "מעקב אחר מניות, אופציות ובעלות בחברה" },
+    "How to Calculate Cash Runway": { title: "חישוב Cash Runway", description: "בדקו לכמה חודשי פעילות המזומן יספיק" },
+    "Feature Prioritization Framework": { title: "תעדוף פיצ'רים", description: "תעדפו פיתוח לפי השפעה, מאמץ ואסטרטגיה" },
+    "Startup Data Room": { title: "חדר מידע לסטארטאפ", description: "ארגון מסמכים למשקיעים ולבדיקת נאותות" },
+    "Investors Update System": { title: "מערכת עדכונים למשקיעים", description: "תבנית לעדכון חודשי או רבעוני ברור" },
+  };
+  const displayResources = resources.map((resource) => {
+    const translated = isHebrew ? hebrewCards[resource.title] : undefined;
+    const localizedLink = isHebrew && resource.link.startsWith("/")
+      ? resource.link === "/" ? "/he" : `/he${resource.link}`
+      : resource.link;
+    return {
+      ...resource,
+      ...translated,
+      link: localizedLink,
+    };
+  });
 
   return (
     <>
       <Helmet>
         <title>{t.metaTitle}</title>
         <meta name="description" content={t.metaDescription} />
-        <link rel="canonical" href="https://www.foundterra.com/resources" />
       </Helmet>
 
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-background via-primary/5 to-background" dir={isHebrew ? "rtl" : "ltr"}>
@@ -205,7 +235,7 @@ const Resources = () => {
 
               {/* Resource Cards Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-                {resources.map((resource, index) => {
+                {displayResources.map((resource, index) => {
                   const IconComponent = resource.icon;
                   return (
                     <Card

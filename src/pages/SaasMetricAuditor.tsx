@@ -248,7 +248,6 @@ const SaasMetricAuditor = () => {
       <Helmet>
         <title>Free SaaS Metrics Auditor for Founders | Foundterra</title>
         <meta name="description" content="Audit SaaS KPIs instantly and get investor-ready recommendations for fundraising, retention, and growth metrics." />
-        <link rel="canonical" href="https://www.foundterra.com/saas-metric-auditor" />
       </Helmet>
       <Header />
       <main className="pt-24 pb-20">
@@ -340,17 +339,17 @@ const SaasMetricAuditor = () => {
               <p className="text-lg font-serif mb-4">{ui.score}: <span className="text-[var(--purple-light)]">{readinessScore}/100</span>.</p>
               <p className="text-muted-foreground mb-4">{ui.scoreHelp}</p>
               <div className="flex flex-wrap gap-3">
-                <Link to="/#services" className="inline-flex items-center justify-center px-5 py-3 rounded-[2px] border border-[rgba(124,58,237,0.4)] text-[var(--purple-light)] text-sm uppercase tracking-[0.06em]">{ui.viewServices}</Link>
+                <Link to={isHebrew ? "/he#services" : "/#services"} className="inline-flex items-center justify-center px-5 py-3 rounded-[2px] border border-[rgba(124,58,237,0.4)] text-[var(--purple-light)] text-sm uppercase tracking-[0.06em]">{ui.viewServices}</Link>
                 <a href={content.cta.calendlyLink} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center px-6 py-3 rounded-[2px] bg-[linear-gradient(135deg,var(--purple)_0%,#9333ea_100%)] text-white text-sm uppercase tracking-[0.08em]">{ui.bookAudit}</a>
               </div>
             </div>
 
             <div className="glass-panel rounded-xl p-6 mt-8">
               <Link
-                to="/get-resources"
+                to={isHebrew ? "/he/get-resources" : "/get-resources"}
                 className="inline-flex w-full items-center justify-center px-6 py-3 rounded-[2px] bg-[linear-gradient(135deg,var(--purple)_0%,#9333ea_100%)] text-white text-base font-semibold tracking-[0.02em]"
               >
-                Get your FREE startup fundraising kit
+                {isHebrew ? "קבלו ערכת גיוס חינמית לסטארטאפ" : "Get your FREE startup fundraising kit"}
               </Link>
             </div>
 

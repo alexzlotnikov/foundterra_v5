@@ -5,6 +5,53 @@ import { appRoutes } from "@/routes";
 const SITE_URL = "https://www.foundterra.com";
 const SOCIAL_IMAGE = `${SITE_URL}/brand/foundterra-og.webp`;
 
+const hebrewSeo: Record<string, { title: string; description: string }> = {
+  "/he": {
+    title: "Foundterra | ליווי גיוס, מצגות משקיעים ומודלים פיננסיים",
+    description: "ליווי גיוס ליזמי Pre-Seed ו-Seed בישראל: מצגות משקיעים, מודלים פיננסיים, אסטרטגיית גיוס וכלים מעשיים.",
+  },
+  "/he/resources": {
+    title: "משאבים וכלים לסטארטאפים | Foundterra",
+    description: "מדריכים, תבניות, מאגרי משקיעים וכלים מעשיים ליזמים בישראל בשלבי הקמה וגיוס.",
+  },
+  "/he/get-resources": {
+    title: "מאגר משאבים חינמי ליזמים | Foundterra",
+    description: "גישה חינמית לתבניות, מדריכים וכלי גיוס לסטארטאפים ויזמים.",
+  },
+  "/he/saas-metric-auditor": {
+    title: "בדיקת מדדי SaaS למשקיעים | Foundterra",
+    description: "בדקו צמיחה, שימור, Burn Multiple וכלכלת יחידה וקבלו תמונת מוכנות לגיוס.",
+  },
+  "/he/deck-architect": {
+    title: "בניית מבנה למצגת משקיעים | Foundterra",
+    description: "כלי חינמי לבניית סדר שקפים ומבנה נרטיבי למצגת גיוס למשקיעים.",
+  },
+  "/he/financial-model": {
+    title: "מודל פיננסי לסטארטאפ | Foundterra",
+    description: "כלי לתכנון הכנסות, הוצאות, תזרים, Burn ו-Runway עבור סטארטאפים לפני גיוס.",
+  },
+  "/he/investor-ready": {
+    title: "בדיקת מוכנות למשקיעים | Foundterra",
+    description: "בדקו את מוכנות הסטארטאפ לגיוס לפי צוות, שוק, Traction, מודל עסקי ותהליך גיוס.",
+  },
+  "/he/paid-consultation": {
+    title: "ייעוץ גיוס פרטי ליזמים | Foundterra",
+    description: "פגישת ייעוץ ממוקדת למצגת, נרטיב, מודל פיננסי ואסטרטגיית גיוס.",
+  },
+  "/he/market-size": {
+    title: "חישוב TAM, SAM ו-SOM לסטארטאפ | Foundterra",
+    description: "כלי לחישוב גודל שוק והכנת ניתוח שוק אמין למצגת משקיעים.",
+  },
+  "/he/pitch-review": {
+    title: "בדיקת מצגת משקיעים חינמית | Foundterra",
+    description: "העלו Pitch Deck וקבלו ציון מוכנות למשקיעים והמלצות מעשיות לשיפור.",
+  },
+  "/he/startup-deals": {
+    title: "הטבות, קרדיטים וכלים לסטארטאפים | Foundterra",
+    description: "קרדיטים לענן, הנחות תוכנה והטבות שנבחרו עבור יזמים וסטארטאפים בישראל.",
+  },
+};
+
 export default function RouteSeo() {
   const location = useLocation();
   const route = appRoutes.find((candidate) =>
@@ -13,13 +60,34 @@ export default function RouteSeo() {
 
   const locale = route?.locale ?? (location.pathname.startsWith("/he") ? "he" : "en");
   const canonical = route?.canonical ?? `${SITE_URL}${location.pathname}`;
-  const alternate = route?.alternate ? `${SITE_URL}${route.alternate}` : undefined;
+  const inferredAlternate = route?.alternate
+    ?? (route?.locale === "he"
+      ? location.pathname.replace(/^\/he/, "") || "/"
+      : route?.locale === "en" && route.path.includes(":")
+        ? `/he${location.pathname}`
+        : undefined);
+  const alternate = inferredAlternate ? `${SITE_URL}${inferredAlternate}` : undefined;
   const englishUrl = locale === "en" ? canonical : alternate;
   const hebrewUrl = locale === "he" ? canonical : alternate;
+  const localizedSeo = locale === "he" ? hebrewSeo[location.pathname] : undefined;
+  const serviceSchema = locale === "he"
+    ? {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        name: "Foundterra",
+        url: canonical,
+        inLanguage: "he-IL",
+        areaServed: { "@type": "Country", name: "Israel" },
+        description: localizedSeo?.description ?? "ליווי גיוס וכלים מעשיים ליזמים וסטארטאפים בישראל.",
+        logo: `${SITE_URL}/brand/foundterra-logo-black.svg`,
+      }
+    : undefined;
 
   return (
     <Helmet>
       <html lang={locale} dir={locale === "he" ? "rtl" : "ltr"} />
+      {localizedSeo ? <title>{localizedSeo.title}</title> : null}
+      {localizedSeo ? <meta name="description" content={localizedSeo.description} /> : null}
       <meta
         name="robots"
         content={!route || route.indexable === false ? "noindex, nofollow" : "index, follow, max-image-preview:large"}
@@ -34,6 +102,7 @@ export default function RouteSeo() {
       <meta property="og:image:height" content="630" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:image" content={SOCIAL_IMAGE} />
+      {serviceSchema ? <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script> : null}
     </Helmet>
   );
 }

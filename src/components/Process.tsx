@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/hooks/useLanguage";
+import { localizedPath } from "@/utils/localizedPath";
 
 const Process = () => {
   const { language } = useLanguage();
@@ -51,7 +52,7 @@ const Process = () => {
               <p className="text-muted-foreground text-lg mb-6 leading-relaxed font-body">{t.mainText}</p>
               <p className="text-5xl font-bold gradient-text mb-8">{isHebrew ? "₪4,500" : "$1,500"} <span className="text-base text-muted-foreground">{isHebrew ? "מחיר התחלתי" : "starting price"}</span></p>
               <Button asChild variant="hero" size="lg">
-                <a href="/pay/pitch-deck-creation">{t.cta}</a>
+                <a href={localizedPath("/pay/pitch-deck-creation", language)}>{t.cta}</a>
               </Button>
             </CardContent>
           </Card>

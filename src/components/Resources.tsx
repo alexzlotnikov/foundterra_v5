@@ -5,7 +5,8 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { Link } from "react-router-dom";
 
 const Resources = () => {
-  const { content } = useLanguage();
+  const { content, language } = useLanguage();
+  const resourcesPath = language === "he" ? "/he/get-resources" : "/get-resources";
   
   const iconMap = {
     FileText,
@@ -43,7 +44,7 @@ const Resources = () => {
                   <CardDescription className="font-body">{resource.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Link to="/get-resources">
+                  <Link to={resourcesPath}>
                     <Button variant="outline" className="w-full">
                       {resource.cta}
                     </Button>
@@ -55,7 +56,7 @@ const Resources = () => {
         </div>
 
         <div className="text-center">
-          <Link to="/get-resources">
+          <Link to={resourcesPath}>
             <Button 
               variant="hero" 
               size="lg" 

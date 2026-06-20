@@ -3,6 +3,8 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/hooks/useLanguage";
+import { hebrewResourceGuides } from "@/content/hebrewResourceGuides";
 
 interface GuideData {
   title: string;
@@ -2464,35 +2466,50 @@ const guides: Record<string, GuideData> = {
 
 const ResourceGuide = () => {
   const { slug } = useParams();
+  const { language } = useLanguage();
+  const isHebrew = language === "he";
 
-  if (!slug || !guides[slug]) {
-    return <Navigate to="/resources" replace />;
+  if (!slug || !guides[slug] || (isHebrew && !hebrewResourceGuides[slug])) {
+    return <Navigate to={isHebrew ? "/he/resources" : "/resources"} replace />;
   }
 
-  const guide = guides[slug];
+  const guide = isHebrew ? hebrewResourceGuides[slug] : guides[slug];
 
   return (
     <>
       <Helmet>
-        <title>{guide.title} | Foundterra Resources</title>
+        <title>{guide.title} | {isHebrew ? "משאבי Foundterra" : "Foundterra Resources"}</title>
         <meta name="description" content={guide.subtitle} />
       </Helmet>
 
-      <div className="min-h-screen flex flex-col bg-gradient-to-b from-background via-primary/5 to-background">
+      <div className="min-h-screen flex flex-col bg-gradient-to-b from-background via-primary/5 to-background" dir={isHebrew ? "rtl" : "ltr"}>
         <Header />
         <main className="flex-1">
           <section className="section-padding">
             <div className="container-max max-w-4xl">
               <div className="mb-8">
                 <Button asChild variant="ghost" className="mb-4">
-                  <Link to="/resources">← Back to Resources</Link>
+                  <Link to={isHebrew ? "/he/resources" : "/resources"}>
+                    {isHebrew ? "חזרה למשאבים ←" : "← Back to Resources"}
+                  </Link>
                 </Button>
                 <h1 className="text-4xl font-bold mb-4">{guide.title}</h1>
                 <p className="text-lg text-muted-foreground">{guide.subtitle}</p>
               </div>
 
               <div className="space-y-8">
-                {slug === "pre-seed-checklist" ? (
+                {isHebrew ? (
+                  guide.sections.map((section) => (
+                    <article key={section.heading} className="bg-card rounded-xl border p-6">
+                      <h2 className="text-2xl font-semibold mb-3">{section.heading}</h2>
+                      <div className="space-y-2">
+                        {section.body.map((paragraph) => (
+                          <p key={paragraph} className="text-foreground/90 leading-relaxed">{paragraph}</p>
+                        ))}
+                      </div>
+                    </article>
+                  ))
+                ) : slug === "pre-seed-checklist" ? (
                   <PreSeedChecklistArticle />
                 ) : slug === "how-to-cold-reach-investors" ? (
                   <ColdReachInvestorsArticle />
@@ -2534,7 +2551,7 @@ const ResourceGuide = () => {
                 <div className="mt-10">
                   <Button asChild size="lg" className="w-full md:w-auto">
                     <a href={guide.externalUrl} target="_blank" rel="noopener noreferrer">
-                      {guide.externalLabel ?? "Open Resource"}
+                      {guide.externalLabel ?? (isHebrew ? "פתיחת המשאב" : "Open Resource")}
                     </a>
                   </Button>
                 </div>

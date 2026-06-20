@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/hooks/useLanguage";
+import { localizedPath } from "@/utils/localizedPath";
 
 const About = () => {
   const { language } = useLanguage();
@@ -47,7 +48,7 @@ const About = () => {
                 <p className="text-xl font-semibold gradient-text mb-4">{price}</p>
                 <p className="text-muted-foreground leading-relaxed font-body mb-8">{description}</p>
                 <Button asChild variant={variant} className="w-full mt-auto">
-                  <a href={href}>{cta}</a>
+                  <a href={localizedPath(href, language)}>{cta}</a>
                 </Button>
               </CardContent>
             </Card>

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/hooks/useLanguage";
+import { localizedPath } from "@/utils/localizedPath";
 import { CheckCircle2 } from "lucide-react";
 
 const EntryPoints = () => {
@@ -159,7 +160,7 @@ const EntryPoints = () => {
                   ))}
                 </ul>
                 <Button asChild variant={plan.featured ? "hero" : "outline"} className="w-full mt-auto whitespace-normal leading-snug min-h-12 py-3">
-                  <a href={plan.ctaHref} aria-label={`${t.subscribe}: ${plan.title}`}>{t.subscribe}</a>
+                  <a href={localizedPath(plan.ctaHref, language)} aria-label={`${t.subscribe}: ${plan.title}`}>{t.subscribe}</a>
                 </Button>
               </CardContent>
             </Card>
