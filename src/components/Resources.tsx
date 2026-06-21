@@ -21,7 +21,15 @@ const Resources = () => {
           <Link to={resourcesPath} className="group relative min-h-80 overflow-hidden border border-primary/55 p-7">
             <h3 className="max-w-xs font-serif text-3xl font-semibold">{featured?.title}</h3>
             <p className="mt-4 max-w-sm text-sm leading-7">{featured?.description}</p>
-            <img src="/carousel/slide-01.avif" alt="" width="800" height="450" loading="lazy" className="absolute -bottom-5 -end-20 w-72 rotate-2 border border-white/15 transition-transform group-hover:-translate-y-2" />
+            <img
+              src="/carousel/resource-library.avif"
+              alt={isHebrew ? "כריכות מדריכים ותצוגות מקדימות של כלי גיוס ליזמים" : "Fundraising guide covers and startup tool previews"}
+              width="1200"
+              height="760"
+              loading="lazy"
+              decoding="async"
+              className="resource-library-preview"
+            />
           </Link>
           <div className="divide-y divide-white/10 border-y border-white/10">
             {rest.map((resource, index) => (

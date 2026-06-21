@@ -2,12 +2,6 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { localizedPath } from "@/utils/localizedPath";
 
-const heroSlides = [
-  "/carousel/slide-01.avif",
-  "/carousel/slide-04.avif",
-  "/carousel/slide-13.avif",
-];
-
 const Hero = () => {
   const { language } = useLanguage();
   const isHebrew = language === "he";
@@ -18,12 +12,20 @@ const Hero = () => {
         body: "מצגות חדות יותר, סיפור משקיעים ברור יותר, הנחות פיננסיות חזקות יותר וליווי גיוס ממוקד ליזמי Pre-Seed ו-Seed.",
         primary: "התחילו עם בדיקת מצגת ב־₪300",
         secondary: "למסלולי הליווי החודשיים",
+        good: "טוב",
+        ready: "מוכן למשקיעים",
+        transformation: "אותם נתונים. מסקנה חדה יותר למשקיע.",
+        visualLabel: "שדרוג שקף מצגת משקיעים",
       }
     : {
         title: "Fundraising support for founders before and during the raise.",
         body: "Sharper pitch decks, clearer investor stories, stronger financial assumptions, and disciplined fundraising support for pre-seed and seed founders.",
         primary: "Start with $100 Deck Diagnostic",
         secondary: "View Monthly Support",
+        good: "Good",
+        ready: "Investor-ready",
+        transformation: "Same underlying data. A sharper investor conclusion.",
+        visualLabel: "Investor pitch slide transformation",
       };
 
   return (
@@ -47,19 +49,34 @@ const Hero = () => {
             </div>
           </div>
 
-          <div className="hero-slide-stage" aria-label={isHebrew ? "דוגמאות למצגות משקיעים" : "Pitch deck examples"}>
-            {heroSlides.map((src, index) => (
+          <div className="hero-transformation" aria-label={copy.visualLabel}>
+            <figure className="hero-proof hero-proof-good">
+              <figcaption>{copy.good}</figcaption>
               <img
-                key={src}
-                src={src}
+                src="/carousel/hero-good.avif"
                 width="800"
                 height="450"
-                alt={isHebrew ? `דוגמה למצגת משקיעים ${index + 1}` : `Pitch deck example ${index + 1}`}
-                loading={index === 0 ? "eager" : "lazy"}
+                alt={isHebrew ? "שקף צמיחה מקצועי אך כללי לפני שיפור" : "A competent but generic traction slide before strategic improvement"}
+                loading="lazy"
                 decoding="async"
-                className={`hero-slide hero-slide-${index + 1}`}
               />
-            ))}
+            </figure>
+            <div className="hero-proof-arrow" aria-hidden="true">
+              <span />
+              <Arrow className="h-5 w-5" />
+            </div>
+            <figure className="hero-proof hero-proof-ready">
+              <figcaption>{copy.ready}</figcaption>
+              <img
+                src="/carousel/hero-investor-ready.avif"
+                width="800"
+                height="450"
+                alt={isHebrew ? "שקף צמיחה מוכן למשקיעים המדגיש הכנסות מהתרחבות" : "Investor-ready traction slide emphasizing expansion revenue"}
+                loading="eager"
+                decoding="async"
+              />
+            </figure>
+            <p className="hero-proof-caption">{copy.transformation}</p>
           </div>
         </div>
       </div>

@@ -13,6 +13,7 @@ const Packages = () => {
         subtitle: "בדיקה חד-פעמית ליזמים שלא בטוחים אם צריך תיקונים קטנים, מנוי חודשי או בנייה מחדש מלאה.",
         bullets: ["פידבק מפורט על המצגת", "שיחת ייעוץ של שעה", "תוכנית תיקונים ישימה"],
         cta: "קבעו דיאגנוסטיק ב-₪300",
+        annotations: ["נרטיב", "ראיות", "היררכיה", "לוגיקת שוק", "מסגור מדדים", "מסקנה למשקיע"],
         cards: [
           ["מה חלש עכשיו?", "אבחון ברור של הבעיות המרכזיות מול משקיעים במצגת הנוכחית שלך."],
           ["מה לתקן קודם?", "יוצאים עם רשימת תיקונים מסודרת ומדורגת במקום הערות אקראיות."],
@@ -25,6 +26,7 @@ const Packages = () => {
         subtitle: "A one-time review for founders who are not sure whether they need small fixes, monthly support, or a full deck rebuild.",
         bullets: ["Detailed pitch deck feedback", "1-hour consultation", "Actionable fixing plan"],
         cta: "Book $100 Diagnostic",
+        annotations: ["Narrative", "Evidence", "Hierarchy", "Market logic", "Metric framing", "Investor takeaway"],
         cards: [
           ["What is weak right now?", "Get a clear diagnosis of the biggest investor-facing problems in your current deck."],
           ["What should you fix first?", "Leave with a prioritized list of changes instead of random comments from different advisors."],
@@ -51,7 +53,24 @@ const Packages = () => {
                 <a href={localizedPath("/pay/pitch-deck-review", language)}>{t.cta}</a>
               </Button>
           </div>
-          <img src="/carousel/slide-02.avif" width="800" height="450" loading="lazy" decoding="async" alt={isHebrew ? "דוגמה למצגת משקיעים" : "Investor pitch deck example"} className="w-full border border-white/15 shadow-2xl shadow-primary/10" />
+          <figure className="diagnostic-visual">
+            <img
+              src="/carousel/deck-diagnostic.avif"
+              width="1200"
+              height="760"
+              loading="lazy"
+              decoding="async"
+              alt={isHebrew ? "בדיקת מצגת עם שש הערות ממוקדות לשיפור" : "Pitch deck diagnostic with six focused strategic annotations"}
+            />
+            <figcaption className="sr-only">
+              {isHebrew ? "הבדיקה מתייחסת לנרטיב, ראיות, היררכיה, לוגיקת שוק, מסגור מדדים והמסקנה למשקיע." : "The review covers narrative, evidence, hierarchy, market logic, metric framing, and the investor takeaway."}
+            </figcaption>
+            <ol className="diagnostic-legend">
+              {t.annotations.map((annotation, index) => (
+                <li key={annotation}><span>{index + 1}</span>{annotation}</li>
+              ))}
+            </ol>
+          </figure>
         </div>
       </div>
     </section>
