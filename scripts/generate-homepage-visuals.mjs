@@ -2,26 +2,36 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 
-const outDir = path.resolve("public", "carousel");
+const carouselDir = path.resolve("public", "carousel");
 const brandDir = path.resolve("public", "brand");
+const assetDir = path.resolve("src", "assets");
 
-const palette = {
-  carbon: "#080A0D",
-  navy: "#0D1726",
-  ivory: "#F3EFE6",
-  white: "#FFFFFF",
-  cobalt: "#155EEF",
-  orange: "#FF5A36",
-  emerald: "#0B8F67",
-  ink: "#101828",
-  muted: "#667085",
-  line: "#D0D5DD",
-  paleBlue: "#DCE7FF",
-  paleGreen: "#DDF3EA",
-  paleOrange: "#FFE3DA",
+const supplied = {
+  boardy: "C:/Users/Batman/Pictures/690d8bb37b555132c802fce0_mobiletitle.webp",
+  flashpoint: "C:/Users/Batman/Pictures/292e65e9-a9e8-4e90-b726-3b055b8f9025-0.webp",
+  ganas: "C:/Users/Batman/Pictures/GANAS_VC-removebg-preview_m3an0HJ.webp",
+  ggw: path.resolve("src", "assets", "ggw-ventures-logo-optimized.webp"),
 };
 
-const escapeXml = (value) =>
+const c = {
+  ink: "#101114",
+  dark: "#090A0E",
+  white: "#FFFFFF",
+  paper: "#F7F7F4",
+  soft: "#F0F1F4",
+  line: "#D9DCE3",
+  muted: "#68707D",
+  blue: "#3157E3",
+  lavender: "#E9E5FF",
+  violet: "#7257E8",
+  coral: "#F46F63",
+  peach: "#FFE5D8",
+  green: "#26A66F",
+  mint: "#DDF6EA",
+  yellow: "#F2CC64",
+};
+
+const esc = (value) =>
   String(value)
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
@@ -31,541 +41,482 @@ const escapeXml = (value) =>
 const wrap = (text, max = 34) => {
   const words = text.split(/\s+/);
   const lines = [];
-  let line = "";
+  let current = "";
   for (const word of words) {
-    const next = line ? `${line} ${word}` : word;
-    if (next.length > max && line) {
-      lines.push(line);
-      line = word;
-    } else {
-      line = next;
-    }
+    const next = current ? `${current} ${word}` : word;
+    if (current && next.length > max) {
+      lines.push(current);
+      current = word;
+    } else current = next;
   }
-  if (line) lines.push(line);
+  if (current) lines.push(current);
   return lines;
 };
 
-const textBlock = ({
-  text,
+const text = ({
+  value,
   x,
   y,
-  size = 24,
+  size = 20,
+  fill = c.ink,
   weight = 500,
-  fill = palette.ink,
   family = "Arial, sans-serif",
   max = 36,
-  lineHeight = 1.12,
+  line = 1.12,
   anchor = "start",
 }) =>
-  wrap(text, max)
+  wrap(value, max)
     .map(
-      (line, index) =>
-        `<text x="${x}" y="${y + index * size * lineHeight}" font-family="${family}" font-size="${size}" font-weight="${weight}" fill="${fill}" text-anchor="${anchor}">${escapeXml(line)}</text>`,
+      (row, index) =>
+        `<text x="${x}" y="${y + index * size * line}" font-family="${family}" font-size="${size}" font-weight="${weight}" fill="${fill}" text-anchor="${anchor}">${esc(row)}</text>`,
     )
     .join("");
 
-const frame = ({ dark = false, label, index, title, subtitle = "" }) => {
-  const bg = dark ? palette.carbon : palette.ivory;
-  const fg = dark ? palette.white : palette.ink;
-  const muted = dark ? "#A9B2C3" : palette.muted;
-  return `
-    <rect width="800" height="450" fill="${bg}"/>
-    <rect x="28" y="24" width="744" height="402" fill="none" stroke="${dark ? "#27364C" : "#D5D0C6"}"/>
-    <text x="48" y="51" font-family="Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="1.8" fill="${muted}">ILLUSTRATIVE SAMPLE · ${escapeXml(label.toUpperCase())}</text>
-    <text x="748" y="51" font-family="Arial, sans-serif" font-size="10" font-weight="700" text-anchor="end" fill="${muted}">${String(index).padStart(2, "0")}</text>
-    ${textBlock({ text: title, x: 48, y: 102, size: 34, weight: 500, fill: fg, family: "Georgia, serif", max: 34, lineHeight: 1.02 })}
-    ${subtitle ? textBlock({ text: subtitle, x: 48, y: 176, size: 13, weight: 400, fill: muted, max: 76, lineHeight: 1.35 }) : ""}
-  `;
-};
+const svg = (body, width = 800, height = 450, background = c.paper) => `
+<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+  <rect width="${width}" height="${height}" fill="${background}"/>
+  ${body}
+</svg>`;
 
-const svg = (body, width = 800, height = 450) => `
-  <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-    <rect width="${width}" height="${height}" fill="${palette.carbon}"/>
-    ${body}
-  </svg>
+const label = (topic, dark = false) => `
+  <text x="34" y="32" font-family="Arial, sans-serif" font-size="8" font-weight="700" letter-spacing="1.5" fill="${dark ? "#B8BECA" : c.muted}">ILLUSTRATIVE EXAMPLE  /  ${esc(topic.toUpperCase())}</text>
 `;
 
-const linePath = (points) =>
-  points.map(([x, y], index) => `${index ? "L" : "M"} ${x} ${y}`).join(" ");
-
-const slides = [
-  {
-    slug: "why-now",
-    label: "Why now?",
-    title: "AI adoption has crossed the infrastructure threshold.",
-    render: () => {
-      const points = [[64, 354], [126, 342], [188, 349], [250, 316], [312, 324], [374, 280], [436, 292], [498, 226], [560, 205], [622, 148], [730, 112]];
-      return svg(`
-        ${frame({ dark: true, label: "Why now?", index: 1, title: "AI adoption has crossed the infrastructure threshold." })}
-        <g opacity=".35">${[0, 1, 2, 3, 4].map((i) => `<path d="M 48 ${328 + i * 13} C 180 ${280 + i * 8}, 330 ${360 - i * 13}, 752 ${150 + i * 18}" fill="none" stroke="#426AA8"/>`).join("")}</g>
-        <path d="${linePath(points)}" fill="none" stroke="${palette.cobalt}" stroke-width="4"/>
-        ${points.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="4" fill="${palette.ivory}"/>`).join("")}
-        <text x="50" y="396" font-family="Arial" font-size="12" fill="#A9B2C3">Enterprise AI workloads in production</text>
-        <text x="748" y="396" font-family="Georgia" font-size="34" text-anchor="end" fill="${palette.white}">69%</text>
-      `);
-    },
-  },
-  {
-    slug: "problem",
-    label: "Problem",
-    title: "Manual diligence delays every deal by 11 days.",
-    render: () => svg(`
-      ${frame({ label: "Problem & economic impact", index: 2, title: "Manual diligence delays every deal by 11 days.", subtitle: "The cost is not document review. It is decision latency across the investment team." })}
-      ${[
-        ["14 hrs", "Analyst preparation", palette.cobalt],
-        ["3.2×", "Repeated data requests", palette.orange],
-        ["11 days", "Lost decision time", palette.emerald],
-      ].map(([value, label, color], i) => `
-        <g transform="translate(${48 + i * 242} 234)">
-          <rect width="216" height="128" fill="${palette.white}" stroke="${palette.line}"/>
-          <rect width="6" height="128" fill="${color}"/>
-          <text x="24" y="55" font-family="Georgia" font-size="38" fill="${palette.ink}">${value}</text>
-          <text x="24" y="84" font-family="Arial" font-size="13" fill="${palette.muted}">${label}</text>
-          <line x1="24" y1="101" x2="188" y2="101" stroke="${palette.line}"/>
-          <text x="24" y="119" font-family="Arial" font-size="10" fill="${palette.muted}">Median across 18 pilot teams</text>
-        </g>
-      `).join("")}
-    `),
-  },
-  {
-    slug: "existing-workflow",
-    label: "Existing workflow",
-    title: "Critical context gets lost between five disconnected tools.",
-    render: () => svg(`
-      ${frame({ label: "Existing workflow", index: 3, title: "Critical context gets lost between five disconnected tools." })}
-      <g transform="translate(50 226)">
-        ${["Inbox", "Drive", "CRM", "Notes", "Model"].map((name, i) => `
-          <g transform="translate(${i * 144} 0)">
-            <rect width="108" height="58" rx="3" fill="${palette.white}" stroke="${palette.line}"/>
-            <text x="54" y="35" font-family="Arial" font-size="14" font-weight="700" fill="${palette.ink}" text-anchor="middle">${name}</text>
-            ${i < 4 ? `<path d="M112 29 H136" stroke="${i % 2 ? palette.orange : palette.cobalt}" stroke-width="2" stroke-dasharray="4 4"/><path d="M132 25 L138 29 L132 33" fill="none" stroke="${i % 2 ? palette.orange : palette.cobalt}" stroke-width="2"/>` : ""}
-          </g>
-        `).join("")}
-        <path d="M 54 84 C 180 132, 510 132, 630 84" fill="none" stroke="${palette.orange}" stroke-width="3"/>
-        <text x="342" y="126" font-family="Georgia" font-size="22" fill="${palette.ink}" text-anchor="middle">Every handoff creates another version of the truth.</text>
-      </g>
-    `),
-  },
-  {
-    slug: "solution",
-    label: "Solution",
-    title: "One evidence layer turns scattered inputs into an investment decision.",
-    render: () => svg(`
-      ${frame({ dark: true, label: "Product solution", index: 4, title: "One evidence layer turns scattered inputs into an investment decision." })}
-      <g transform="translate(52 232)">
-        <rect x="0" y="0" width="170" height="120" fill="#111E31" stroke="#31415B"/>
-        <text x="20" y="28" font-family="Arial" font-size="11" fill="#A9B2C3">INPUTS</text>
-        ${["Documents", "CRM activity", "Financial data"].map((name, i) => `<text x="20" y="${58 + i * 24}" font-family="Arial" font-size="13" fill="${palette.white}">${name}</text>`).join("")}
-        <path d="M190 60 H268" stroke="${palette.cobalt}" stroke-width="3"/><path d="M260 52 L272 60 L260 68" fill="none" stroke="${palette.cobalt}" stroke-width="3"/>
-        <rect x="284" y="-18" width="190" height="156" fill="${palette.cobalt}"/>
-        <text x="379" y="45" font-family="Georgia" font-size="25" fill="${palette.white}" text-anchor="middle">Evidence</text>
-        <text x="379" y="75" font-family="Georgia" font-size="25" fill="${palette.white}" text-anchor="middle">intelligence</text>
-        <text x="379" y="109" font-family="Arial" font-size="11" fill="${palette.paleBlue}" text-anchor="middle">Structured · sourced · comparable</text>
-        <path d="M492 60 H570" stroke="${palette.emerald}" stroke-width="3"/><path d="M562 52 L574 60 L562 68" fill="none" stroke="${palette.emerald}" stroke-width="3"/>
-        <rect x="590" y="0" width="158" height="120" fill="#10281F" stroke="${palette.emerald}"/>
-        <text x="610" y="28" font-family="Arial" font-size="11" fill="#A9DCCB">DECISION</text>
-        <text x="610" y="63" font-family="Georgia" font-size="22" fill="${palette.white}">Investment memo</text>
-        <text x="610" y="92" font-family="Arial" font-size="12" fill="#A9DCCB">Ready in minutes</text>
-      </g>
-    `),
-  },
-  {
-    slug: "product-workflow",
-    label: "Product workflow",
-    title: "From fragmented documents to an investment memo in minutes.",
-    render: () => svg(`
-      ${frame({ label: "Product workflow", index: 5, title: "From fragmented documents to an investment memo in minutes." })}
-      <g transform="translate(48 236)">
-        ${[
-          ["01", "Connect", "Secure source access"],
-          ["02", "Structure", "Normalize evidence"],
-          ["03", "Challenge", "Surface gaps and risks"],
-          ["04", "Decide", "Publish the memo"],
-        ].map(([n, title, detail], i) => `
-          <g transform="translate(${i * 184} 0)">
-            <text x="0" y="16" font-family="Arial" font-size="11" font-weight="700" fill="${i === 3 ? palette.emerald : palette.cobalt}">${n}</text>
-            <rect x="0" y="32" width="152" height="92" fill="${i === 3 ? palette.navy : palette.white}" stroke="${i === 3 ? palette.navy : palette.line}"/>
-            <text x="16" y="66" font-family="Georgia" font-size="21" fill="${i === 3 ? palette.white : palette.ink}">${title}</text>
-            <text x="16" y="94" font-family="Arial" font-size="11" fill="${i === 3 ? "#B8C5D9" : palette.muted}">${detail}</text>
-            ${i < 3 ? `<path d="M158 78 H176" stroke="${palette.orange}" stroke-width="2"/><path d="M171 73 L178 78 L171 83" fill="none" stroke="${palette.orange}" stroke-width="2"/>` : ""}
-          </g>
-        `).join("")}
-      </g>
-    `),
-  },
-  {
-    slug: "customer-roi",
-    label: "Customer ROI",
-    title: "The product pays back before the second investment committee.",
-    render: () => svg(`
-      ${frame({ dark: true, label: "Customer ROI", index: 6, title: "The product pays back before the second investment committee." })}
-      <g transform="translate(50 232)">
-        <rect width="700" height="126" fill="#0E1A2B" stroke="#2A3A52"/>
-        <line x1="54" y1="92" x2="652" y2="92" stroke="#526078"/>
-        ${[0, 1, 2, 3, 4].map((i) => `<line x1="${54 + i * 149}" y1="86" x2="${54 + i * 149}" y2="98" stroke="#526078"/><text x="${54 + i * 149}" y="116" text-anchor="middle" font-family="Arial" font-size="10" fill="#A9B2C3">${i * 30} days</text>`).join("")}
-        <rect x="54" y="35" width="124" height="26" fill="${palette.orange}"/><text x="116" y="53" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="${palette.white}">IMPLEMENTATION</text>
-        <path d="M178 48 H308" stroke="#A9B2C3" stroke-dasharray="5 5"/>
-        <circle cx="308" cy="48" r="9" fill="${palette.emerald}"/>
-        <text x="326" y="45" font-family="Georgia" font-size="24" fill="${palette.white}">Payback on day 51</text>
-        <text x="326" y="66" font-family="Arial" font-size="11" fill="#A9B2C3">Based on 22 analyst hours saved each month</text>
-      </g>
-    `),
-  },
-  {
-    slug: "market-size",
-    label: "Market size",
-    title: "A reachable $680M initial market.",
-    render: () => {
-      const values = [2180, 620, 430, 300, 680];
-      const labels = ["Total spend", "Excluded: non-AI", "Excluded: hyperscalers", "Excluded: analysts", "Initial market"];
-      const heights = [118, 34, 24, 17, 72];
-      return svg(`
-        ${frame({ label: "Bottom-up market sizing", index: 7, title: "A reachable $680M initial market.", subtitle: "Built from target accounts, annual contract value, and a defined initial buying segment." })}
-        <g transform="translate(54 246)">
-          <line x1="0" y1="118" x2="682" y2="118" stroke="${palette.line}"/>
-          ${values.map((value, i) => {
-            const x = i * 145;
-            const y = 118 - heights[i];
-            const color = i === 0 || i === 4 ? palette.cobalt : "#A7ABB3";
-            return `<rect x="${x}" y="${y}" width="78" height="${heights[i]}" fill="${color}"/>
-              <text x="${x + 39}" y="${y - 10}" text-anchor="middle" font-family="Georgia" font-size="18" fill="${palette.ink}">$${value}M</text>
-              ${textBlock({ text: labels[i], x: x + 39, y: 142, size: 9, weight: 600, fill: palette.muted, max: 13, lineHeight: 1.15, anchor: "middle" })}`;
-          }).join("")}
-        </g>
-      `);
-    },
-  },
-  {
-    slug: "market-expansion",
-    label: "Market expansion",
-    title: "The wedge expands with every new evidence workflow.",
-    render: () => svg(`
-      ${frame({ dark: true, label: "Market expansion", index: 8, title: "The wedge expands with every new evidence workflow." })}
-      <g transform="translate(70 226)">
-        ${[
-          [0, 60, 182, 112, palette.cobalt, "Investment teams", "$680M"],
-          [120, 36, 290, 160, palette.emerald, "Advisory & diligence", "$2.1B"],
-          [270, 8, 380, 214, palette.orange, "Regulated decisions", "$6.4B"],
-        ].map(([x, y, w, h, color, label, value]) => `
-          <rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${color}" opacity=".9"/>
-          <text x="${x + 18}" y="${y + 34}" font-family="Arial" font-size="11" font-weight="700" fill="${palette.white}">${escapeXml(label)}</text>
-          <text x="${x + 18}" y="${y + 70}" font-family="Georgia" font-size="28" fill="${palette.white}">${value}</text>
-        `).join("")}
-      </g>
-    `),
-  },
-  {
-    slug: "business-model",
-    label: "Business model",
-    title: "Land with one team. Expand through evidence volume.",
-    render: () => svg(`
-      ${frame({ label: "Business model", index: 9, title: "Land with one team. Expand through evidence volume." })}
-      <g transform="translate(50 228)">
-        ${[
-          ["Team", "$18K", "1 workflow", palette.cobalt],
-          ["Fund", "$54K", "4 workflows", palette.emerald],
-          ["Platform", "$120K+", "Portfolio-wide", palette.orange],
-        ].map(([name, price, detail, color], i) => `
-          <g transform="translate(${i * 236} 0)">
-            <rect width="210" height="142" fill="${palette.white}" stroke="${palette.line}"/>
-            <rect width="210" height="7" fill="${color}"/>
-            <text x="20" y="48" font-family="Arial" font-size="12" font-weight="700" fill="${palette.muted}">${name.toUpperCase()}</text>
-            <text x="20" y="86" font-family="Georgia" font-size="31" fill="${palette.ink}">${price}</text>
-            <text x="20" y="116" font-family="Arial" font-size="12" fill="${palette.muted}">${detail}</text>
-          </g>
-        `).join("")}
-      </g>
-    `),
-  },
-  {
-    slug: "traction",
-    label: "Traction",
-    title: "Expansion revenue now drives 61% of growth.",
-    render: () => {
-      const bars = [112, 126, 146, 165, 190, 214, 238, 266, 292, 315, 340, 365];
-      return svg(`
-        ${frame({ dark: true, label: "Traction", index: 10, title: "Expansion revenue now drives 61% of growth.", subtitle: "Net revenue retention of 142% reflects durable, land-and-expand motion." })}
-        <g transform="translate(408 214)">
-          <line x1="0" y1="152" x2="338" y2="152" stroke="#3C4A61"/>
-          ${bars.map((h, i) => {
-            const total = h * 0.38;
-            const expansion = total * (0.29 + i * 0.029);
-            const x = i * 27;
-            return `<rect x="${x}" y="${152 - total}" width="18" height="${total - expansion}" fill="#B8C5D9"/><rect x="${x}" y="${152 - expansion}" width="18" height="${expansion}" fill="${palette.emerald}"/>`;
-          }).join("")}
-        </g>
-        <g transform="translate(52 250)">
-          <text x="0" y="0" font-family="Georgia" font-size="32" fill="${palette.emerald}">$1.8M</text><text x="0" y="23" font-family="Arial" font-size="10" fill="#A9B2C3">ARR · +48% YoY</text>
-          <text x="116" y="0" font-family="Georgia" font-size="32" fill="${palette.emerald}">142%</text><text x="116" y="23" font-family="Arial" font-size="10" fill="#A9B2C3">NET REVENUE RETENTION</text>
-          <rect x="0" y="64" width="284" height="60" fill="#0E1A2B" stroke="#31415B"/>
-          <text x="18" y="89" font-family="Arial" font-size="12" font-weight="700" fill="${palette.white}">The investor takeaway</text>
-          <text x="18" y="109" font-family="Arial" font-size="11" fill="#A9B2C3">Growth is becoming less dependent on new logos.</text>
-        </g>
-      `);
-    },
-  },
-  {
-    slug: "retention",
-    label: "Retention",
-    title: "High retention. Rising expansion.",
-    render: () => {
-      const lines = [
-        { color: palette.cobalt, values: [102, 107, 115, 119, 124, 130, 139, 145, 151, 158] },
-        { color: palette.emerald, values: [100, 103, 106, 112, 115, 121, 128, 134, 138, 142] },
-        { color: "#98A2B3", values: [100, 99, 101, 97, 96, 98, 97, 96, 97, 98] },
-      ];
-      return svg(`
-        ${frame({ label: "Retention & cohorts", index: 11, title: "High retention. Rising expansion.", subtitle: "Customer outcomes improve as teams add workflows and evidence sources." })}
-        <g transform="translate(72 226)">
-          ${[0, 1, 2, 3].map((i) => `<line x1="0" y1="${i * 42}" x2="620" y2="${i * 42}" stroke="${palette.line}"/>`).join("")}
-          ${lines.map(({ color, values }) => `<path d="${linePath(values.map((v, i) => [i * 68, 128 - (v - 90) * 1.8]))}" fill="none" stroke="${color}" stroke-width="3"/>`).join("")}
-          <text x="632" y="4" font-family="Arial" font-size="11" font-weight="700" fill="${palette.cobalt}">158% top quartile</text>
-          <text x="632" y="45" font-family="Arial" font-size="11" font-weight="700" fill="${palette.emerald}">142% portfolio</text>
-          <text x="632" y="88" font-family="Arial" font-size="11" font-weight="700" fill="#667085">98% baseline</text>
-        </g>
-      `);
-    },
-  },
-  {
-    slug: "go-to-market",
-    label: "Go-to-market",
-    title: "A focused path from design partners to category leadership.",
-    render: () => svg(`
-      ${frame({ dark: true, label: "Go-to-market", index: 12, title: "A focused path from design partners to category leadership." })}
-      <g transform="translate(60 228)">
-        ${[
-          ["01", "Design partners", "10 funds", "Prove repeatability"],
-          ["02", "Focused outbound", "60 accounts", "Win the initial segment"],
-          ["03", "Channel leverage", "4 partners", "Expand distribution"],
-          ["04", "Category platform", "Global", "Own the evidence layer"],
-        ].map(([n, title, metric, detail], i) => `
-          <g transform="translate(${i * 176} 0)">
-            <circle cx="18" cy="18" r="18" fill="${i === 3 ? palette.orange : palette.cobalt}"/><text x="18" y="22" text-anchor="middle" font-family="Arial" font-size="10" font-weight="700" fill="${palette.white}">${n}</text>
-            ${i < 3 ? `<line x1="38" y1="18" x2="168" y2="18" stroke="#344054" stroke-width="2"/>` : ""}
-            <text x="0" y="66" font-family="Georgia" font-size="19" fill="${palette.white}">${title}</text>
-            <text x="0" y="96" font-family="Arial" font-size="19" font-weight="700" fill="${i === 3 ? palette.orange : palette.emerald}">${metric}</text>
-            <text x="0" y="121" font-family="Arial" font-size="10" fill="#A9B2C3">${detail}</text>
-          </g>
-        `).join("")}
-      </g>
-    `),
-  },
-  {
-    slug: "competition",
-    label: "Competition",
-    title: "Purpose-built for regulated mid-market teams.",
-    render: () => svg(`
-      ${frame({ label: "Competitive positioning", index: 13, title: "Purpose-built for regulated mid-market teams." })}
-      <g transform="translate(86 218)">
-        <line x1="0" y1="152" x2="590" y2="152" stroke="${palette.ink}" stroke-width="2"/>
-        <line x1="0" y1="152" x2="0" y2="0" stroke="${palette.ink}" stroke-width="2"/>
-        <text x="294" y="182" text-anchor="middle" font-family="Arial" font-size="10" fill="${palette.muted}">GENERIC → PURPOSE-BUILT</text>
-        <text x="-78" y="-18" transform="rotate(-90)" text-anchor="middle" font-family="Arial" font-size="10" fill="${palette.muted}">SELF-SERVE → REGULATED</text>
-        ${[
-          [122, 112, "Point tools", "#98A2B3"],
-          [240, 70, "Consultancies", "#98A2B3"],
-          [380, 116, "Horizontal AI", "#98A2B3"],
-          [518, 34, "Our wedge", palette.cobalt],
-        ].map(([x, y, label, color]) => `<circle cx="${x}" cy="${y}" r="${label === "Our wedge" ? 17 : 10}" fill="${color}"/><text x="${x}" y="${y - 18}" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="${color}">${label}</text>`).join("")}
-        <rect x="436" y="0" width="154" height="80" fill="none" stroke="${palette.cobalt}" stroke-dasharray="5 4"/>
-      </g>
-    `),
-  },
-  {
-    slug: "defensibility",
-    label: "Defensibility",
-    title: "Every decision improves the evidence graph.",
-    render: () => svg(`
-      ${frame({ dark: true, label: "Defensibility", index: 14, title: "Every decision improves the evidence graph." })}
-      <g transform="translate(74 224)">
-        <circle cx="330" cy="78" r="62" fill="${palette.cobalt}"/>
-        <text x="330" y="72" text-anchor="middle" font-family="Georgia" font-size="21" fill="${palette.white}">Evidence</text>
-        <text x="330" y="98" text-anchor="middle" font-family="Georgia" font-size="21" fill="${palette.white}">graph</text>
-        ${[
-          [40, 12, "More sources", palette.emerald],
-          [40, 134, "Better benchmarks", palette.orange],
-          [530, 12, "Faster decisions", palette.emerald],
-          [530, 134, "Higher trust", palette.orange],
-        ].map(([x, y, label, color], i) => `
-          <rect x="${x}" y="${y}" width="150" height="52" fill="#101D2E" stroke="${color}"/>
-          <text x="${x + 75}" y="${y + 31}" text-anchor="middle" font-family="Arial" font-size="12" font-weight="700" fill="${palette.white}">${label}</text>
-          <path d="M ${i < 2 ? x + 150 : x} ${y + 26} C ${i < 2 ? 230 : 480} ${y + 26}, ${i < 2 ? 245 : 415} 78, ${i < 2 ? 268 : 392} 78" fill="none" stroke="${color}" stroke-width="2"/>
-        `).join("")}
-      </g>
-    `),
-  },
-  {
-    slug: "financials",
-    label: "Financial trajectory",
-    title: "A disciplined path to $9.4M ARR.",
-    render: () => {
-      const arr = [0.8, 1.8, 3.6, 6.1, 9.4];
-      const burn = [1.5, 2.1, 2.7, 3.3, 3.8];
-      return svg(`
-        ${frame({ label: "Financial trajectory", index: 15, title: "A disciplined path to $9.4M ARR.", subtitle: "Growth outpaces operating expense while gross margin expands to 82%." })}
-        <g transform="translate(66 230)">
-          <line x1="0" y1="132" x2="640" y2="132" stroke="${palette.line}"/>
-          ${arr.map((value, i) => {
-            const h = value * 12;
-            const burnH = burn[i] * 12;
-            const x = i * 130;
-            return `<rect x="${x}" y="${132 - h}" width="34" height="${h}" fill="${palette.cobalt}"/><rect x="${x + 40}" y="${132 - burnH}" width="34" height="${burnH}" fill="${palette.orange}"/><text x="${x + 37}" y="154" text-anchor="middle" font-family="Arial" font-size="10" fill="${palette.muted}">FY${25 + i}</text>`;
-          }).join("")}
-          <text x="650" y="16" font-family="Arial" font-size="11" fill="${palette.cobalt}">■ ARR</text>
-          <text x="650" y="38" font-family="Arial" font-size="11" fill="${palette.orange}">■ OPEX</text>
-        </g>
-      `);
-    },
-  },
-  {
-    slug: "use-of-funds",
-    label: "The round",
-    title: "$1.8M funds 18 months to repeatable growth.",
-    render: () => svg(`
-      ${frame({ label: "Round milestones & use of funds", index: 16, title: "$1.8M funds 18 months to repeatable growth." })}
-      <g transform="translate(54 220)">
-        ${[
-          ["0–6", "Prove", "10 design partners", palette.cobalt],
-          ["6–12", "Repeat", "$1.8M ARR", palette.emerald],
-          ["12–18", "Scale", "Net retention >130%", palette.orange],
-        ].map(([months, title, metric, color], i) => `
-          <g transform="translate(${i * 196} 0)">
-            <text x="0" y="18" font-family="Arial" font-size="10" font-weight="700" fill="${color}">${months} MONTHS</text>
-            <rect x="0" y="34" width="170" height="94" fill="${palette.white}" stroke="${palette.line}"/>
-            <text x="16" y="68" font-family="Georgia" font-size="22" fill="${palette.ink}">${title}</text>
-            <text x="16" y="99" font-family="Arial" font-size="11" fill="${palette.muted}">${metric}</text>
-            ${i < 2 ? `<path d="M176 82 H190" stroke="${palette.ink}" stroke-width="2"/><path d="M186 77 L192 82 L186 87" fill="none" stroke="${palette.ink}" stroke-width="2"/>` : ""}
-          </g>
-        `).join("")}
-        <g transform="translate(612 18)">
-          <circle cx="66" cy="66" r="54" fill="none" stroke="${palette.line}" stroke-width="20"/>
-          <path d="M66 12 A54 54 0 0 1 117 48" fill="none" stroke="${palette.cobalt}" stroke-width="20"/>
-          <path d="M117 48 A54 54 0 0 1 79 118" fill="none" stroke="${palette.emerald}" stroke-width="20"/>
-          <path d="M79 118 A54 54 0 0 1 18 88" fill="none" stroke="${palette.orange}" stroke-width="20"/>
-          <text x="66" y="63" text-anchor="middle" font-family="Georgia" font-size="18" fill="${palette.ink}">$1.8M</text>
-          <text x="66" y="82" text-anchor="middle" font-family="Arial" font-size="9" fill="${palette.muted}">ROUND</text>
-        </g>
-      </g>
-    `),
-  },
-];
-
-const heroGood = svg(`
-  ${frame({ label: "Founder-built traction slide", index: 0, title: "Strong growth across the last 12 months." })}
-  <g transform="translate(54 214)">
-    ${[["$1.8M", "ARR"], ["142%", "Net revenue retention"], ["1,250", "Customers"]].map(([value, label], i) => `
-      <g transform="translate(${i * 228} 0)"><rect width="204" height="70" fill="${palette.white}" stroke="${palette.line}"/><text x="16" y="31" font-family="Arial" font-size="22" font-weight="700" fill="${palette.ink}">${value}</text><text x="16" y="53" font-family="Arial" font-size="10" fill="${palette.muted}">${label}</text></g>
-    `).join("")}
-    <line x1="0" y1="154" x2="660" y2="154" stroke="${palette.line}"/>
-    <path d="M 10 145 L 80 132 L 150 120 L 220 124 L 290 96 L 360 102 L 430 80 L 500 62 L 570 44 L 650 31" fill="none" stroke="${palette.cobalt}" stroke-width="3"/>
-    <text x="0" y="184" font-family="Arial" font-size="10" fill="${palette.muted}">Monthly recurring revenue</text>
-  </g>
-`);
-
-const diagnostic = svg(`
-  <rect width="1200" height="760" fill="${palette.carbon}"/>
-  <text x="48" y="62" font-family="Georgia" font-size="34" fill="${palette.ivory}">The feedback founders can actually act on.</text>
-  <text x="48" y="91" font-family="Arial" font-size="13" fill="#A9B2C3">A senior review of narrative, evidence, hierarchy, market logic, metric framing, and investor takeaway.</text>
-  <rect x="272" y="132" width="656" height="470" fill="${palette.ivory}" stroke="#3B4657"/>
-  <text x="310" y="177" font-family="Arial" font-size="10" font-weight="700" fill="${palette.muted}">ILLUSTRATIVE DECK DIAGNOSTIC</text>
-  ${textBlock({ text: "We are building the future of data infrastructure.", x: 310, y: 228, size: 34, weight: 500, fill: palette.ink, family: "Georgia, serif", max: 32, lineHeight: 1.02 })}
-  <text x="310" y="305" font-family="Arial" font-size="12" fill="${palette.muted}">Our platform helps teams store, move, and analyze data in the cloud.</text>
-  ${[["10K+", "Users"], ["500+", "Customers"], ["$2M", "ARR"]].map(([value, label], i) => `<g transform="translate(${310 + i * 180} 336)"><rect width="160" height="64" fill="${palette.white}" stroke="${palette.line}"/><text x="14" y="28" font-family="Arial" font-size="20" font-weight="700" fill="${palette.ink}">${value}</text><text x="14" y="48" font-family="Arial" font-size="10" fill="${palette.muted}">${label}</text></g>`).join("")}
-  <rect x="310" y="424" width="340" height="130" fill="${palette.white}" stroke="${palette.line}"/>
-  <path d="M330 530 L380 512 L430 518 L480 484 L530 478 L580 454 L628 442" fill="none" stroke="${palette.cobalt}" stroke-width="3"/>
-  <rect x="670" y="424" width="220" height="130" fill="${palette.white}" stroke="${palette.line}"/>
-  ${["Fast and easy to use", "Secure and reliable", "Scales with your needs"].map((value, i) => `<text x="690" y="${458 + i * 30}" font-family="Arial" font-size="11" fill="${palette.ink}">• ${value}</text>`).join("")}
-  ${[
-    [1, 44, 180, 272, 205, "NARRATIVE", "Lead with the customer outcome and why it matters now."],
-    [2, 44, 334, 310, 305, "EVIDENCE", "Add context and benchmarks so the numbers become meaningful."],
-    [3, 44, 508, 310, 354, "HIERARCHY", "Reduce headline noise and elevate the single insight."],
-    [4, 954, 180, 928, 228, "MARKET LOGIC", "Show a clear bottom-up path to the market opportunity."],
-    [5, 954, 334, 890, 472, "METRIC FRAMING", "Shift from activity to the outcomes investors care about."],
-    [6, 954, 508, 890, 520, "INVESTOR TAKEAWAY", "Make the conclusion obvious in one line."],
-  ].map(([n, tx, ty, px, py, title, note]) => `
-    <circle cx="${tx}" cy="${ty}" r="12" fill="${palette.orange}"/><text x="${tx}" y="${ty + 4}" text-anchor="middle" font-family="Arial" font-size="10" font-weight="700" fill="${palette.white}">${n}</text>
-    <text x="${tx + (tx < 600 ? 22 : -22)}" y="${ty - 7}" text-anchor="${tx < 600 ? "start" : "end"}" font-family="Arial" font-size="11" font-weight="700" fill="${palette.orange}">${title}</text>
-    ${textBlock({ text: note, x: tx + (tx < 600 ? 22 : -22), y: ty + 15, size: 10, fill: "#C6CDD8", max: 28, lineHeight: 1.22, anchor: tx < 600 ? "start" : "end" })}
-    <path d="M ${tx < 600 ? tx + 12 : tx - 12} ${ty} H ${px}" stroke="${palette.orange}" stroke-width="1.5"/><circle cx="${px}" cy="${py}" r="4" fill="${palette.orange}"/>
-  `).join("")}
-`, 1200, 760);
-
-const resources = svg(`
-  <rect width="1200" height="760" fill="${palette.carbon}"/>
-  <text x="48" y="64" font-family="Georgia" font-size="35" fill="${palette.ivory}">Frameworks and tools for stronger fundraising decisions.</text>
-  <g transform="translate(48 118)">
-    ${[
-      [0, palette.navy, palette.cobalt, "Investor", "Readiness Checklist", "A practical guide to pressure-test your story before you raise."],
-      [238, palette.emerald, palette.ivory, "Bottom-Up", "Market Sizing", "A step-by-step playbook for a defensible market model."],
-      [476, palette.ivory, palette.ink, "Fundraising", "Data Room", "What to include, how to organize it, and how to keep it ready."],
-    ].map(([x, bg, fg, top, title, body], i) => `
-      <g transform="translate(${x} 0)">
-        <rect width="212" height="332" fill="${bg}" stroke="#394354"/>
-        <text x="22" y="35" font-family="Arial" font-size="9" font-weight="700" letter-spacing="1.5" fill="${fg}">GUIDE 0${i + 1}</text>
-        <text x="22" y="92" font-family="Georgia" font-size="28" fill="${fg}">${top}</text>
-        <text x="22" y="123" font-family="Georgia" font-size="28" fill="${fg}">${title}</text>
-        ${textBlock({ text: body, x: 22, y: 176, size: 11, fill: fg, max: 26, lineHeight: 1.35 })}
-        ${[0,1,2,3].map((j) => `<path d="M20 ${286 - j * 15} C 80 ${250 - j * 10}, 138 ${310 - j * 14}, 194 ${242 - j * 8}" fill="none" stroke="${fg}" opacity="${0.18 + j * 0.12}"/>`).join("")}
-      </g>
-    `).join("")}
-    <g transform="translate(728 0)">
-      <rect width="424" height="156" fill="${palette.ivory}" stroke="#394354"/>
-      <text x="20" y="27" font-family="Arial" font-size="9" font-weight="700" fill="${palette.cobalt}">TOOL · RUNWAY CALCULATOR</text>
-      <text x="20" y="67" font-family="Georgia" font-size="24" fill="${palette.ink}">7.4 months</text>
-      <path d="M174 42 L220 58 L266 82 L312 104 L380 134" fill="none" stroke="${palette.cobalt}" stroke-width="3"/>
-      <line x1="174" y1="134" x2="390" y2="134" stroke="${palette.line}"/>
-      <text x="20" y="103" font-family="Arial" font-size="11" fill="${palette.muted}">$2.0M cash · $250K monthly burn</text>
-      <rect y="176" width="424" height="156" fill="${palette.ivory}" stroke="#394354"/>
-      <text x="20" y="205" font-family="Arial" font-size="9" font-weight="700" fill="${palette.emerald}">TOOL · VC FIT FINDER</text>
-      ${[["Fund A", 94], ["Fund B", 86], ["Fund C", 74]].map(([name, score], i) => `<text x="20" y="${242 + i * 34}" font-family="Arial" font-size="11" fill="${palette.ink}">${name}</text><rect x="104" y="${232 + i * 34}" width="240" height="11" fill="${palette.line}"/><rect x="104" y="${232 + i * 34}" width="${score * 2.4}" height="11" fill="${i === 0 ? palette.cobalt : palette.emerald}"/><text x="376" y="${242 + i * 34}" text-anchor="end" font-family="Arial" font-size="10" fill="${palette.muted}">${score}%</text>`).join("")}
-    </g>
-  </g>
-`, 1200, 760);
-
-const social = svg(`
-  <rect width="1200" height="630" fill="${palette.carbon}"/>
-  <text x="64" y="72" font-family="Arial" font-size="18" font-weight="700" letter-spacing="2" fill="#A9B2C3">FOUNDTERRA</text>
-  ${textBlock({ text: "From a good slide to investor-ready.", x: 64, y: 145, size: 53, weight: 500, fill: palette.ivory, family: "Georgia, serif", max: 25, lineHeight: 1.02 })}
-  <text x="64" y="276" font-family="Arial" font-size="18" fill="#A9B2C3">Strategy, narrative, financial logic, and design for pre-seed and seed founders.</text>
-  <g transform="translate(600 80) scale(.69)">
-    <rect width="800" height="450" fill="${palette.ivory}" stroke="#41506A"/>
-    ${textBlock({ text: "Expansion revenue now drives 61% of growth.", x: 44, y: 75, size: 36, weight: 500, fill: palette.ink, family: "Georgia, serif", max: 31, lineHeight: 1.02 })}
-    <text x="44" y="166" font-family="Georgia" font-size="32" fill="${palette.emerald}">$1.8M</text><text x="44" y="190" font-family="Arial" font-size="11" fill="${palette.muted}">ARR · +48% YOY</text>
-    ${[0,1,2,3,4,5,6,7,8].map((i) => `<rect x="${330 + i * 43}" y="${330 - i * 20}" width="28" height="${70 + i * 20}" fill="${palette.cobalt}"/><rect x="${330 + i * 43}" y="${350 - i * 12}" width="28" height="${50 + i * 12}" fill="${palette.emerald}"/>`).join("")}
-  </g>
-  <rect x="64" y="532" width="214" height="4" fill="${palette.orange}"/>
-`, 1200, 630);
-
-await fs.mkdir(outDir, { recursive: true });
-await fs.mkdir(brandDir, { recursive: true });
-
-const renderAvif = async (source, target, width = 800, height = 450) => {
-  const temporaryTarget = `${target}.next`;
-  await sharp(Buffer.from(source))
-    .resize(width, height)
-    .avif({ quality: 64, effort: 7, chromaSubsampling: "4:4:4" })
-    .toFile(temporaryTarget);
-  await fs.rm(target, { force: true });
-  await fs.rename(temporaryTarget, target);
+const browser = ({ x, y, width, height, accent = c.violet, dark = false }) => {
+  const bg = dark ? "#111521" : c.white;
+  const panel = dark ? "#1A2030" : "#F5F6F8";
+  const fg = dark ? c.white : c.ink;
+  return `
+    <g transform="translate(${x} ${y})">
+      <rect width="${width}" height="${height}" rx="5" fill="${bg}" stroke="${dark ? "#333D53" : c.line}"/>
+      <rect width="${width}" height="22" rx="5" fill="${panel}"/>
+      <circle cx="13" cy="11" r="3" fill="${c.coral}"/><circle cx="24" cy="11" r="3" fill="${c.yellow}"/><circle cx="35" cy="11" r="3" fill="${c.green}"/>
+      <rect x="14" y="38" width="${width * 0.18}" height="${height - 52}" rx="3" fill="${panel}"/>
+      ${[0, 1, 2, 3].map((i) => `<rect x="25" y="${53 + i * 23}" width="${width * (i === 1 ? 0.12 : 0.1)}" height="5" rx="2" fill="${i === 1 ? accent : dark ? "#5A657B" : "#C8CDD6"}"/>`).join("")}
+      <rect x="${width * 0.23}" y="40" width="${width * 0.7}" height="22" rx="3" fill="${panel}"/>
+      <text x="${width * 0.25}" y="55" font-family="Arial" font-size="8" font-weight="700" fill="${fg}">Workspace overview</text>
+      <rect x="${width * 0.23}" y="74" width="${width * 0.32}" height="${height * 0.32}" rx="3" fill="${panel}"/>
+      <rect x="${width * 0.57}" y="74" width="${width * 0.36}" height="${height * 0.32}" rx="3" fill="${panel}"/>
+      <path d="M ${width * 0.25} ${height * 0.57} L ${width * 0.31} ${height * 0.5} L ${width * 0.37} ${height * 0.53} L ${width * 0.43} ${height * 0.39} L ${width * 0.51} ${height * 0.32}" fill="none" stroke="${accent}" stroke-width="3"/>
+      ${[0, 1, 2, 3, 4].map((i) => `<rect x="${width * 0.61 + i * width * 0.055}" y="${height * (0.51 - i * 0.035)}" width="${width * 0.035}" height="${height * (0.13 + i * 0.035)}" fill="${i === 4 ? accent : dark ? "#58647A" : "#C5CBD5"}"/>`).join("")}
+      <rect x="${width * 0.23}" y="${height * 0.72}" width="${width * 0.7}" height="${height * 0.16}" rx="3" fill="${panel}"/>
+      ${[0, 1, 2].map((i) => `<rect x="${width * 0.25}" y="${height * (0.755 + i * 0.035)}" width="${width * (0.42 + i * 0.07)}" height="4" rx="2" fill="${dark ? "#606B80" : "#C6CBD3"}"/>`).join("")}
+    </g>`;
 };
 
-await Promise.all(
-  slides.map((slide, index) =>
-    renderAvif(slide.render(), path.join(outDir, `slide-${String(index + 1).padStart(2, "0")}.avif`)),
+const phone = ({ x, y, width = 118, height = 224, accent = c.violet }) => `
+  <g transform="translate(${x} ${y})">
+    <rect width="${width}" height="${height}" rx="22" fill="${c.ink}"/>
+    <rect x="6" y="6" width="${width - 12}" height="${height - 12}" rx="17" fill="${c.white}"/>
+    <rect x="${width * 0.35}" y="10" width="${width * 0.3}" height="7" rx="4" fill="${c.ink}"/>
+    <rect x="18" y="34" width="${width - 36}" height="9" rx="4" fill="${c.line}"/>
+    <rect x="18" y="55" width="${width - 36}" height="58" rx="8" fill="${accent}" opacity=".18"/>
+    <circle cx="${width / 2}" cy="84" r="18" fill="${accent}"/>
+    <rect x="18" y="126" width="${width - 36}" height="15" rx="6" fill="${c.soft}"/>
+    <rect x="18" y="150" width="${width - 36}" height="15" rx="6" fill="${c.soft}"/>
+    <rect x="18" y="181" width="${width - 36}" height="24" rx="8" fill="${accent}"/>
+  </g>`;
+
+const slide = (topic, content, dark = false) =>
+  svg(`${label(topic, dark)}${content}`, 800, 450, dark ? c.dark : c.paper);
+
+const slides = [
+  slide(
+    "Problem",
+    `
+      ${text({ value: "Teams lose the decision before the meeting starts.", x: 52, y: 100, size: 39, family: "Georgia, serif", max: 29, line: 1.02 })}
+      ${text({ value: "Critical evidence is scattered across documents, inboxes, and dashboards.", x: 52, y: 205, size: 14, fill: c.muted, max: 46, line: 1.35 })}
+      <g transform="translate(445 74)">
+        <rect width="290" height="100" rx="4" fill="${c.white}" stroke="${c.line}"/>
+        <text x="18" y="26" font-family="Arial" font-size="9" font-weight="700" fill="${c.muted}">OPERATING NOTE</text>
+        <text x="18" y="53" font-family="Georgia" font-size="19" fill="${c.ink}">The pilot is working.</text>
+        <rect x="18" y="69" width="210" height="5" fill="${c.line}"/><rect x="18" y="82" width="156" height="5" fill="${c.line}"/>
+        <rect x="42" y="128" width="248" height="112" rx="4" fill="${c.white}" stroke="${c.line}"/>
+        <text x="60" y="154" font-family="Arial" font-size="9" font-weight="700" fill="${c.muted}">INVESTOR QUESTION</text>
+        <text x="60" y="185" font-family="Georgia" font-size="19" fill="${c.ink}">But is the growth repeatable?</text>
+        <rect x="60" y="204" width="177" height="5" fill="${c.line}"/><rect x="60" y="218" width="126" height="5" fill="${c.line}"/>
+      </g>
+      <path d="M390 250 C425 220 430 190 462 174" fill="none" stroke="${c.coral}" stroke-width="2"/>
+    `,
   ),
+  slide(
+    "Economic impact",
+    `
+      ${text({ value: "The hidden cost is decision latency.", x: 52, y: 94, size: 37, family: "Georgia, serif", max: 36 })}
+      <g transform="translate(52 166)">
+        <rect width="690" height="190" rx="8" fill="${c.lavender}"/>
+        <text x="32" y="48" font-family="Arial" font-size="11" font-weight="700" fill="${c.muted}">WITHOUT A SHARED EVIDENCE LAYER</text>
+        <text x="32" y="103" font-family="Georgia" font-size="45" fill="${c.ink}">16 days</text>
+        <text x="32" y="133" font-family="Arial" font-size="12" fill="${c.muted}">from first review to a confident decision</text>
+        <rect x="344" y="35" width="1" height="120" fill="#C8C0F2"/>
+        <text x="388" y="48" font-family="Arial" font-size="11" font-weight="700" fill="${c.green}">WITH STRUCTURED EVIDENCE</text>
+        <text x="388" y="103" font-family="Georgia" font-size="45" fill="${c.green}">4 days</text>
+        <text x="388" y="133" font-family="Arial" font-size="12" fill="${c.muted}">with sources, owners, and decisions connected</text>
+      </g>
+    `,
+  ),
+  slide(
+    "Solution",
+    `
+      ${text({ value: "One workspace turns evidence into an investor answer.", x: 45, y: 91, size: 34, family: "Georgia, serif", max: 31, line: 1.02 })}
+      ${browser({ x: 355, y: 72, width: 390, height: 292, accent: c.violet })}
+      <g transform="translate(48 214)">
+        ${[
+          ["01", "Connect", "Deck, metrics, pipeline"],
+          ["02", "Challenge", "Find gaps and weak claims"],
+          ["03", "Present", "Build the investor takeaway"],
+        ].map(([n, titleValue, detail], i) => `
+          <g transform="translate(0 ${i * 66})">
+            <circle cx="16" cy="16" r="16" fill="${i === 2 ? c.green : c.violet}"/><text x="16" y="20" text-anchor="middle" font-family="Arial" font-size="9" font-weight="700" fill="white">${n}</text>
+            <text x="45" y="13" font-family="Arial" font-size="13" font-weight="700" fill="${c.ink}">${titleValue}</text>
+            <text x="45" y="31" font-family="Arial" font-size="10" fill="${c.muted}">${detail}</text>
+          </g>`).join("")}
+      </g>
+    `,
+  ),
+  slide(
+    "Product",
+    `
+      ${text({ value: "The fundraising workspace founders actually use.", x: 43, y: 84, size: 32, family: "Georgia, serif", max: 36 })}
+      ${browser({ x: 188, y: 123, width: 500, height: 280, accent: c.blue })}
+      <g transform="translate(71 180)">
+        <rect width="150" height="76" rx="5" fill="${c.white}" stroke="${c.line}"/>
+        <text x="16" y="24" font-family="Arial" font-size="9" font-weight="700" fill="${c.muted}">READINESS</text>
+        <text x="16" y="55" font-family="Georgia" font-size="27" fill="${c.blue}">82%</text>
+        <rect x="118" y="202" width="154" height="78" rx="5" fill="${c.white}" stroke="${c.line}"/>
+        <text x="134" y="228" font-family="Arial" font-size="9" font-weight="700" fill="${c.muted}">FOLLOW-UP</text>
+        <text x="134" y="257" font-family="Georgia" font-size="21" fill="${c.green}">6 open asks</text>
+      </g>
+    `,
+  ),
+  slide(
+    "Product workflow",
+    `
+      ${text({ value: "From raw materials to a meeting-ready narrative.", x: 48, y: 92, size: 35, family: "Georgia, serif", max: 37 })}
+      <g transform="translate(48 190)">
+        ${[
+          ["Deck", "Upload the current story", c.lavender],
+          ["Evidence", "Connect metrics and proof", c.mint],
+          ["Review", "Resolve gaps and objections", c.peach],
+          ["Pitch", "Deliver one clear takeaway", "#E5EDFF"],
+        ].map(([titleValue, detail, fill], i) => `
+          <g transform="translate(${i * 184} 0)">
+            <rect width="156" height="144" rx="9" fill="${fill}"/>
+            <circle cx="24" cy="25" r="10" fill="${i === 1 ? c.green : i === 2 ? c.coral : c.blue}"/>
+            <text x="18" y="75" font-family="Georgia" font-size="22" fill="${c.ink}">${titleValue}</text>
+            ${text({ value: detail, x: 18, y: 101, size: 10, fill: c.muted, max: 22, line: 1.3 })}
+            ${i < 3 ? `<path d="M162 72 H177" stroke="${c.ink}" stroke-width="1.5"/><path d="M172 68 L178 72 L172 76" fill="none" stroke="${c.ink}" stroke-width="1.5"/>` : ""}
+          </g>`).join("")}
+      </g>
+    `,
+  ),
+  slide(
+    "Founder experience",
+    `
+      ${text({ value: "Built for the raise founders are already running.", x: 48, y: 86, size: 34, family: "Georgia, serif", max: 34 })}
+      ${phone({ x: 550, y: 102, width: 132, height: 260, accent: c.violet })}
+      <g transform="translate(55 190)">
+        ${[
+          ["Know what is weak", "One prioritized review instead of conflicting feedback."],
+          ["Prepare the next meeting", "Objections, answers, and proof stay connected."],
+          ["Improve every week", "The deck evolves with the fundraising process."],
+        ].map(([titleValue, detail], i) => `
+          <g transform="translate(${(i % 2) * 226} ${Math.floor(i / 2) * 100})">
+            <rect width="205" height="82" rx="6" fill="${i === 2 ? c.mint : c.white}" stroke="${i === 2 ? c.green : c.line}"/>
+            <text x="16" y="28" font-family="Arial" font-size="12" font-weight="700" fill="${c.ink}">${titleValue}</text>
+            ${text({ value: detail, x: 16, y: 49, size: 9, fill: c.muted, max: 31, line: 1.25 })}
+          </g>`).join("")}
+      </g>
+    `,
+  ),
+  slide(
+    "Why now",
+    `
+      ${text({ value: "The fundraising process became more measurable.", x: 48, y: 83, size: 34, family: "Georgia, serif", max: 38 })}
+      <g transform="translate(48 194)">
+        ${[
+          ["More scrutiny", "Investors expect evidence behind every claim."],
+          ["Longer cycles", "Founders must manage months of iteration."],
+          ["Better tooling", "Deck, metrics, and outreach can finally connect."],
+        ].map(([titleValue, detail], i) => `
+          <g transform="translate(${i * 236} 0)">
+            <circle cx="28" cy="28" r="27" fill="${[c.lavender, c.peach, c.mint][i]}"/>
+            <path d="${i === 0 ? "M18 28h20M28 18v20" : i === 1 ? "M17 35L27 21L36 32" : "M17 31L25 38L40 20"}" fill="none" stroke="${[c.violet, c.coral, c.green][i]}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="0" y="88" font-family="Georgia" font-size="21" fill="${c.ink}">${titleValue}</text>
+            ${text({ value: detail, x: 0, y: 115, size: 10, fill: c.muted, max: 29, line: 1.3 })}
+          </g>`).join("")}
+      </g>
+    `,
+  ),
+  slide(
+    "Market",
+    `
+      ${text({ value: "A focused entry point into a large advisory market.", x: 46, y: 84, size: 33, family: "Georgia, serif", max: 38 })}
+      <g transform="translate(47 181)">
+        ${[
+          ["38K", "Pre-seed and seed rounds each year", c.lavender, c.violet],
+          ["$7.2K", "Average external preparation spend", c.mint, c.green],
+          ["$274M", "Initial serviceable workflow", c.peach, c.coral],
+        ].map(([value, detail, fill, accent], i) => `
+          <g transform="translate(${i * 236} 0)">
+            <rect width="212" height="164" rx="9" fill="${fill}"/>
+            <text x="20" y="69" font-family="Georgia" font-size="43" fill="${accent}">${value}</text>
+            ${text({ value: detail, x: 20, y: 102, size: 11, fill: c.ink, max: 27, line: 1.3 })}
+          </g>`).join("")}
+      </g>
+    `,
+  ),
+  slide(
+    "Business model",
+    `
+      ${text({ value: "Start with clarity. Expand with the raise.", x: 48, y: 83, size: 34, family: "Georgia, serif", max: 38 })}
+      <g transform="translate(48 166)">
+        <path d="M0 164 H690" stroke="${c.line}"/>
+        ${[
+          ["Diagnostic", "$100", "One focused review", 0, 88, c.lavender, c.violet],
+          ["Support", "$500/mo", "Weekly fundraising iteration", 226, 132, c.mint, c.green],
+          ["Execution", "$1.5K+", "Deck and model projects", 452, 176, c.peach, c.coral],
+        ].map(([name, price, detail, x, height, fill, accent]) => `
+          <g transform="translate(${x} ${176 - height})">
+            <rect width="210" height="${height}" rx="8" fill="${fill}"/>
+            <text x="18" y="31" font-family="Arial" font-size="10" font-weight="700" fill="${accent}">${name.toUpperCase()}</text>
+            <text x="18" y="67" font-family="Georgia" font-size="28" fill="${c.ink}">${price}</text>
+            ${text({ value: detail, x: 18, y: 91, size: 9, fill: c.muted, max: 27, line: 1.25 })}
+          </g>`).join("")}
+      </g>
+    `,
+  ),
+  slide(
+    "Traction",
+    `
+      ${text({ value: "Founders return when the raise gets real.", x: 45, y: 82, size: 34, family: "Georgia, serif", max: 38 })}
+      <g transform="translate(48 174)">
+        <rect width="438" height="194" rx="7" fill="${c.white}" stroke="${c.line}"/>
+        <text x="20" y="28" font-family="Arial" font-size="9" font-weight="700" fill="${c.muted}">ACTIVE ENGAGEMENTS</text>
+        <path d="M30 156 L76 146 L122 151 L168 122 L214 129 L260 95 L306 74 L352 51 L401 28" fill="none" stroke="${c.violet}" stroke-width="4"/>
+        ${[[30,156],[76,146],[122,151],[168,122],[214,129],[260,95],[306,74],[352,51],[401,28]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="4" fill="${c.white}" stroke="${c.violet}" stroke-width="3"/>`).join("")}
+        <g transform="translate(478 0)">
+          <rect width="214" height="91" rx="7" fill="${c.mint}"/>
+          <text x="18" y="34" font-family="Georgia" font-size="29" fill="${c.green}">71%</text>
+          <text x="18" y="60" font-family="Arial" font-size="10" fill="${c.ink}">continue after the diagnostic</text>
+          <rect y="103" width="214" height="91" rx="7" fill="${c.lavender}"/>
+          <text x="18" y="137" font-family="Georgia" font-size="29" fill="${c.violet}">4.6×</text>
+          <text x="18" y="163" font-family="Arial" font-size="10" fill="${c.ink}">more iterations during active raises</text>
+        </g>
+      </g>
+    `,
+  ),
+  slide(
+    "Case study",
+    `
+      ${text({ value: "One narrative change unlocked the next meeting.", x: 47, y: 82, size: 34, family: "Georgia, serif", max: 38 })}
+      <g transform="translate(48 164)">
+        <rect width="318" height="192" rx="8" fill="${c.peach}"/>
+        <text x="20" y="31" font-family="Arial" font-size="9" font-weight="700" fill="${c.coral}">BEFORE</text>
+        ${text({ value: "A broad platform story with six competing use cases.", x: 20, y: 72, size: 22, family: "Georgia, serif", max: 25, line: 1.05 })}
+        <text x="20" y="166" font-family="Arial" font-size="10" fill="${c.muted}">Investor response: “Who needs this first?”</text>
+        <path d="M339 96 H365" stroke="${c.ink}" stroke-width="2"/><path d="M358 89L367 96L358 103" fill="none" stroke="${c.ink}" stroke-width="2"/>
+        <rect x="384" width="318" height="192" rx="8" fill="${c.mint}"/>
+        <text x="404" y="31" font-family="Arial" font-size="9" font-weight="700" fill="${c.green}">AFTER</text>
+        ${text({ value: "One urgent buyer, one workflow, one measurable outcome.", x: 404, y: 72, size: 22, family: "Georgia, serif", max: 25, line: 1.05 })}
+        <text x="404" y="166" font-family="Arial" font-size="10" fill="${c.muted}">Result: partner meeting scheduled.</text>
+      </g>
+    `,
+  ),
+  slide(
+    "Go-to-market",
+    `
+      ${text({ value: "A narrow founder-led path to repeatable demand.", x: 48, y: 84, size: 34, family: "Georgia, serif", max: 38 })}
+      <g transform="translate(48 192)">
+        ${[
+          ["01", "Founder communities", "Trusted access to active raisers"],
+          ["02", "Diagnostics", "A low-friction paid entry point"],
+          ["03", "Monthly support", "Expansion as the raise progresses"],
+          ["04", "Referrals", "Partners and founder outcomes"],
+        ].map(([n, titleValue, detail], i) => `
+          <g transform="translate(${i * 180} 0)">
+            <text x="0" y="16" font-family="Arial" font-size="9" font-weight="700" fill="${i === 3 ? c.green : c.violet}">${n}</text>
+            <line x1="0" y1="34" x2="145" y2="34" stroke="${i === 3 ? c.green : c.violet}" stroke-width="4"/>
+            <text x="0" y="71" font-family="Georgia" font-size="18" fill="${c.ink}">${titleValue}</text>
+            ${text({ value: detail, x: 0, y: 99, size: 9, fill: c.muted, max: 22, line: 1.3 })}
+          </g>`).join("")}
+      </g>
+    `,
+  ),
+  slide(
+    "Positioning",
+    `
+      ${text({ value: "Strategy and execution in the same room.", x: 49, y: 81, size: 34, family: "Georgia, serif", max: 38 })}
+      <g transform="translate(69 146)">
+        <line x1="0" y1="226" x2="624" y2="226" stroke="${c.ink}" stroke-width="1.5"/>
+        <line x1="0" y1="226" x2="0" y2="0" stroke="${c.ink}" stroke-width="1.5"/>
+        <text x="312" y="255" text-anchor="middle" font-family="Arial" font-size="9" fill="${c.muted}">GENERIC FEEDBACK  →  FUNDRAISING-SPECIFIC</text>
+        <text x="-113" y="-27" transform="rotate(-90)" text-anchor="middle" font-family="Arial" font-size="9" fill="${c.muted}">ADVICE ONLY  →  HANDS-ON EXECUTION</text>
+        ${[
+          [145, 167, "General advisors", "#A4A9B3"],
+          [294, 94, "Design studios", "#A4A9B3"],
+          [443, 170, "Deck tools", "#A4A9B3"],
+          [543, 45, "Foundterra", c.violet],
+        ].map(([x, y, name, fill]) => `<circle cx="${x}" cy="${y}" r="${name === "Foundterra" ? 17 : 10}" fill="${fill}"/><text x="${x}" y="${y - 20}" text-anchor="middle" font-family="Arial" font-size="10" font-weight="700" fill="${fill}">${name}</text>`).join("")}
+        <rect x="480" y="2" width="130" height="83" fill="none" stroke="${c.violet}" stroke-dasharray="5 4"/>
+      </g>
+    `,
+  ),
+  slide(
+    "Defensibility",
+    `
+      ${text({ value: "The advantage compounds across every founder review.", x: 48, y: 85, size: 34, family: "Georgia, serif", max: 37 })}
+      <g transform="translate(52 173)">
+        ${[
+          ["Investor patterns", "Repeated objections and decision criteria"],
+          ["Founder context", "Stage, category, metrics, and constraints"],
+          ["Execution library", "Deck structures, models, and responses"],
+        ].map(([titleValue, detail], i) => `
+          <g transform="translate(${i * 232} 0)">
+            <rect width="208" height="142" rx="8" fill="${[c.lavender, c.mint, c.peach][i]}"/>
+            <circle cx="28" cy="28" r="11" fill="${[c.violet, c.green, c.coral][i]}"/>
+            <text x="18" y="73" font-family="Georgia" font-size="20" fill="${c.ink}">${titleValue}</text>
+            ${text({ value: detail, x: 18, y: 100, size: 9, fill: c.muted, max: 28, line: 1.28 })}
+          </g>`).join("")}
+        <path d="M211 71 H226M443 71H458" stroke="${c.ink}" stroke-width="1.5"/>
+      </g>
+      <text x="400" y="374" text-anchor="middle" font-family="Arial" font-size="11" font-weight="700" fill="${c.violet}">BETTER DIAGNOSIS  →  FASTER ITERATION  →  STRONGER MATERIALS</text>
+    `,
+  ),
+  slide(
+    "Financial outlook",
+    `
+      ${text({ value: "A services model with increasing operating leverage.", x: 48, y: 85, size: 33, family: "Georgia, serif", max: 39 })}
+      <g transform="translate(52 171)">
+        <rect width="690" height="191" rx="8" fill="${c.white}" stroke="${c.line}"/>
+        <text x="22" y="28" font-family="Arial" font-size="9" font-weight="700" fill="${c.muted}">ILLUSTRATIVE REVENUE MIX</text>
+        ${[0,1,2,3,4].map((i) => {
+          const total = [48,78,112,148,182][i];
+          const recurring = [8,24,48,78,110][i];
+          const x = 65 + i * 112;
+          return `<rect x="${x}" y="${166 - total}" width="48" height="${total}" fill="${c.lavender}"/><rect x="${x}" y="${166 - recurring}" width="48" height="${recurring}" fill="${c.violet}"/><text x="${x + 24}" y="184" text-anchor="middle" font-family="Arial" font-size="9" fill="${c.muted}">Y${i + 1}</text>`;
+        }).join("")}
+        <text x="580" y="35" font-family="Arial" font-size="9" fill="${c.violet}">■ Recurring support</text>
+        <text x="580" y="55" font-family="Arial" font-size="9" fill="#B9AFE8">■ Project work</text>
+      </g>
+    `,
+  ),
+  slide(
+    "The round",
+    `
+      ${text({ value: "This round funds the move from expert service to repeatable system.", x: 47, y: 79, size: 31, family: "Georgia, serif", max: 44 })}
+      <g transform="translate(48 177)">
+        ${[
+          ["0–6 months", "Codify", "Standardize diagnostic and review workflows", c.lavender, c.violet],
+          ["6–12 months", "Prove", "Grow recurring support and partner channels", c.mint, c.green],
+          ["12–18 months", "Scale", "Productize the highest-value workflows", c.peach, c.coral],
+        ].map(([period, titleValue, detail, fill, accent], i) => `
+          <g transform="translate(${i * 232} 0)">
+            <text x="0" y="13" font-family="Arial" font-size="9" font-weight="700" fill="${accent}">${period.toUpperCase()}</text>
+            <rect y="30" width="208" height="144" rx="8" fill="${fill}"/>
+            <text x="18" y="77" font-family="Georgia" font-size="24" fill="${c.ink}">${titleValue}</text>
+            ${text({ value: detail, x: 18, y: 105, size: 9, fill: c.muted, max: 28, line: 1.3 })}
+            ${i < 2 ? `<path d="M214 102 H225" stroke="${c.ink}"/><path d="M221 98L226 102L221 106" fill="none" stroke="${c.ink}"/>` : ""}
+          </g>`).join("")}
+      </g>
+    `,
+  ),
+];
+
+const heroGood = slide(
+  "Founder-built traction",
+  `
+    ${text({ value: "Strong growth across the last 12 months.", x: 46, y: 84, size: 32, family: "Georgia, serif", max: 36 })}
+    <g transform="translate(48 153)">
+      ${[["$920K", "ARR"], ["118%", "NRR"], ["84", "Customers"]].map(([value, name], i) => `
+        <g transform="translate(${i * 224} 0)"><rect width="202" height="67" rx="5" fill="${c.white}" stroke="${c.line}"/><text x="16" y="31" font-family="Arial" font-size="21" font-weight="700" fill="${c.ink}">${value}</text><text x="16" y="51" font-family="Arial" font-size="9" fill="${c.muted}">${name}</text></g>
+      `).join("")}
+      <rect y="88" width="650" height="128" rx="5" fill="${c.white}" stroke="${c.line}"/>
+      <path d="M22 193 L86 180 L150 184 L214 154 L278 160 L342 126 L406 116 L470 81 L534 68 L620 37" fill="none" stroke="${c.blue}" stroke-width="3"/>
+    </g>
+  `,
+);
+
+const heroReady = slide(
+  "Investor-ready traction",
+  `
+    ${text({ value: "Expansion now accounts for 54% of new revenue.", x: 45, y: 82, size: 31, family: "Georgia, serif", max: 38 })}
+    <text x="47" y="143" font-family="Arial" font-size="11" fill="${c.muted}">The business is becoming less dependent on new customer acquisition.</text>
+    <g transform="translate(47 184)">
+      <rect width="255" height="159" rx="7" fill="${c.mint}"/>
+      <text x="20" y="31" font-family="Arial" font-size="9" font-weight="700" fill="${c.green}">THE INVESTOR TAKEAWAY</text>
+      <text x="20" y="82" font-family="Georgia" font-size="34" fill="${c.green}">118%</text>
+      <text x="20" y="105" font-family="Arial" font-size="10" fill="${c.ink}">net revenue retention</text>
+      ${text({ value: "Existing customers are becoming the primary growth engine.", x: 20, y: 132, size: 9, fill: c.muted, max: 31, line: 1.25 })}
+      <rect x="281" width="424" height="159" rx="7" fill="${c.white}" stroke="${c.line}"/>
+      ${[0,1,2,3,4,5,6,7].map((i) => {
+        const total = 42 + i * 13;
+        const exp = 8 + i * 7;
+        return `<rect x="${304 + i * 47}" y="${137 - total}" width="25" height="${total}" fill="#CBD2DF"/><rect x="${304 + i * 47}" y="${137 - exp}" width="25" height="${exp}" fill="${c.green}"/>`;
+      }).join("")}
+      <text x="304" y="151" font-family="Arial" font-size="8" fill="${c.muted}">New logo revenue</text>
+      <text x="500" y="151" font-family="Arial" font-size="8" fill="${c.green}">Expansion revenue</text>
+    </g>
+  `,
+);
+
+await Promise.all([carouselDir, brandDir, assetDir].map((directory) => fs.mkdir(directory, { recursive: true })));
+
+const atomic = async (target, operation) => {
+  const temporary = `${target}.next`;
+  await operation(temporary);
+  await fs.rm(target, { force: true });
+  await fs.rename(temporary, target);
+};
+
+const renderAvif = (source, target, width = 800, height = 450) =>
+  atomic(target, (temporary) =>
+    sharp(Buffer.from(source)).resize(width, height).avif({ quality: 67, effort: 7, chromaSubsampling: "4:4:4" }).toFile(temporary),
+  );
+
+await Promise.all(
+  slides.map((source, index) => renderAvif(source, path.join(carouselDir, `slide-${String(index + 1).padStart(2, "0")}.avif`))),
 );
 await Promise.all([
-  renderAvif(heroGood, path.join(outDir, "hero-good.avif")),
-  renderAvif(slides[9].render(), path.join(outDir, "hero-investor-ready.avif")),
-  renderAvif(diagnostic, path.join(outDir, "deck-diagnostic.avif"), 1200, 760),
-  renderAvif(resources, path.join(outDir, "resource-library.avif"), 1200, 760),
-  (async () => {
-    const target = path.join(brandDir, "foundterra-og.webp");
-    const temporaryTarget = `${target}.next`;
-    await sharp(Buffer.from(social)).resize(1200, 630).webp({ quality: 86, effort: 6 }).toFile(temporaryTarget);
-    await fs.rm(target, { force: true });
-    await fs.rename(temporaryTarget, target);
-  })(),
+  renderAvif(heroGood, path.join(carouselDir, "hero-good.avif")),
+  renderAvif(heroReady, path.join(carouselDir, "hero-investor-ready.avif")),
 ]);
 
-console.log(`[homepage-visuals] Generated ${slides.length + 5} optimized assets.`);
+await Promise.all([
+  atomic(path.join(assetDir, "boardy-logo-original.webp"), (temporary) =>
+    sharp(supplied.boardy).trim({ background: { r: 0, g: 0, b: 0, alpha: 0 } }).resize({ width: 620 }).webp({ quality: 88 }).toFile(temporary),
+  ),
+  atomic(path.join(assetDir, "flashpoint-vc-logo-dark.webp"), async (temporary) => {
+    const image = sharp(supplied.flashpoint).trim({ background: { r: 0, g: 0, b: 0, alpha: 0 } }).resize({ width: 620 });
+    const { data, info } = await image.ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+    for (let i = 0; i < data.length; i += 4) {
+      if (data[i + 3] === 0) continue;
+      const isPink = data[i] > 120 && data[i] > data[i + 1] * 1.5;
+      if (!isPink) {
+        data[i] = 243;
+        data[i + 1] = 239;
+        data[i + 2] = 230;
+      }
+    }
+    await sharp(data, { raw: info }).webp({ quality: 90 }).toFile(temporary);
+  }),
+  atomic(path.join(assetDir, "ganas-ventures-logo-dark.webp"), (temporary) =>
+    sharp(supplied.ganas)
+      .trim({ background: { r: 0, g: 0, b: 0, alpha: 0 } })
+      .resize({ width: 340 })
+      .negate({ alpha: false })
+      .sharpen({ sigma: 0.8, m1: 1, m2: 2 })
+      .webp({ quality: 92 })
+      .toFile(temporary),
+  ),
+  atomic(path.join(assetDir, "ggw-ventures-logo-dark.webp"), (temporary) =>
+    sharp(supplied.ggw)
+      .trim({ background: { r: 0, g: 0, b: 0, alpha: 0 } })
+      .resize({ width: 280 })
+      .negate({ alpha: false })
+      .webp({ quality: 92 })
+      .toFile(temporary),
+  ),
+]);
+
+console.log(`[homepage-visuals] Generated ${slides.length + 2} reference-led slides and 4 optimized logo variants.`);

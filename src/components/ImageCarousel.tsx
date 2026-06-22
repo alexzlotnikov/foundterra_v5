@@ -33,26 +33,28 @@ const ImageCarousel = () => {
           {isHebrew ? "דוגמאות המחשה" : "Illustrative samples"}
         </p>
       </div>
-      <div className={`deck-rails ${isVisible ? "is-visible" : ""}`} dir="ltr">
-        {rows.map((slides, rowIndex) => (
-          <div key={rowIndex} className="deck-rail-viewport" tabIndex={0}>
-            <div className={`deck-rail-track ${rowIndex === 1 ? "deck-rail-reverse" : ""}`}>
-              {[...slides, ...slides].map((slide, index) => (
-                <figure key={`${slide.src}-${index}`} className="deck-rail-slide" aria-hidden={index >= slides.length}>
-                  <img
-                    src={slide.src}
-                    width="800"
-                    height="450"
-                    alt={index >= slides.length ? "" : isHebrew ? slide.altHe : slide.alt}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  {index < slides.length ? <figcaption>{isHebrew ? slide.topicHe : slide.topic}</figcaption> : null}
-                </figure>
-              ))}
+      <div className="container-max">
+        <div className={`deck-rails ${isVisible ? "is-visible" : ""}`} dir="ltr">
+          {rows.map((slides, rowIndex) => (
+            <div key={rowIndex} className="deck-rail-viewport" tabIndex={0}>
+              <div className={`deck-rail-track ${rowIndex === 1 ? "deck-rail-reverse" : ""}`}>
+                {[...slides, ...slides].map((slide, index) => (
+                  <figure key={`${slide.src}-${index}`} className="deck-rail-slide" aria-hidden={index >= slides.length}>
+                    <img
+                      src={slide.src}
+                      width="800"
+                      height="450"
+                      alt={index >= slides.length ? "" : isHebrew ? slide.altHe : slide.alt}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    {index < slides.length ? <figcaption>{isHebrew ? slide.topicHe : slide.topic}</figcaption> : null}
+                  </figure>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

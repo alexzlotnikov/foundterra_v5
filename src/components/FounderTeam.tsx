@@ -1,8 +1,8 @@
 import founderPhoto from "@/assets/alex-zlotnikov.webp";
-import ggwLogo from "@/assets/ggw-ventures-logo-optimized.webp";
+import ggwLogo from "@/assets/ggw-ventures-logo-dark.webp";
 import lvlupLogo from "@/assets/lvlup-ventures-logo.png";
-import flashpointLogo from "@/assets/flashpoint-vc-logo.svg";
-import ganasLogo from "@/assets/ganas-ventures-logo.svg";
+import flashpointLogo from "@/assets/flashpoint-vc-logo-dark.webp";
+import ganasLogo from "@/assets/ganas-ventures-logo-dark.webp";
 import { useLanguage } from "@/hooks/useLanguage";
 
 interface FounderCredential {
@@ -53,8 +53,8 @@ const FounderTeam = () => {
         <div className="mt-14 grid border-y border-white/10 sm:grid-cols-2 lg:grid-cols-4">
           {credentials.map((credential) => (
             <div key={credential.organization} className="flex min-h-36 items-center gap-4 border-white/10 p-5 sm:border-e">
-              <div className="flex h-14 w-24 shrink-0 items-center justify-center">
-                <img src={credential.logo} alt={`${credential.organization} logo`} loading="lazy" decoding="async" className="max-h-14 max-w-24 object-contain" />
+              <div className="flex h-16 w-28 shrink-0 items-center justify-center">
+                <img src={credential.logo} alt={`${credential.organization} logo`} loading="lazy" decoding="async" className="max-h-14 max-w-28 object-contain" />
               </div>
               <p className="text-sm leading-6 text-foreground/75">{isHebrew ? credential.titleHe : credential.titleEn}</p>
             </div>

@@ -1,4 +1,4 @@
-import boardyLogo from "@/assets/boardy-ventures-logo.svg";
+import boardyLogo from "@/assets/boardy-logo-original.webp";
 import michiganIsraelLogo from "@/assets/michigan-israel-logo.jpg";
 import polyboxLogo from "@/assets/polybox-logo.jpg";
 import seedLegalsLogo from "@/assets/seedlegals.png";
@@ -9,6 +9,7 @@ const partners = [
     name: "Boardy",
     href: "https://www.boardy.ai",
     logo: boardyLogo,
+    logoClass: "max-h-20 max-w-[92%]",
     description: {
       en: "AI-powered introductions to the people founders should meet.",
       he: "חיבורים מבוססי AI לאנשים הנכונים עבור יזמים.",
@@ -18,6 +19,7 @@ const partners = [
     name: "Michigan Israel",
     href: "https://www.michiganisrael.com/",
     logo: michiganIsraelLogo,
+    logoClass: "max-h-16 max-w-[84%]",
     description: {
       en: "US market support and workspace for Israeli startups.",
       he: "תמיכה בכניסה לשוק האמריקאי ומרחב עבודה לסטארטאפים ישראליים.",
@@ -27,6 +29,7 @@ const partners = [
     name: "Polybox Design",
     href: "https://polybox.studio/",
     logo: polyboxLogo,
+    logoClass: "max-h-16 max-w-[84%]",
     description: {
       en: "A flexible product and SaaS design partner.",
       he: "שותף גמיש לעיצוב מוצר ו-SaaS.",
@@ -36,6 +39,7 @@ const partners = [
     name: "SeedLegals",
     href: "https://seedlegals.com/",
     logo: seedLegalsLogo,
+    logoClass: "max-h-24 max-w-[96%] brightness-125",
     description: {
       en: "Legal infrastructure for funding, equity, and startup operations.",
       he: "תשתית משפטית לגיוס, הון ותפעול סטארטאפים.",
@@ -63,9 +67,14 @@ const Partners = () => {
               href={partner.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex min-h-40 items-center justify-center border-e border-white/10 p-6 transition-colors hover:bg-white/[0.025]"
+              className="group flex min-h-56 flex-col items-center justify-center gap-5 border-e border-white/10 p-6 text-center transition-colors hover:bg-white/[0.025]"
             >
-              <img src={partner.logo} alt={`${partner.name} logo`} loading="lazy" decoding="async" className="max-h-16 max-w-[85%] object-contain opacity-80 grayscale transition group-hover:opacity-100 group-hover:grayscale-0" />
+              <div className="flex h-24 w-full items-center justify-center">
+                <img src={partner.logo} alt={`${partner.name} logo`} loading="lazy" decoding="async" className={`${partner.logoClass} object-contain opacity-90 transition group-hover:opacity-100`} />
+              </div>
+              <p className="max-w-52 text-sm leading-6 text-foreground/60 transition-colors group-hover:text-foreground/80">
+                {isHebrew ? partner.description.he : partner.description.en}
+              </p>
             </a>
           ))}
         </div>

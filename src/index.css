@@ -606,7 +606,12 @@
   background: #07070d !important;
   border: 0 !important;
 }
-.deck-rails { display: grid; gap: 14px; }
+.deck-rails {
+  display: grid;
+  gap: 14px;
+  overflow: hidden;
+  border-inline: 1px solid rgba(243, 239, 230, 0.09);
+}
 .deck-rail-viewport { overflow: hidden; outline: none; }
 .deck-rail-track {
   display: flex;
@@ -623,7 +628,7 @@
 .deck-rail-viewport:focus-within .deck-rail-track { animation-play-state: paused; }
 .deck-rail-slide {
   position: relative;
-  width: clamp(230px, 22vw, 340px);
+  width: clamp(230px, 24vw, 332px);
   aspect-ratio: 16 / 9;
   flex: 0 0 auto;
   overflow: hidden;
@@ -747,7 +752,7 @@ main section:not(:first-of-type) .glass-panel {
     overflow-x: auto;
     scrollbar-width: none;
     scroll-snap-type: x mandatory;
-    padding-inline: 20px;
+    padding-inline: 0;
   }
   .deck-rail-viewport::-webkit-scrollbar { display: none; }
   .deck-rail-track,
