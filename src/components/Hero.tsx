@@ -60,7 +60,7 @@ const Hero = () => {
             >
               <img
                 className="hero-comparison-image"
-                src="/carousel/hero-phone-after.avif"
+                src="/carousel/hero-phone-after-transparent.png"
                 width="941"
                 height="1672"
                 alt={isHebrew ? "השוואה בין מצגת עמוסה למצגת ברורה המותאמת לקריאה בטלפון" : "A comparison between a dense pitch deck and an improved deck designed for clear phone viewing"}
@@ -70,7 +70,7 @@ const Hero = () => {
               <div className="hero-comparison-before" aria-hidden="true">
                 <img
                   className="hero-comparison-image"
-                  src="/carousel/hero-phone-before.avif"
+                  src="/carousel/hero-phone-before-transparent.png"
                   width="941"
                   height="1672"
                   alt=""

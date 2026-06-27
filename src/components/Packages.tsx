@@ -35,7 +35,7 @@ const Packages = () => {
   return (
     <section id="diagnostic" className="section-padding scroll-mt-24">
       <div className="container-max">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-12">
           <div className={isHebrew ? "text-right" : ""}>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 font-serif">{t.title}</h2>
               <p className="text-muted-foreground text-lg leading-relaxed mb-6 font-body">{t.subtitle}</p>
@@ -53,7 +53,7 @@ const Packages = () => {
           </div>
           <figure className="diagnostic-visual">
             <img
-              src="/carousel/deck-diagnostic-email.avif"
+              src="/carousel/deck-diagnostic-original.png"
               width="1448"
               height="1086"
               loading="lazy"

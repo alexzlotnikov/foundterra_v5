@@ -1,21 +1,10 @@
 import { useLanguage } from "@/hooks/useLanguage";
+import { FAQ_CONTENT } from "@/content/faqContent";
 
 const FAQ = () => {
   const { language } = useLanguage();
   const isHebrew = language === "he";
-  const faqs = isHebrew
-    ? [
-        ["להתחיל בדיאגנוסטיק או במנוי?", "אם לא ברור מה הבעיה, מתחילים בדיאגנוסטיק. אם נדרשת תמיכה שוטפת במהלך הגיוס, בוחרים מנוי."],
-        ["המנוי כולל כתיבה מלאה של המצגת?", "לא. המנוי כולל פידבק, סקירה וליווי. בנייה מלאה היא שירות נפרד."],
-        ["לכמה זמן כדאי להצטרף?", "בדרך כלל לחודשיים עד ארבעה חודשים, לאורך ההכנה, הפנייה למשקיעים ושיפור החומרים."],
-        ["אתם מבטיחים תוצאות גיוס?", "לא. אנחנו משפרים מוכנות, חומרים, מסרים ותהליך, ללא הבטחת פגישות או השקעה."],
-      ]
-    : [
-        ["Should I start with the diagnostic or subscribe?", "Start with the diagnostic if you are unsure what is wrong. Subscribe when you need ongoing support during the raise."],
-        ["Do monthly plans include full deck rewriting?", "No. Monthly plans include feedback, review, and advisory support. Full deck rebuilding is a separate service."],
-        ["How long should founders subscribe?", "Usually two to four months while preparing materials, launching outreach, and improving the story from feedback."],
-        ["Do you guarantee fundraising results?", "No. We improve readiness, materials, messaging, and process without guaranteeing meetings or investment."],
-      ];
+  const faqs = FAQ_CONTENT[isHebrew ? "he" : "en"];
 
   return (
     <section id="faq" className="section-padding scroll-mt-24">

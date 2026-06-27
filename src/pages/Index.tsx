@@ -6,9 +6,10 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Problem from "@/components/Problem";
 import DeferredSection from "@/components/DeferredSection";
+import { FAQ_CONTENT } from "@/content/faqContent";
 
 const Footer = lazy(() => import("@/components/Footer"));
-const ImageCarousel = lazy(() => import("@/components/ImageCarousel"));
+const FundraisingWasteCalculator = lazy(() => import("@/components/FundraisingWasteCalculator"));
 const About = lazy(() => import("@/components/About"));
 const Packages = lazy(() => import("@/components/Packages"));
 const EntryPoints = lazy(() => import("@/components/EntryPoints"));
@@ -41,6 +42,15 @@ const Index = () => {
     description: isHebrew
       ? "ליווי גיוס, מצגות משקיעים, מודלים פיננסיים וכלים ליזמים בישראל."
       : "Pitch deck, financial modeling, and fundraising support for founders.",
+  };
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQ_CONTENT[isHebrew ? "he" : "en"].map(([question, answer]) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
   };
 
   useEffect(() => {
@@ -95,13 +105,14 @@ const Index = () => {
         <link rel="alternate" hrefLang="he" href={`${websiteUrl}/he`} />
         <link rel="alternate" hrefLang="x-default" href={`${websiteUrl}/`} />
         <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
       <Header />
       <main>
         <Hero />
-        <DeferredSection minHeight={220} rootMargin="700px 0px">
-          <Suspense fallback={<div className="h-[220px]" aria-hidden="true" />}>
-            <ImageCarousel />
+        <DeferredSection minHeight={1100} rootMargin="700px 0px">
+          <Suspense fallback={<div className="h-[800px]" aria-hidden="true" />}>
+            <FundraisingWasteCalculator />
           </Suspense>
         </DeferredSection>
         <div className="pb-12">
@@ -128,9 +139,6 @@ const Index = () => {
         <DeferredSection minHeight={520}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
           <Partners />
         </div></Suspense></DeferredSection>
-        <DeferredSection minHeight={620}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
-          <InvestorPerspective />
-        </div></Suspense></DeferredSection>
         <DeferredSection minHeight={780}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
           <Resources />
         </div></Suspense></DeferredSection>
@@ -138,6 +146,9 @@ const Index = () => {
           <FreeStartupTools highlighted />
         </div></Suspense></DeferredSection>
         <DeferredSection minHeight={620}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><FAQ /></Suspense></DeferredSection>
+        <DeferredSection minHeight={620}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><div className="pb-12">
+          <InvestorPerspective />
+        </div></Suspense></DeferredSection>
         <DeferredSection minHeight={520}><Suspense fallback={<div className="h-24" aria-hidden="true" />}><FinalCTA /></Suspense></DeferredSection>
       </main>
       <Suspense fallback={<div className="h-48 bg-[hsl(240_14%_2%)]" aria-hidden="true" />}>

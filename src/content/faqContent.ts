@@ -1,0 +1,26 @@
+export const FAQ_CONTENT = {
+  en: [
+    ["Should I start with the diagnostic or monthly support?", "Start with the diagnostic when you need to identify the main weaknesses. Choose monthly support when you need ongoing review and iteration during the raise."],
+    ["Do monthly plans include a full pitch deck rewrite?", "No. Monthly plans include feedback, review, and advisory support. Full pitch deck rebuilding is a separate service."],
+    ["How long does fundraising support usually last?", "Most founders use support for two to four months while preparing materials, launching outreach, and responding to investor feedback."],
+    ["Can Foundterra help with a financial model?", "Yes. Foundterra can review financial assumptions and provide financial model support. A full model build is scoped separately when required."],
+    ["Does Foundterra research and target investors?", "Foundterra provides investor research, fit analysis, and targeting guidance based on stage, geography, sector, and round strategy."],
+    ["Can Foundterra prepare a data room?", "Foundterra can review data-room readiness and help organize investor-facing materials. Full data-room preparation is scoped separately."],
+    ["Does Foundterra charge a success fee?", "No. Foundterra uses fixed package and monthly support pricing. It does not charge a percentage of capital raised."],
+    ["Does Foundterra raise capital or contact investors for founders?", "No. Foundterra provides fundraising materials, research, strategy, and support. It does not sell securities or act as a broker or placement agent."],
+    ["What stages does Foundterra support?", "Foundterra primarily supports pre-seed and seed founders preparing for or actively managing a fundraising process."],
+    ["Does Foundterra guarantee investor meetings or funding?", "No. Foundterra improves readiness, materials, messaging, and process without guaranteeing meetings, investment, or fundraising outcomes."],
+  ],
+  he: [
+    ["להתחיל בדיאגנוסטיק או בליווי חודשי?", "מתחילים בדיאגנוסטיק כשצריך לזהות את החולשות המרכזיות. בוחרים בליווי חודשי כשצריך סקירה ושיפור שוטפים במהלך הגיוס."],
+    ["האם המסלולים החודשיים כוללים כתיבה מלאה של המצגת?", "לא. המסלולים החודשיים כוללים פידבק, סקירה וליווי. בנייה מלאה של מצגת היא שירות נפרד."],
+    ["כמה זמן נמשך בדרך כלל ליווי גיוס?", "רוב היזמים נעזרים בליווי במשך חודשיים עד ארבעה חודשים, לאורך הכנת החומרים, הפנייה למשקיעים והשיפור בעקבות פידבק."],
+    ["האם Foundterra מסייעת במודל פיננסי?", "כן. Foundterra יכולה לסקור הנחות פיננסיות ולספק תמיכה במודל. בנייה מלאה מתומחרת בנפרד לפי הצורך."],
+    ["האם Foundterra חוקרת וממפה משקיעים?", "Foundterra מספקת מחקר משקיעים, בדיקת התאמה והכוונת טירגוט לפי שלב, גאוגרפיה, תחום ואסטרטגיית הסבב."],
+    ["האם Foundterra מכינה דאטה רום?", "Foundterra יכולה לבדוק מוכנות דאטה רום ולסייע בארגון חומרים למשקיעים. הכנה מלאה מתומחרת בנפרד."],
+    ["האם Foundterra גובה עמלת הצלחה?", "לא. Foundterra עובדת במחיר קבוע לחבילות וליווי חודשי ואינה גובה אחוז מההון שגויס."],
+    ["האם Foundterra מגייסת הון או פונה למשקיעים בשם היזם?", "לא. Foundterra מספקת חומרים, מחקר, אסטרטגיה וליווי. היא אינה מוכרת ניירות ערך ואינה פועלת כברוקר או Placement Agent."],
+    ["לאילו שלבים Foundterra מתאימה?", "Foundterra מתמקדת בעיקר ביזמי Pre-Seed ו-Seed שמתכוננים לגיוס או מנהלים תהליך גיוס פעיל."],
+    ["האם Foundterra מבטיחה פגישות או גיוס?", "לא. Foundterra משפרת מוכנות, חומרים, מסרים ותהליך ללא הבטחת פגישות, השקעה או תוצאת גיוס."],
+  ],
+} as const;
