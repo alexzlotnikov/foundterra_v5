@@ -40,3 +40,7 @@ test("clamps invalid input and reconciles workload totals", () => {
     assert.equal(allocateWorkloadHours(total).reduce((sum, value) => sum + value, 0), total);
   }
 });
+
+test("supports the calculator's $20 minimum founder value", () => {
+  assert.equal(calculateFundraisingWaste(20, 1_000_000).founderTimeCost, 5_000);
+});

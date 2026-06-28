@@ -76,7 +76,7 @@ const FundraisingWasteCalculator = () => {
 
   const commitInput = (type: "hourly" | "round") => {
     if (type === "hourly") {
-      const next = clamp(parseCurrency(hourlyDraft), 0, 1_000);
+      const next = clamp(parseCurrency(hourlyDraft), 20, 1_000);
       setHourlyValue(next);
       setHourlyDraft(money(next));
     } else {
@@ -100,7 +100,7 @@ const FundraisingWasteCalculator = () => {
 
           <div className="calculator-inputs">
             {[
-              { id: "hourly-value", label: t.hourlyLabel, min: 0, max: 1_000, step: 10, value: hourlyValue, draft: hourlyDraft, setDraft: setHourlyDraft, type: "hourly" as const, setValue: setHourlyValue },
+              { id: "hourly-value", label: t.hourlyLabel, min: 20, max: 1_000, step: 10, value: hourlyValue, draft: hourlyDraft, setDraft: setHourlyDraft, type: "hourly" as const, setValue: setHourlyValue },
               { id: "round-size", label: t.roundLabel, min: 100_000, max: 20_000_000, step: 50_000, value: roundSize, draft: roundDraft, setDraft: setRoundDraft, type: "round" as const, setValue: setRoundSize },
             ].map((input) => (
               <div className="calculator-input-group" key={input.id}>
@@ -116,7 +116,7 @@ const FundraisingWasteCalculator = () => {
 
           <div className="calculator-results" aria-live="polite">
             {[result.founderHours, result.founderTimeCost, result.lostGrowth, result.foundterraCost].map((value, index) => (
-              <article key={t.cards[index][0]}>
+              <article className={`calculator-result calculator-result-${index}`} key={t.cards[index][0]}>
                 <h3>{t.cards[index][0]}</h3>
                 <strong>{index === 0 ? value.toLocaleString(locale) : money(value)}</strong>
                 <p>{t.cards[index][1]}</p>
@@ -129,7 +129,7 @@ const FundraisingWasteCalculator = () => {
           <div className="calculator-comparison">
             <div className="calculator-bars">
               {barValues.map((value, index) => (
-                <div className="calculator-bar-row" key={t.bars[index]}>
+                <div className={`calculator-bar-row calculator-bar-row-${index}`} key={t.bars[index]}>
                   <div><span>{t.bars[index]}</span><strong>{money(value)}</strong></div>
                   <span className={`calculator-bar ${index === 3 ? "is-foundterra" : ""}`}><i style={{ width: `${Math.max(2, (value / barMax) * 100)}%` }} /></span>
                 </div>

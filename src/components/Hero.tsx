@@ -56,6 +56,7 @@ const Hero = () => {
           <figure className="hero-comparison" aria-label={copy.visualLabel}>
             <div
               className="hero-comparison-frame"
+              dir="ltr"
               style={{ "--comparison-position": `${comparisonPosition}%` } as CSSProperties}
             >
               <img

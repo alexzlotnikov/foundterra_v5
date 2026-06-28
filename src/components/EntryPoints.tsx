@@ -1,169 +1,231 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/hooks/useLanguage";
 import { localizedPath } from "@/utils/localizedPath";
-import { CheckCircle2 } from "lucide-react";
+import {
+  Activity,
+  Check,
+  Compass,
+  Radio,
+  RefreshCw,
+  Rocket,
+  Send,
+  Target,
+  type LucideIcon,
+} from "lucide-react";
+
+type Plan = {
+  badge: string;
+  title: string;
+  price: string;
+  description: string;
+  result: string;
+  features: string[];
+  featured: boolean;
+  cta: string;
+  ctaHref: string;
+  icon: LucideIcon;
+  includesPrevious?: string;
+};
 
 const EntryPoints = () => {
   const { language } = useLanguage();
   const isHebrew = language === "he";
 
-  const t = isHebrew
+  const t: {
+    title: string;
+    subtitle: string;
+    process: Array<[string, LucideIcon]>;
+    resultLabel: string;
+    plans: Plan[];
+    disclaimer: string;
+    supportNote: string;
+  } = isHebrew
     ? {
-        kicker: "תמיכה חודשית",
-        title: "גיוס כמעט תמיד נמשך חודשים. התמיכה לא יכולה לעצור אחרי בדיקה אחת.",
-        subtitle: "מנוי חודשי תוך כדי הכנה, השקה וניהול הסבב.",
-        subscribe: "הצטרפו עכשיו",
+        title: "גיוס נמשך חודשים. התמיכה לא צריכה לעצור אחרי בדיקת מצגת אחת.",
+        subtitle: "בחרו את השלב שלכם וקבלו עזרה בטירגוט משקיעים, פניות, עדכוני מצגת, פולואפים והחלטות במהלך הגיוס.",
+        process: [
+          ["בוחרים כיוון למשקיעים", Compass],
+          ["פונים עם המסר הנכון", Send],
+          ["בודקים את תגובות המשקיעים", Activity],
+          ["משפרים ומתקדמים", RefreshCw],
+        ],
+        resultLabel: "התוצאה",
         plans: [
           {
             badge: "מתכוננים לגיוס",
-            title: "Fundraising Starter",
+            title: "First Raise Batch",
             price: "₪900",
-            description: "ליזמים שמשפרים חומרים ומוכנות לפני אאוטריץ' משמעותי.",
+            description: "ליזמים שמתכוננים להתחיל פנייה למשקיעים.",
+            result: "להתחיל עם המשקיעים הנכונים והמסר הראשון הנכון.",
             features: [
-              "2 סבבי פידבק למצגת בחודש",
-              "בדיקת סטטוס שבועית של 15 דקות",
-              "Q&A אסינכרוני עד 5 שאלות בשבוע",
-              "סקירת הודעת משקיע אחת בחודש",
-              "תוכנית פעולה חודשית",
+              "30 משקיעים יעד",
+              "אימייל קר, הודעת LinkedIn ונוסח לאינטרו",
+              "בדיקת כשירות של המצגת והמסר לשליחה",
+              "שיחה חודשית אחת",
+              "תמיכה בצ׳אט לשאלות קצרות",
             ],
             featured: false,
+            cta: "התחילו את מקבץ הגיוס הראשון",
             ctaHref: "/pay/subscription-300",
+            icon: Rocket,
           },
           {
-            badge: "המסלול המרכזי",
-            title: "Investor-Ready Support",
+            badge: "הכי פופולרי",
+            title: "Raise Advisor",
             price: "₪1,500",
-            description: "ליזמים שכבר התחילו אאוטריץ' או בשיחות עם משקיעים.",
+            description: "ליזמים שמתכוננים לפנייה רצינית או כבר פונים למשקיעים.",
+            result: "לשפר את הפניות מדי חודש לפי תגובות אמיתיות ממשקיעים.",
             features: [
-              "פידבק שבועי למצגת",
-              "בדיקת סטטוס שבועית של 30 דקות",
-              "Q&A בעדיפות גבוהה עד 10 שאלות בשבוע",
-              "עד 4 סקירות שיחות/דחיות משקיעים בחודש",
-              "2 סקירות אאוטריץ' משקיעים בחודש",
-              "תוכנית פעולה חודשית",
+              "50 משקיעים יעד או ניקוי הרשימה הקיימת",
+              "שיפור הודעות פנייה ופולואפ",
+              "סקירת תגובות: תשובות, שתיקה והתנגדויות",
+              "עדכון מצגת חודשי",
+              "2 שיחות חודשיות + תמיכה שוטפת בצ׳אט",
             ],
             featured: true,
+            cta: "קבלו ייעוץ גיוס חודשי",
             ctaHref: "/pay/subscription-500",
+            icon: Target,
           },
           {
-            badge: "סבב פעיל",
-            title: "Active Raise Partner",
+            badge: "גיוס פעיל",
+            title: "Active Raise Advisor",
             price: "₪3,000",
-            description: "ליזמים שכבר בפגישות פעילות ומנהלים פולואפים.",
+            description: "ליזמים עם תגובות, שיחות, פידבק או בקשות לדאטה רום.",
+            result: "לנהל שיחות עם משקיעים עם צעדים ברורים וחומרים טובים יותר.",
+            includesPrevious: "כולל את כל מה שב־Raise Advisor, ובנוסף:",
             features: [
-              "שיחת ייעוץ שבועית של 60 דקות",
-              "פידבק שבועי על איטרציות מצגת",
-              "Q&A אסינכרוני בעדיפות גבוהה ללא הגבלה",
-              "עד 8 סקירות שיחות/דחיות משקיעים בחודש",
-              "סקירת CRM ופאנל גיוס",
-              "אסטרטגיית טרגוט משקיעים",
-              "תרגול פיץ' פעמיים בחודש",
-              "סקירת מוכנות דאטה רום חודשית",
-              "סקירת עדכון משקיעים חודשי",
+              "סקירת גיוס שבועית ותכנון הצעד הבא",
+              "הכנה לשיחות ועזרה בהתנגדויות",
+              "עדכון מצגת פעמיים בחודש",
+              "צ׳קליסט דאטה רום ומעקב בקשות",
+              "שיחה שבועית + תמיכה בעדיפות גבוהה בצ׳אט",
             ],
             featured: false,
+            cta: "קבלו תמיכה בגיוס פעיל",
             ctaHref: "/pay/subscription-1000",
+            icon: Radio,
           },
         ],
+        disclaimer: "ללא הבטחת גיוס. ללא אינטרואים בתשלום. ללא עמלות הצלחה.",
+        supportNote: "אם החומרים שלכם לא מוכנים, אגיד לכם ישירות לפני שתבזבזו זמן של משקיעים.",
       }
     : {
-        kicker: "Monthly support",
-        title: "Fundraising usually takes months. Your support should not stop after one deck review.",
-        subtitle: "Subscribe while you prepare, launch, and manage the raise. Every plan is designed around a different stage of the fundraising process.",
-        subscribe: "Subscribe Now",
+        title: "Fundraising takes months. Your support should not stop after one deck review.",
+        subtitle: "Choose the stage you are in. Get help with investor targeting, outreach, deck updates, follow-ups, and active raise decisions.",
+        process: [
+          ["Choose investor direction", Compass],
+          ["Reach out with the right message", Send],
+          ["Review investor signals", Activity],
+          ["Improve and move forward", RefreshCw],
+        ],
+        resultLabel: "Result",
         plans: [
           {
             badge: "Prepare to raise",
-            title: "Fundraising Starter",
+            title: "First Raise Batch",
             price: "$300",
-            description: "For founders improving their deck and investor readiness before serious outreach.",
+            description: "For founders preparing to start outreach.",
+            result: "Start with the right investors and the right first message.",
             features: [
-              "2 deck feedback rounds per month",
-              "Weekly 15-minute fundraising check-in",
-              "Async Q&A, up to 5 questions per week",
-              "1 investor message review per month",
-              "Monthly action plan",
+              "30 investor targets",
+              "Cold email, LinkedIn message, and intro blurb",
+              "Sendability check on your deck and message",
+              "1 monthly call",
+              "Chat support for quick questions",
             ],
             featured: false,
+            cta: "Start my first raise batch",
             ctaHref: "/pay/subscription-300",
+            icon: Rocket,
           },
           {
-            badge: "Most Popular",
-            title: "Investor-Ready Support",
+            badge: "Most popular",
+            title: "Raise Advisor",
             price: "$500",
-            description: "For founders starting outreach or already speaking with investors.",
+            description: "For founders preparing serious outreach or already contacting investors.",
+            result: "Improve your outreach each month based on real investor signals.",
             features: [
-              "Weekly pitch deck feedback",
-              "Weekly 30-minute fundraising check-in",
-              "Priority async Q&A, up to 10 questions per week",
-              "Up to 4 investor meeting or rejection reviews per month",
-              "2 investor outreach reviews per month",
-              "Monthly action plan",
+              "50 investor targets or cleanup of your current list",
+              "Outreach and follow-up message improvements",
+              "Investor signal review: replies, silence, objections",
+              "Monthly pitch deck update",
+              "2 monthly calls + ongoing chat support",
             ],
             featured: true,
+            cta: "Get monthly raise advice",
             ctaHref: "/pay/subscription-500",
+            icon: Target,
           },
           {
             badge: "Active raise",
-            title: "Active Raise Partner",
+            title: "Active Raise Advisor",
             price: "$1,000",
-            description: "For founders already taking investor meetings and managing follow-ups.",
+            description: "For founders with investor replies, calls, feedback, or data room requests.",
+            result: "Manage investor conversations with clearer next steps and better materials.",
+            includesPrevious: "Includes everything in Raise Advisor, plus:",
             features: [
-              "Weekly 60-minute advisory call",
-              "Weekly deck iteration feedback",
-              "Unlimited priority async Q&A",
-              "Up to 8 investor meeting or rejection reviews per month",
-              "Investor CRM and funnel review",
-              "Investor targeting strategy",
-              "Pitch practice twice per month",
-              "Monthly data room readiness review",
-              "Monthly investor newsletter update review",
+              "Weekly raise review and next-step planning",
+              "Investor call prep and objection help",
+              "Pitch deck updated twice per month",
+              "Data room checklist and request tracker",
+              "Weekly call + priority chat support",
             ],
             featured: false,
+            cta: "Get active raise support",
             ctaHref: "/pay/subscription-1000",
+            icon: Radio,
           },
         ],
+        disclaimer: "No guaranteed funding. No paid introductions. No success fees.",
+        supportNote: "If your materials are not ready, I will tell you directly before you waste investor time.",
       };
 
   return (
-    <section id="plans" className="section-padding scroll-mt-24">
+    <section id="plans" className="pricing-section section-padding scroll-mt-24">
       <div className="container-max">
-        <div className="mb-12 max-w-5xl">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 font-serif">{t.title}</h2>
-          <p className="responsive-text-base text-muted-foreground font-body">{t.subtitle}</p>
+        <header className={`pricing-header ${isHebrew ? "text-right" : "text-left"}`}>
+          <h2>{t.title}</h2>
+          <p>{t.subtitle}</p>
+        </header>
+
+        <ol className="pricing-process" aria-label={isHebrew ? "תהליך ליווי הגיוס" : "Fundraising support process"}>
+          {t.process.map(([label, Icon], index) => (
+            <li key={label}>
+              <span><Icon aria-hidden="true" /></span>
+              <div><small>0{index + 1}</small><strong>{label}</strong></div>
+            </li>
+          ))}
+        </ol>
+
+        <div className="pricing-grid">
+          {t.plans.map((plan) => {
+            const Icon = plan.icon;
+            return (
+              <article className={`pricing-card ${plan.featured ? "is-featured" : ""}`} key={plan.title}>
+                <span className="pricing-badge">{plan.badge}</span>
+                <div className="pricing-title">
+                  <span><Icon aria-hidden="true" /></span>
+                  <h3>{plan.title}</h3>
+                </div>
+                <p className="pricing-price">{plan.price}<span>{isHebrew ? "/חודש" : "/month"}</span></p>
+                <p className="pricing-description">{plan.description}</p>
+                <div className="pricing-result"><small>{t.resultLabel}</small><strong>{plan.result}</strong></div>
+                {plan.includesPrevious && <p className="pricing-includes-previous">{plan.includesPrevious}</p>}
+                <ul>
+                  {plan.features.map((feature) => <li key={feature}><Check aria-hidden="true" />{feature}</li>)}
+                </ul>
+                <Button asChild variant={plan.featured ? "hero" : "outline"} className="mt-auto min-h-12 w-full whitespace-normal py-3 leading-snug">
+                  <a href={localizedPath(plan.ctaHref, language)}>{plan.cta}</a>
+                </Button>
+              </article>
+            );
+          })}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
-          {t.plans.map((plan, index) => (
-            <Card
-              key={plan.title}
-              className={`flex flex-col relative overflow-hidden rounded-none border bg-transparent ${
-                plan.featured
-                  ? "border-primary/70"
-                  : "border-white/15"
-              }`}
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <CardContent className={`p-6 sm:p-8 flex flex-col h-full ${isHebrew ? "text-right" : ""}`}>
-                <span className="text-xs font-semibold uppercase tracking-[0.16em] text-primary mb-4">{plan.badge}</span>
-                <h3 className="text-2xl font-bold mb-2 font-serif">{plan.title}</h3>
-                <p className="text-4xl font-bold gradient-text mb-4">{plan.price}<span className="text-base text-muted-foreground">{isHebrew ? "/חודש" : "/month"}</span></p>
-                <p className="text-muted-foreground mb-5 font-body">{plan.description}</p>
-                <ul className="space-y-3 mb-8">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 mt-0.5 text-primary shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Button asChild variant={plan.featured ? "hero" : "outline"} className="w-full mt-auto whitespace-normal leading-snug min-h-12 py-3">
-                  <a href={localizedPath(plan.ctaHref, language)} aria-label={`${t.subscribe}: ${plan.title}`}>{t.subscribe}</a>
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
+        <div className="pricing-note">
+          <strong>{t.disclaimer}</strong>
+          <span>{t.supportNote}</span>
         </div>
       </div>
     </section>
