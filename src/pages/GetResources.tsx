@@ -143,7 +143,7 @@ const GetResources = () => {
                   readOnly
                   tabIndex={-1}
                   autoComplete="off"
-                  className="absolute -left-[9999px]"
+                  className="hidden"
                   aria-hidden="true"
                 />
                 <input type="hidden" name="locale" value="en" />
