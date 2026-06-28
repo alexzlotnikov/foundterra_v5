@@ -5,6 +5,9 @@ import FreeStartupTools from "@/components/FreeStartupTools";
 import RelatedServices from "@/components/RelatedServices";
 import { useLanguage } from "@/hooks/useLanguage";
 
+const BREVO_FORM_ACTION =
+  "https://2f7b1624.sibforms.com/v2/serve/MUIFAFHPuF7CY4GtAaTSqbLtqOqYhdbKZcA1l5Vrm2adbkNBrc74Vy-UOTg9trle5vG9kTAlPTfE7b0y14nhnnSbVl27tmAS5PSfTlYLW8NsEjPuZt5hpUIxepM8swQpg6Uxud9_TNHlaWzprO-VubAOEKPJUNiFFQ3R3IR5NKlMDmCmhUNSCUsAIwwuPXym4eaMppd4Lcok0BhVeg==";
+
 const GetResources = () => {
   const { language } = useLanguage();
   const isHebrew = language === "he";
@@ -84,27 +87,74 @@ const GetResources = () => {
               </div>
             </div>
 
-            <div className="relative mx-auto max-w-2xl animate-slide-up overflow-hidden rounded-xl border border-primary/25 bg-card/60">
-              <div className="pointer-events-none absolute inset-x-0 top-0 flex h-16 items-center justify-center bg-card text-sm text-muted-foreground">
-                <span className="h-5 w-5 animate-spin rounded-full border-2 border-primary/25 border-t-primary" aria-hidden="true" />
-                <span className="ms-3">{isHebrew ? "טוען את טופס ההרשמה…" : "Loading signup form…"}</span>
-              </div>
-                <iframe
-                  src="https://2f7b1624.sibforms.com/v2/serve/MUIFAFHPuF7CY4GtAaTSqbLtqOqYhdbKZcA1l5Vrm2adbkNBrc74Vy-UOTg9trle5vG9kTAlPTfE7b0y14nhnnSbVl27tmAS5PSfTlYLW8NsEjPuZt5hpUIxepM8swQpg6Uxud9_TNHlaWzprO-VubAOEKPJUNiFFQ3R3IR5NKlMDmCmhUNSCUsAIwwuPXym4eaMppd4Lcok0BhVeg=="
-                  frameBorder="0"
-                  scrolling="auto"
-                  allowFullScreen
-                  loading="eager"
-                  className="relative z-10 min-h-[620px] w-full border-0 bg-card sm:min-h-[560px]"
-                  title={isHebrew ? "טופס הרשמה לקבלת משאבים בחינם" : "Sign up to get free startup resources"}
-                />
-              <noscript>
-                <p className="relative z-20 p-6 text-center text-sm text-muted-foreground">
-                  {isHebrew
-                    ? "יש להפעיל JavaScript כדי לפתוח את טופס קבלת המשאבים. ניתן ליצור קשר בכתובת info@foundterra.com."
-                    : "Enable JavaScript to open the resource signup form, or contact info@foundterra.com."}
+            <div className="mx-auto max-w-xl animate-slide-up rounded-2xl border border-primary/30 bg-card p-6 shadow-xl shadow-primary/5 sm:p-10">
+              <div className="mb-8 text-center">
+                <h2 className="mb-3 text-2xl font-bold sm:text-3xl">
+                  {isHebrew ? "ערכת גיוס כספים בחינם" : "Free Fundraising Toolkit"}
+                </h2>
+                <p className="text-muted-foreground">
+                  {isHebrew ? "קבלו גישה מיידית לכל המשאבים בחינם" : "Get instant access to all resources for free"}
                 </p>
-              </noscript>
+              </div>
+
+              <form action={BREVO_FORM_ACTION} method="POST" className="space-y-5">
+                <div className="space-y-2 text-start">
+                  <label htmlFor="resource-first-name" className="text-sm font-semibold">
+                    {isHebrew ? "שם" : "Name"}
+                  </label>
+                  <input
+                    id="resource-first-name"
+                    name="FIRSTNAME"
+                    type="text"
+                    autoComplete="given-name"
+                    required
+                    maxLength={200}
+                    placeholder={isHebrew ? "השם שלך" : "Your name"}
+                    className="h-12 w-full rounded-lg border border-border bg-background px-4 text-base outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  />
+                </div>
+
+                <div className="space-y-2 text-start">
+                  <label htmlFor="resource-email" className="text-sm font-semibold">
+                    {isHebrew ? "כתובת אימייל" : "Email address"}
+                  </label>
+                  <input
+                    id="resource-email"
+                    name="EMAIL"
+                    type="email"
+                    inputMode="email"
+                    autoComplete="email"
+                    required
+                    placeholder="you@company.com"
+                    className="h-12 w-full rounded-lg border border-border bg-background px-4 text-base outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  />
+                </div>
+
+                <p className="text-start text-xs leading-relaxed text-muted-foreground">
+                  {isHebrew
+                    ? "בשליחת הטופס אתם מסכימים לקבל מדי פעם אימיילים על משאבים לסטארטאפים. ניתן להסיר את ההרשמה בכל עת."
+                    : "By submitting, you agree to receive occasional emails about startup resources. You can unsubscribe at any time."}
+                </p>
+
+                <input
+                  type="text"
+                  name="email_address_check"
+                  value=""
+                  readOnly
+                  tabIndex={-1}
+                  autoComplete="off"
+                  className="absolute -left-[9999px]"
+                  aria-hidden="true"
+                />
+                <input type="hidden" name="locale" value="en" />
+
+                <button
+                  type="submit"
+                  className="h-12 w-full rounded-lg bg-primary px-6 text-base font-bold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                >
+                  {isHebrew ? "קבלת גישה בחינם" : "Get Free Access"}
+                </button>
+              </form>
             </div>
 
           </div>
