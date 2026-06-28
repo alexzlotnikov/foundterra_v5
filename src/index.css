@@ -572,7 +572,7 @@
 }
 
 .hero-comparison-label-before { left: 14px; }
-.hero-comparison-label-after { right: 14px; background: #0b8f67; }
+.hero-comparison-label-after { right: 14px; background: #087451; }
 
 .hero-comparison-divider {
   position: absolute;
@@ -697,8 +697,10 @@
   max-height: 860px;
   object-fit: contain;
   border: 1px solid rgba(243, 239, 230, 0.16);
-  border-radius: 3px;
-  box-shadow: 0 24px 54px rgba(0, 0, 0, 0.34);
+  border-radius: clamp(18px, 2.2vw, 30px);
+  box-shadow:
+    0 28px 72px rgba(0, 0, 0, 0.48),
+    0 8px 24px rgba(77, 49, 211, 0.16);
 }
 
 .calculator-section {
@@ -815,7 +817,7 @@
 .calculator-actions svg { width: 16px; height: 16px; flex: 0 0 auto; }
 .calculator-primary { background: #155eef; color: #fff; }
 .calculator-secondary { background: transparent; color: #93c5fd; }
-.calculator-disclaimer { margin-top: 0.9rem; color: rgba(243, 239, 230, 0.45); font-size: 0.68rem; line-height: 1.55; }
+.calculator-disclaimer { margin-top: 0.9rem; color: rgba(243, 239, 230, 0.62); font-size: 0.68rem; line-height: 1.55; }
 
 .pricing-header { max-width: 900px; }
 .pricing-header h2 { color: #f3efe6; font-family: "Playfair Display", Georgia, serif; font-size: clamp(2.1rem, 4vw, 4rem); font-weight: 700; line-height: 1.04; letter-spacing: -0.025em; }

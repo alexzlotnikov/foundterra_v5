@@ -57,7 +57,7 @@ const Hero = () => {
             <p className="mt-7 max-w-2xl text-sm font-medium leading-7 text-foreground/85">
               {copy.valueStrip}
             </p>
-            <p className="mt-2 max-w-2xl text-xs leading-6 text-foreground/45">
+            <p className="mt-2 max-w-2xl text-xs leading-6 text-foreground/60">
               {copy.trustNote}
             </p>
           </div>
@@ -70,7 +70,7 @@ const Hero = () => {
             >
               <img
                 className="hero-comparison-image"
-                src="/carousel/hero-phone-after-transparent.png"
+                src="/carousel/hero-phone-after-transparent.webp"
                 width="941"
                 height="1672"
                 alt={isHebrew ? "השוואה בין מצגת עמוסה למצגת ברורה המותאמת לקריאה בטלפון" : "A comparison between a dense pitch deck and an improved deck designed for clear phone viewing"}
@@ -80,7 +80,7 @@ const Hero = () => {
               <div className="hero-comparison-before" aria-hidden="true">
                 <img
                   className="hero-comparison-image"
-                  src="/carousel/hero-phone-before-transparent.png"
+                  src="/carousel/hero-phone-before-transparent.webp"
                   width="941"
                   height="1672"
                   alt=""
