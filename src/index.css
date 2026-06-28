@@ -150,6 +150,11 @@
 
   body[dir="rtl"] { direction: rtl; }
 
+  #prerender-shell,
+  #root {
+    min-height: 100vh;
+  }
+
   .deferred-section {
     content-visibility: auto;
     contain-intrinsic-size: auto var(--section-intrinsic-size, 720px);
