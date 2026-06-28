@@ -1,5 +1,7 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { getContentByLanguage, type SiteContent } from '@/content/siteContent';
+import { safeStorage } from '@/utils/storage';
+import { getLanguageFromPathname } from '@/utils/languagePath';
 
 export type Language = 'en' | 'he';
 
@@ -19,15 +21,13 @@ const persistLanguageCookie = (lang: Language) => {
   document.cookie = `${USER_LANGUAGE_KEY}=${lang}; Max-Age=31536000; Path=/; SameSite=Lax${secure}`;
 };
 
-const getLanguageFromPath = (): Language => {
-  if (typeof window === 'undefined') return 'en';
-  return window.location.pathname.startsWith('/he') ? 'he' : 'en';
-};
+const getLanguageFromPath = (): Language =>
+  typeof window === 'undefined' ? 'en' : getLanguageFromPathname(window.location.pathname);
 
 const getStoredLanguage = (): Language | null => {
   if (typeof window === 'undefined') return null;
 
-  const stored = window.localStorage.getItem(USER_LANGUAGE_KEY);
+  const stored = safeStorage.getItem('localStorage', USER_LANGUAGE_KEY);
   if (stored === 'en' || stored === 'he') {
     return stored;
   }
@@ -37,12 +37,12 @@ const getStoredLanguage = (): Language | null => {
 
 const setStoredLanguage = (lang: Language) => {
   if (typeof window === 'undefined') return;
-  window.localStorage.setItem(USER_LANGUAGE_KEY, lang);
+  safeStorage.setItem('localStorage', USER_LANGUAGE_KEY, lang);
   persistLanguageCookie(lang);
 };
 
 export const LanguageProvider = ({ children, initialLanguage }: { children: ReactNode; initialLanguage?: Language }) => {
-  const [language, setLanguageState] = useState<Language>(() => initialLanguage ?? getStoredLanguage() ?? getLanguageFromPath());
+  const [language, setLanguageState] = useState<Language>(() => initialLanguage ?? getLanguageFromPath());
   const content = getContentByLanguage(language);
 
   const setLanguage = (lang: Language) => {

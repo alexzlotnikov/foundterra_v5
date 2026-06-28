@@ -150,7 +150,6 @@
 
   body[dir="rtl"] { direction: rtl; }
 
-  #prerender-shell,
   #root {
     min-height: 100vh;
   }

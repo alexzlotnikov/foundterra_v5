@@ -1,12 +1,9 @@
 import { PassThrough } from "node:stream";
 import { renderToPipeableStream } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
-import { Routes, Route } from "react-router-dom";
-import { HelmetProvider, type HelmetServerState } from "react-helmet-async";
-import { LanguageProvider, type Language } from "@/hooks/useLanguage";
-import { appRoutes, NotFoundPage } from "@/routes";
-import RouteSeo from "@/components/RouteSeo";
-import ErrorBoundary from "@/components/ErrorBoundary";
+import type { HelmetServerState } from "react-helmet-async";
+import { AppFrame, AppRoutes } from "@/App";
+import { getLanguageFromPathname } from "@/utils/languagePath";
 
 export interface RenderedPage {
   appHtml: string;
@@ -15,24 +12,14 @@ export interface RenderedPage {
 }
 
 export async function render(url: string): Promise<RenderedPage> {
-  const language: Language = url.startsWith("/he") ? "he" : "en";
+  const language = getLanguageFromPathname(url);
   const helmetContext: { helmet?: HelmetServerState } = {};
   const app = (
-    <HelmetProvider context={helmetContext}>
-      <LanguageProvider initialLanguage={language}>
-        <ErrorBoundary>
-          <StaticRouter location={url}>
-            <Routes>
-              {appRoutes.map(({ path, component: Component }) => (
-                <Route key={path} path={path} element={<Component />} />
-              ))}
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-            <RouteSeo />
-          </StaticRouter>
-        </ErrorBoundary>
-      </LanguageProvider>
-    </HelmetProvider>
+    <AppFrame initialLanguage={language} helmetContext={helmetContext}>
+      <StaticRouter location={url}>
+        <AppRoutes />
+      </StaticRouter>
+    </AppFrame>
   );
 
   const appHtml = await new Promise<string>((resolve, reject) => {
