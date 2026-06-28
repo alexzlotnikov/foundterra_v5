@@ -1,4 +1,5 @@
 import { type CSSProperties, type ReactNode } from "react";
+import OptionalErrorBoundary from "@/components/OptionalErrorBoundary";
 
 interface DeferredSectionProps {
   children: ReactNode;
@@ -17,7 +18,9 @@ export default function DeferredSection({
       className={`deferred-section ${className ?? ""}`}
       style={{ "--section-intrinsic-size": `${minHeight}px` } as CSSProperties}
     >
-      {children}
+      <OptionalErrorBoundary name="deferred-homepage-section">
+        {children}
+      </OptionalErrorBoundary>
     </div>
   );
 }

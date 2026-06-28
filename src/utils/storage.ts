@@ -33,5 +33,17 @@ export const safeStorage = {
       return false;
     }
   },
+
+  removeItem(kind: StorageKind, key: string): boolean {
+    const storage = getStorage(kind);
+    if (!storage) return false;
+
+    try {
+      storage.removeItem(key);
+      return true;
+    } catch {
+      return false;
+    }
+  },
 };
 

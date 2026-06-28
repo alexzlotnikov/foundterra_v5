@@ -6,8 +6,9 @@ import { getLanguageFromPathname } from "./utils/languagePath";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { appRoutes, NotFoundPage } from "./routes";
 import RouteSeo from "./components/RouteSeo";
+import OptionalErrorBoundary from "./components/OptionalErrorBoundary";
+import CookieConsent from "./components/CookieConsent";
 
-const CookieConsent = lazy(() => import("./components/CookieConsent"));
 const Toaster = lazy(() =>
   import("@/components/ui/toaster").then((module) => ({ default: module.Toaster })),
 );
@@ -65,11 +66,21 @@ const ClientEnhancements = () => {
   if (!mounted) return null;
 
   return (
-    <Suspense fallback={null}>
-      <Toaster />
-      <CookieConsent />
-      <Analytics />
-    </Suspense>
+    <>
+      <OptionalErrorBoundary name="cookie-consent">
+        <CookieConsent />
+      </OptionalErrorBoundary>
+      <OptionalErrorBoundary name="toaster">
+        <Suspense fallback={null}>
+          <Toaster />
+        </Suspense>
+      </OptionalErrorBoundary>
+      <OptionalErrorBoundary name="analytics">
+        <Suspense fallback={null}>
+          <Analytics />
+        </Suspense>
+      </OptionalErrorBoundary>
+    </>
   );
 };
 
