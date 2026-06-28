@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { findVerifiedDeal, isUsableReplacement } from './logic.js';
 
 const IMPACT_BASE = 'https://api.impact.com/Mediapartners';
 const APPSUMO_FALLBACK_LINK = 'https://appsumo.8odi.net/ennYgj';
@@ -79,18 +80,10 @@ export default async function handler(_req: VercelRequest, res: VercelResponse) 
 
     const statusMap: Record<string, StatusEntry> = {};
     for (const deal of yourDeals) {
-      const match = appsumoAds.find((ad) => {
-        const n = ad.Name?.toLowerCase() ?? '';
-        const link = ad.TrackingLink ?? '';
-        return (
-          link.includes(deal.token) ||
-          n.includes(deal.company.toLowerCase()) ||
-          n.includes(deal.slug)
-        );
-      });
+      const match = findVerifiedDeal(appsumoAds, deal);
 
       statusMap[deal.id] = {
-        isActive: true,
+        isActive: Boolean(match?.TrackingLink),
         liveLink: match?.TrackingLink ?? null,
         liveBadge: match ? extractBadge(match.Name ?? '', match.Description ?? '') : null,
       };
@@ -100,7 +93,8 @@ export default async function handler(_req: VercelRequest, res: VercelResponse) 
     const replacementCandidates = appsumoAds
       .filter((ad) => {
         const name = ad.Name?.toLowerCase() ?? '';
-        return !Array.from(trackedNames).some((n) => name.includes(n));
+        return isUsableReplacement(ad)
+          && !Array.from(trackedNames).some((n) => name.includes(n));
       })
       .slice(0, 20)
       .map((ad) => ({

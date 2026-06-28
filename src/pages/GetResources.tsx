@@ -4,11 +4,8 @@ import { Link } from "react-router-dom";
 import FreeStartupTools from "@/components/FreeStartupTools";
 import RelatedServices from "@/components/RelatedServices";
 import { useLanguage } from "@/hooks/useLanguage";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
 
 const GetResources = () => {
-  const [showSignupForm, setShowSignupForm] = useState(false);
   const { language } = useLanguage();
   const isHebrew = language === "he";
   const t = isHebrew
@@ -87,40 +84,27 @@ const GetResources = () => {
               </div>
             </div>
 
-            <div className="max-w-2xl mx-auto animate-slide-up">
-              {showSignupForm ? (
+            <div className="relative mx-auto max-w-2xl animate-slide-up overflow-hidden rounded-xl border border-primary/25 bg-card/60">
+              <div className="pointer-events-none absolute inset-x-0 top-0 flex h-16 items-center justify-center bg-card text-sm text-muted-foreground">
+                <span className="h-5 w-5 animate-spin rounded-full border-2 border-primary/25 border-t-primary" aria-hidden="true" />
+                <span className="ms-3">{isHebrew ? "טוען את טופס ההרשמה…" : "Loading signup form…"}</span>
+              </div>
                 <iframe
                   src="https://2f7b1624.sibforms.com/serve/MUIFAFHPuF7CY4GtAaTSqbLtqOqYhdbKZcA1l5Vrm2adbkNBrc74Vy-UOTg9trle5vG9kTAlPTfE7b0y14nhnnSbVl27tmAS5PSfTlYLW8NsEjPuZt5hpUIxepM8swQpg6Uxud9_TNHlaWzprO-VubAOEKPJUNiFFQ3R3IR5NKlMDmCmhUNSCUsAIwwuPXym4eaMppd4Lcok0BhVeg=="
                   frameBorder="0"
                   scrolling="no"
                   allowFullScreen
-                  loading="lazy"
-                  className="w-full min-h-[500px] border-0"
-                  title="Email Signup Form"
+                  loading="eager"
+                  className="relative z-10 min-h-[620px] w-full border-0 bg-card sm:min-h-[560px]"
+                  title={isHebrew ? "טופס הרשמה לקבלת משאבים בחינם" : "Sign up to get free startup resources"}
                 />
-              ) : (
-                <div className="flex min-h-[300px] flex-col items-center justify-center rounded-xl border border-primary/30 bg-card p-8 text-center">
-                  <Button type="button" variant="hero" size="lg" onClick={() => setShowSignupForm(true)}>
-                    {isHebrew ? "פתחו את טופס ההרשמה" : "Open signup form"}
-                  </Button>
-                  <a
-                    href="https://foundterra.substack.com/subscribe"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 text-sm text-primary underline underline-offset-4"
-                  >
-                    {isHebrew ? "או הירשמו בחלון חדש" : "Or subscribe in a new window"}
-                  </a>
-                </div>
-              )}
-              <div className="md:hidden text-center mt-2">
-                <Link
-                  to={isHebrew ? "/he/resources" : "/resources"}
-                  className="text-xs text-primary hover:text-primary/80 underline underline-offset-2"
-                >
-                  {isHebrew ? "מעבר למשאבים" : "Get me to resources"}
-                </Link>
-              </div>
+              <noscript>
+                <p className="relative z-20 p-6 text-center text-sm text-muted-foreground">
+                  {isHebrew
+                    ? "יש להפעיל JavaScript כדי לפתוח את טופס קבלת המשאבים. ניתן ליצור קשר בכתובת info@foundterra.com."
+                    : "Enable JavaScript to open the resource signup form, or contact info@foundterra.com."}
+                </p>
+              </noscript>
             </div>
 
           </div>

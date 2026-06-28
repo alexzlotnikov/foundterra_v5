@@ -28,16 +28,16 @@ export function useAppSumoDeals() {
   }, []);
 
   const isDealActive = (dealId: string) =>
-    !data || data.fallback ? true : (data.statusMap[dealId]?.isActive ?? true);
+    Boolean(data && !data.fallback && data.statusMap[dealId]?.isActive);
 
-  const getLiveLink = (dealId: string, fallback: string) =>
-    data?.statusMap[dealId]?.liveLink ?? fallback;
+  const getLiveLink = (dealId: string) =>
+    data && !data.fallback ? data.statusMap[dealId]?.liveLink ?? null : null;
 
-  const getLiveBadge = (dealId: string, fallback: string) =>
-    data?.statusMap[dealId]?.liveBadge ?? fallback;
+  const getLiveBadge = (dealId: string) =>
+    data && !data.fallback ? data.statusMap[dealId]?.liveBadge ?? null : null;
 
   const getReplacement = (slotIndex: number): ReplacementDeal | null =>
-    data?.replacementCandidates[slotIndex] ?? null;
+    data && !data.fallback ? data.replacementCandidates[slotIndex] ?? null : null;
 
   return { data, loading, isDealActive, getLiveLink, getLiveBadge, getReplacement };
 }

@@ -10,6 +10,7 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "test:calculator": "node --experimental-strip-types --test src/utils/fundraisingCalculator.test.ts",
+    "test:appsumo": "node --experimental-strip-types --test api/appsumo-deals/logic.test.ts",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -40,8 +40,8 @@ const Index = () => {
     availableLanguage: ["en", "he"],
     inLanguage: isHebrew ? "he-IL" : "en-US",
     description: isHebrew
-      ? "ליווי גיוס, מצגות משקיעים, מודלים פיננסיים וכלים ליזמים בישראל."
-      : "Pitch deck, financial modeling, and fundraising support for founders.",
+      ? "Foundterra מספקת הכנה וליווי לגיוס הון לסטארטאפים בשלבים מוקדמים, כולל מצגות משקיעים, מודלים פיננסיים, חומרים מוכנים למשקיעים, תכנון פנייה למשקיעים וליווי גיוס חודשי."
+      : "Foundterra provides fundraising preparation and support for early-stage startups, including pitch decks, financial models, investor-ready materials, investor outreach planning, and monthly raise advisory.",
   };
   const faqSchema = {
     "@context": "https://schema.org",
@@ -66,38 +66,38 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Helmet>
-        <title>{isHebrew ? "Foundterra | ליווי גיוס, מצגות ומודלים ליזמים" : "Foundterra | Pitch Deck & Fundraising Advisory for Founders"}</title>
+        <title>{isHebrew ? "Foundterra | מצגות משקיעים, מודלים פיננסיים וליווי גיוס" : "Foundterra | Investor-Ready Pitch Decks, Financial Models & Fundraising Support"}</title>
         <meta
           name="description"
           content={
             isHebrew
-              ? "Foundterra מסייעת ליזמי Pre-Seed ו-Seed לבנות מצגת משקיעים, מסרים ומוכנות גיוס ברמה גבוהה."
-              : "Foundterra helps founders build investor-ready pitch decks, financial models, and fundraising strategy for pre-seed and seed rounds."
+              ? "Foundterra מסייעת ליזמים בשלבים מוקדמים לבנות מצגות משקיעים, מודלים פיננסיים וחומרי גיוס, ומלווה אותם במיקוד משקיעים, פניות, מעקב והחלטות במהלך הגיוס."
+              : "Foundterra helps early-stage founders build investor-ready pitch decks, financial models, and fundraising materials, then supports investor targeting, outreach, follow-ups, and raise decisions."
           }
         />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Foundterra" />
-        <meta property="og:title" content={isHebrew ? "Foundterra | ליווי גיוס ליזמים" : "Foundterra | Fundraising Advisory for Founders"} />
+        <meta property="og:title" content={isHebrew ? "Foundterra | חומרי גיוס וליווי גיוס לסטארטאפים" : "Foundterra | Fundraising Materials & Raise Support for Startups"} />
         <meta
           property="og:description"
           content={
             isHebrew
-              ? "ליווי גיוס ליזמי Pre-Seed ו-Seed: מצגת, מסרים, מודלים ומוכנות משקיעים."
-              : "Fundraising support for pre-seed and seed founders: pitch decks, investor messaging, models, and raise readiness."
+              ? "בנו מצגות משקיעים, מודלים פיננסיים וחומרי גיוס מוכנים למשקיעים. קבלו ליווי במיקוד משקיעים, פניות, מעקב והחלטות חודשיות."
+              : "Build investor-ready pitch decks, financial models, and fundraising materials. Get support with investor targeting, outreach, follow-ups, and monthly raise decisions."
           }
         />
         <meta property="og:url" content={pageUrl} />
         <meta property="og:locale" content={isHebrew ? "he_IL" : "en_US"} />
         <meta property="og:locale:alternate" content={isHebrew ? "en_US" : "he_IL"} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={isHebrew ? "Foundterra | ליווי גיוס ליזמים" : "Foundterra | Fundraising Advisory for Founders"} />
+        <meta name="twitter:title" content={isHebrew ? "Foundterra | ליווי גיוס לסטארטאפים" : "Foundterra | Startup Fundraising Support"} />
         <meta
           name="twitter:description"
           content={
             isHebrew
-              ? "ליווי גיוס ממוקד ליזמים בשלבי Pre-Seed ו-Seed."
-              : "Focused fundraising support for pre-seed and seed founders."
+              ? "מצגות משקיעים, מודלים פיננסיים, תמיכה בפנייה למשקיעים וליווי גיוס חודשי ליזמים בשלבים מוקדמים."
+              : "Investor-ready pitch decks, financial models, outreach support, and monthly fundraising advice for early-stage founders."
           }
         />
         <link rel="canonical" href={pageUrl} />

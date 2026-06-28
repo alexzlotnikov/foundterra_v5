@@ -51,39 +51,8 @@ const copy = {
   },
 } as const;
 
-function AlternativeCard({ deal, slotIndex }: { deal: Deal; slotIndex: number }) {
-  const { getLiveLink, getLiveBadge, getReplacement } = useAppSumoDeals();
-
-  if (deal.source !== 'appsumo') return <DealCard deal={deal} />;
-
-  const liveLink = getLiveLink(deal.id, deal.link);
-  const liveBadge = getLiveBadge(deal.id, deal.badge);
-
-  // Never show expired UI; either use live deal data or silently swap with a replacement.
-  if (liveLink && liveBadge) {
-    return <DealCard deal={{ ...deal, link: liveLink, badge: liveBadge }} />;
-  }
-
-  const replacement = getReplacement(slotIndex);
-  if (replacement) {
-    return (
-      <DealCard
-        deal={{
-          id: `replacement-${slotIndex}`,
-          company: replacement.name,
-          domain: '',
-          badge: replacement.badge,
-          description: replacement.description,
-          link: replacement.link,
-          category: 'alternative',
-          source: 'appsumo',
-          alternativeTo: deal.alternativeTo,
-        }}
-      />
-    );
-  }
-
-  return <DealCard deal={deal} />;
+function AlternativeCard({ deal, liveLink, liveBadge }: { deal: Deal; liveLink: string; liveBadge: string }) {
+  return <DealCard deal={{ ...deal, link: liveLink, badge: liveBadge }} />;
 }
 
 const localizeDeal = (deal: Deal, isHebrew: boolean): Deal => {
@@ -124,6 +93,7 @@ const StartupDeals = () => {
   const { language, content } = useLanguage();
   const isHebrew = language === 'he';
   const t = copy[isHebrew ? 'he' : 'en'];
+  const { loading: appSumoLoading, isDealActive, getLiveLink, getLiveBadge } = useAppSumoDeals();
   const advisorReviewDeal: Deal = {
     id: 'foundterra-advisor-review',
     company: 'Foundterra',
@@ -139,7 +109,12 @@ const StartupDeals = () => {
   };
 
   const middle = Math.ceil(alternatives.length / 2);
-  const alternativesWithAdvisor = [...alternatives.slice(0, middle), advisorReviewDeal, ...alternatives.slice(middle)];
+  const verifiedAlternatives = alternatives.filter((deal) =>
+    deal.source !== 'appsumo'
+    || (isDealActive(deal.id) && Boolean(getLiveLink(deal.id)) && Boolean(getLiveBadge(deal.id)))
+  );
+  const alternativesWithAdvisor = [...verifiedAlternatives.slice(0, middle), advisorReviewDeal, ...verifiedAlternatives.slice(middle)];
+  const hasVerifiedAppSumoDeals = verifiedAlternatives.some((deal) => deal.source === 'appsumo');
   const localizedStrategicPartners = strategicPartners.map((partner) => ({
     ...partner,
     description: isHebrew
@@ -155,7 +130,10 @@ const StartupDeals = () => {
     <div className="min-h-screen" style={{ fontFamily: 'var(--font-body)' }}>
       <Helmet>
         <title>Free Startup Deals 2026 — $600K+ in Credits | Foundterra</title>
-        <meta name="description" content="Cloud credits, SaaS discounts, and AppSumo lifetime deals curated for founders." />
+        <title>{isHebrew ? 'הטבות וקרדיטים לסטארטאפים | Foundterra' : 'Startup Credits and Verified Software Deals | Foundterra'}</title>
+        <meta name="description" content={isHebrew ? 'קרדיטים לענן, הנחות תוכנה והטבות מאומתות שנבחרו עבור יזמים וסטארטאפים בישראל.' : 'Cloud credits, startup software discounts, and currently verified offers curated for founders.'} />
+        <meta property="og:title" content={isHebrew ? 'הטבות וקרדיטים לסטארטאפים | Foundterra' : 'Startup Credits and Verified Software Deals | Foundterra'} />
+        <meta property="og:description" content={isHebrew ? 'קרדיטים לענן, הנחות תוכנה והטבות מאומתות ליזמים.' : 'Cloud credits and currently verified software offers curated for founders.'} />
       </Helmet>
       <Header />
       <main className="pt-20 sm:pt-24" dir={isHebrew ? 'rtl' : 'ltr'}>
@@ -214,10 +192,20 @@ const StartupDeals = () => {
         <section className={sectionClass}>
           <h2 style={{ fontFamily: 'var(--font-body)', fontWeight: 800 }} className="mb-2 text-2xl text-[#EEEEF8] sm:text-3xl">{t.altTitle}</h2>
           <p className="mb-8 text-sm text-[#a4a8cb] sm:text-base">{t.altBody}</p>
+          {appSumoLoading && (
+            <p className="mb-5 rounded-xl border border-[#252535] bg-[#111118] px-4 py-3 text-sm text-[#b8b8d7]" role="status">
+              {isHebrew ? 'בודקים אילו הצעות AppSumo פעילות כעת…' : 'Checking which AppSumo offers are active…'}
+            </p>
+          )}
+          {!appSumoLoading && !hasVerifiedAppSumoDeals && (
+            <p className="mb-5 rounded-xl border border-[#252535] bg-[#111118] px-4 py-3 text-sm text-[#b8b8d7]">
+              {isHebrew ? 'אין כרגע הצעות AppSumo מאומתות. שאר ההטבות בעמוד עדיין זמינות.' : 'No AppSumo offers are verified right now. The other offers on this page remain available.'}
+            </p>
+          )}
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {alternativesWithAdvisor.map((deal, index) =>
+            {alternativesWithAdvisor.map((deal) =>
               deal.source === 'appsumo'
-                ? <AlternativeCard key={deal.id} deal={localizeDeal(deal, isHebrew)} slotIndex={index} />
+                ? <AlternativeCard key={deal.id} deal={localizeDeal(deal, isHebrew)} liveLink={getLiveLink(deal.id)!} liveBadge={getLiveBadge(deal.id)!} />
                 : <DealCard key={deal.id} deal={localizeDeal(deal, isHebrew)} />
             )}
           </div>

@@ -1,19 +1,20 @@
 import { useState, type CSSProperties } from "react";
 import { ArrowLeft, ArrowRight, ChevronsLeftRight } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
-import { localizedPath } from "@/utils/localizedPath";
 
 const Hero = () => {
-  const { language } = useLanguage();
+  const { language, content } = useLanguage();
   const isHebrew = language === "he";
   const [comparisonPosition, setComparisonPosition] = useState(50);
   const Arrow = isHebrew ? ArrowLeft : ArrowRight;
   const copy = isHebrew
     ? {
-        title: "ליווי גיוס ליזמים לפני ובמהלך הסבב.",
-        body: "מצגות חדות יותר, סיפור משקיעים ברור יותר, הנחות פיננסיות חזקות יותר וליווי גיוס ממוקד ליזמי Pre-Seed ו-Seed.",
-        primary: "התחילו עם בדיקת מצגת ב־₪300",
-        secondary: "למסלולי הליווי החודשיים",
+        title: "גיוס הון גוזל יותר מדי זמן של יזמים מכדי לעשות אותו לא נכון.",
+        body: "Foundterra מסייעת ליזמים בשלבים מוקדמים לבנות חומרים מוכנים למשקיעים, להגיע למשקיעים הנכונים ולדעת מה לעשות הלאה במהלך הגיוס.",
+        primary: "התחילו לגייס נכון",
+        secondary: "לכל השירותים",
+        valueStrip: "מצגת משקיעים · מודל פיננסי · פנייה למשקיעים · ליווי גיוס חודשי",
+        trustNote: "ללא הבטחת גיוס. ללא היכרויות בתשלום. ללא דמי הצלחה.",
         before: "לפני",
         after: "אחרי",
         transformation: "אותם נתונים. מסקנה חדה יותר למשקיע.",
@@ -21,10 +22,12 @@ const Hero = () => {
         sliderLabel: "השוואת מצגת לפני ואחרי השיפור",
       }
     : {
-        title: "Fundraising support for founders before and during the raise.",
-        body: "Sharper pitch decks, clearer investor stories, stronger financial assumptions, and disciplined fundraising support for pre-seed and seed founders.",
-        primary: "Start with $100 Deck Diagnostic",
-        secondary: "View Monthly Support",
+        title: "Fundraising takes too much founder time to do it wrong.",
+        body: "Foundterra helps early-stage founders build investor-ready materials, reach the right investors, and know what to do next during the raise.",
+        primary: "Start fundraising properly",
+        secondary: "View services",
+        valueStrip: "Pitch deck · Financial model · Investor outreach · Monthly raise support",
+        trustNote: "No guaranteed funding. No paid introductions. No success fees.",
         before: "Before",
         after: "After",
         transformation: "Same underlying data. A sharper investor conclusion.",
@@ -44,13 +47,19 @@ const Hero = () => {
               {copy.body}
             </p>
             <div className={`mt-9 flex flex-col gap-3 sm:flex-row ${isHebrew ? "sm:flex-row-reverse sm:justify-end" : ""}`}>
-              <a className="editorial-button editorial-button-primary" href={localizedPath("/pay/pitch-deck-review", language)}>
+              <a className="editorial-button editorial-button-primary" href={content.cta.calendlyLink} target="_blank" rel="noopener noreferrer">
                 {copy.primary}<Arrow className="h-4 w-4" aria-hidden="true" />
               </a>
               <a className="editorial-button editorial-button-secondary" href="#plans">
                 {copy.secondary}<Arrow className="h-4 w-4" aria-hidden="true" />
               </a>
             </div>
+            <p className="mt-7 max-w-2xl text-sm font-medium leading-7 text-foreground/85">
+              {copy.valueStrip}
+            </p>
+            <p className="mt-2 max-w-2xl text-xs leading-6 text-foreground/45">
+              {copy.trustNote}
+            </p>
           </div>
 
           <figure className="hero-comparison" aria-label={copy.visualLabel}>

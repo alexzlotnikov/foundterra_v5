@@ -2,9 +2,20 @@ import boardyLogo from "@/assets/boardy-logo-original.webp";
 import michiganIsraelLogo from "@/assets/michigan-israel-logo.jpg";
 import polyboxLogo from "@/assets/polybox-logo.jpg";
 import seedLegalsLogo from "@/assets/seedlegals.png";
+import youngPeopleHaifaLogo from "@/assets/young-people-haifa.webp";
 import { useLanguage } from "@/hooks/useLanguage";
 
 const partners = [
+  {
+    name: "Young People For Haifa",
+    href: "https://ypfh.org/en",
+    logo: youngPeopleHaifaLogo,
+    logoClass: "max-h-20 max-w-[88%]",
+    description: {
+      en: "A nonprofit organization that empowers young people in Haifa.",
+      he: "ארגון ללא מטרות רווח שמעצים צעירים וצעירות בחיפה.",
+    },
+  },
   {
     name: "Boardy",
     href: "https://www.boardy.ai",
@@ -60,14 +71,15 @@ const Partners = () => {
           </h2>
         </div>
 
-        <div className="mx-auto grid max-w-6xl grid-cols-2 border-y border-white/10 lg:grid-cols-4">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 border-y border-white/10 sm:grid-cols-2 lg:grid-cols-5">
           {partners.map((partner) => (
             <a
               key={partner.name}
               href={partner.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex min-h-56 flex-col items-center justify-center gap-5 border-e border-white/10 p-6 text-center transition-colors hover:bg-white/[0.025]"
+              aria-label={`${partner.name} — ${isHebrew ? partner.description.he : partner.description.en}`}
+              className="group flex min-h-52 flex-col items-center justify-center gap-5 border-b border-e border-white/10 p-5 text-center transition-colors hover:bg-white/[0.025] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset lg:min-h-56"
             >
               <div className="flex h-24 w-full items-center justify-center">
                 <img src={partner.logo} alt={`${partner.name} logo`} loading="lazy" decoding="async" className={`${partner.logoClass} object-contain opacity-90 transition group-hover:opacity-100`} />

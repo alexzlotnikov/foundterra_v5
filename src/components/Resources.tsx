@@ -15,7 +15,9 @@ const Resources = () => {
         <div className={isHebrew ? "text-right" : "text-left"}>
           <h2>{isHebrew ? "משאבים מעשיים לגיוס שלכם." : "Practical resources for your raise."}</h2>
           <p className="mt-5 max-w-md text-base leading-8 text-foreground/60">{content.resources.subtitle}</p>
-          <Link to={resourcesPath} className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-primary">{content.resources.cta}<Arrow className="h-4 w-4" /></Link>
+          <Link to={resourcesPath} className="mt-7 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary">
+            {isHebrew ? "קבלו משאבים בחינם" : "Get Free Resources"}<Arrow className="h-4 w-4" />
+          </Link>
         </div>
         <div className="grid gap-7 md:grid-cols-[1.05fr_0.95fr]">
           <Link to={resourcesPath} className="group relative min-h-80 overflow-hidden border border-primary/55 p-7">
