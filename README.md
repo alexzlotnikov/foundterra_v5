@@ -1,4 +1,4 @@
-# Foundterra Website Content Management Guide
+# Foundterra Website Content Management Guide post
 
 Transform your idea into an investor-ready startup in just 4 weeks.
 
