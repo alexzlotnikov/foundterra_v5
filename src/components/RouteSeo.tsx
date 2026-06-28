@@ -3,7 +3,15 @@ import { matchPath, useLocation } from "react-router-dom";
 import { appRoutes } from "@/routes";
 
 const SITE_URL = "https://www.foundterra.com";
-const SOCIAL_IMAGE = `${SITE_URL}/brand/foundterra-og.webp`;
+const SOCIAL_IMAGES = {
+  en: `${SITE_URL}/brand/foundterra-og-v2-en.webp`,
+  he: `${SITE_URL}/brand/foundterra-og-v2-he.webp`,
+} as const;
+
+const SOCIAL_IMAGE_ALT = {
+  en: "Fundraising takes too much founder time to do it wrong. Foundterra transforms founder materials into an investor-ready pitch.",
+  he: "גיוס הון גוזל יותר מדי זמן של יזמים מכדי לעשות אותו לא נכון. Foundterra הופכת חומרי גיוס להצגה ברורה למשקיעים.",
+} as const;
 
 const hebrewSeo: Record<string, { title: string; description: string }> = {
   "/he": {
@@ -70,6 +78,8 @@ export default function RouteSeo() {
   const englishUrl = locale === "en" ? canonical : alternate;
   const hebrewUrl = locale === "he" ? canonical : alternate;
   const localizedSeo = locale === "he" ? hebrewSeo[location.pathname] : undefined;
+  const socialImage = SOCIAL_IMAGES[locale];
+  const socialImageAlt = SOCIAL_IMAGE_ALT[locale];
   const serviceSchema = locale === "he"
     ? {
         "@context": "https://schema.org",
@@ -97,11 +107,15 @@ export default function RouteSeo() {
       {hebrewUrl && <link rel="alternate" hrefLang="he" href={hebrewUrl} />}
       {englishUrl && <link rel="alternate" hrefLang="x-default" href={englishUrl} />}
       <meta property="og:url" content={canonical} />
-      <meta property="og:image" content={SOCIAL_IMAGE} />
+      <meta property="og:image" content={socialImage} />
+      <meta property="og:image:secure_url" content={socialImage} />
+      <meta property="og:image:type" content="image/webp" />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={socialImageAlt} />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:image" content={SOCIAL_IMAGE} />
+      <meta name="twitter:image" content={socialImage} />
+      <meta name="twitter:image:alt" content={socialImageAlt} />
       {serviceSchema ? <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script> : null}
     </Helmet>
   );

@@ -78,7 +78,7 @@ const Index = () => {
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Foundterra" />
-        <meta property="og:title" content={isHebrew ? "Foundterra | חומרי גיוס וליווי גיוס לסטארטאפים" : "Foundterra | Fundraising Materials & Raise Support for Startups"} />
+        <meta property="og:title" content={isHebrew ? "גיוס הון גוזל יותר מדי זמן של יזמים מכדי לעשות אותו לא נכון." : "Fundraising takes too much founder time to do it wrong."} />
         <meta
           property="og:description"
           content={
@@ -91,7 +91,7 @@ const Index = () => {
         <meta property="og:locale" content={isHebrew ? "he_IL" : "en_US"} />
         <meta property="og:locale:alternate" content={isHebrew ? "en_US" : "he_IL"} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={isHebrew ? "Foundterra | ליווי גיוס לסטארטאפים" : "Foundterra | Startup Fundraising Support"} />
+        <meta name="twitter:title" content={isHebrew ? "גיוס הון גוזל יותר מדי זמן של יזמים מכדי לעשות אותו לא נכון." : "Fundraising takes too much founder time to do it wrong."} />
         <meta
           name="twitter:description"
           content={

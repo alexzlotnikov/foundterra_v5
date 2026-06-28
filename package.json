@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "assets:homepage": "node scripts/generate-homepage-visuals.mjs",
+    "assets:social": "node scripts/generate-social-previews.mjs",
     "dev": "vite",
     "build": "node scripts/verify-saas-auditor.mjs && node scripts/generate-blog-data.mjs && node scripts/generate-seo.mjs && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs && node scripts/verify-build.mjs",
     "build:dev": "vite build --mode development",

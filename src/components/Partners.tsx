@@ -7,7 +7,7 @@ import { useLanguage } from "@/hooks/useLanguage";
 
 const partners = [
   {
-    name: "Young People For Haifa",
+    name: "Young People for Haifa",
     href: "https://ypfh.org/en",
     logo: youngPeopleHaifaLogo,
     logoClass: "max-h-20 max-w-[88%]",
@@ -27,7 +27,7 @@ const partners = [
     },
   },
   {
-    name: "Michigan Israel",
+    name: "Michigan Israel Business Accelerator",
     href: "https://www.michiganisrael.com/",
     logo: michiganIsraelLogo,
     logoClass: "max-h-16 max-w-[84%]",
@@ -58,6 +58,18 @@ const partners = [
   },
 ] as const;
 
+const partnerOrder = [
+  "SeedLegals",
+  "Michigan Israel Business Accelerator",
+  "Boardy",
+  "Polybox Design",
+  "Young People for Haifa",
+] as const;
+
+const orderedPartners = partnerOrder.map(
+  (name) => partners.find((partner) => partner.name === name)!,
+);
+
 const Partners = () => {
   const { language } = useLanguage();
   const isHebrew = language === "he";
@@ -72,7 +84,7 @@ const Partners = () => {
         </div>
 
         <div className="mx-auto grid max-w-7xl grid-cols-1 border-y border-white/10 sm:grid-cols-2 lg:grid-cols-5">
-          {partners.map((partner) => (
+          {orderedPartners.map((partner) => (
             <a
               key={partner.name}
               href={partner.href}
@@ -84,9 +96,12 @@ const Partners = () => {
               <div className="flex h-24 w-full items-center justify-center">
                 <img src={partner.logo} alt={`${partner.name} logo`} loading="lazy" decoding="async" className={`${partner.logoClass} object-contain opacity-90 transition group-hover:opacity-100`} />
               </div>
-              <p className="max-w-52 text-sm leading-6 text-foreground/60 transition-colors group-hover:text-foreground/80">
-                {isHebrew ? partner.description.he : partner.description.en}
-              </p>
+              <div className="max-w-52">
+                <h3 className="mb-2 text-base font-semibold leading-snug text-foreground">{partner.name}</h3>
+                <p className="text-sm leading-6 text-foreground/60 transition-colors group-hover:text-foreground/80">
+                  {isHebrew ? partner.description.he : partner.description.en}
+                </p>
+              </div>
             </a>
           ))}
         </div>
