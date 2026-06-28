@@ -90,9 +90,9 @@ const GetResources = () => {
                 <span className="ms-3">{isHebrew ? "טוען את טופס ההרשמה…" : "Loading signup form…"}</span>
               </div>
                 <iframe
-                  src="https://2f7b1624.sibforms.com/serve/MUIFAFHPuF7CY4GtAaTSqbLtqOqYhdbKZcA1l5Vrm2adbkNBrc74Vy-UOTg9trle5vG9kTAlPTfE7b0y14nhnnSbVl27tmAS5PSfTlYLW8NsEjPuZt5hpUIxepM8swQpg6Uxud9_TNHlaWzprO-VubAOEKPJUNiFFQ3R3IR5NKlMDmCmhUNSCUsAIwwuPXym4eaMppd4Lcok0BhVeg=="
+                  src="https://2f7b1624.sibforms.com/v2/serve/MUIFAFHPuF7CY4GtAaTSqbLtqOqYhdbKZcA1l5Vrm2adbkNBrc74Vy-UOTg9trle5vG9kTAlPTfE7b0y14nhnnSbVl27tmAS5PSfTlYLW8NsEjPuZt5hpUIxepM8swQpg6Uxud9_TNHlaWzprO-VubAOEKPJUNiFFQ3R3IR5NKlMDmCmhUNSCUsAIwwuPXym4eaMppd4Lcok0BhVeg=="
                   frameBorder="0"
-                  scrolling="no"
+                  scrolling="auto"
                   allowFullScreen
                   loading="eager"
                   className="relative z-10 min-h-[620px] w-full border-0 bg-card sm:min-h-[560px]"
