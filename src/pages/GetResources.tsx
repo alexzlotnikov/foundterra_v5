@@ -1,16 +1,15 @@
+import { useState, type FormEvent } from "react";
 import { Helmet } from "react-helmet-async";
-import { Database, Rocket, TrendingUp, Users } from "lucide-react";
+import { AlertCircle, CheckCircle2, Database, Loader2, Rocket, TrendingUp, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import FreeStartupTools from "@/components/FreeStartupTools";
 import RelatedServices from "@/components/RelatedServices";
 import { useLanguage } from "@/hooks/useLanguage";
 
-const BREVO_FORM_ACTION =
-  "https://2f7b1624.sibforms.com/v2/serve/MUIFAFHPuF7CY4GtAaTSqbLtqOqYhdbKZcA1l5Vrm2adbkNBrc74Vy-UOTg9trle5vG9kTAlPTfE7b0y14nhnnSbVl27tmAS5PSfTlYLW8NsEjPuZt5hpUIxepM8swQpg6Uxud9_TNHlaWzprO-VubAOEKPJUNiFFQ3R3IR5NKlMDmCmhUNSCUsAIwwuPXym4eaMppd4Lcok0BhVeg==";
-
 const GetResources = () => {
   const { language } = useLanguage();
   const isHebrew = language === "he";
+  const [submissionState, setSubmissionState] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const t = isHebrew
     ? {
         title: "גישה מלאה ל-",
@@ -30,6 +29,37 @@ const GetResources = () => {
         tools: "Tools",
         community: "Community",
       };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (submissionState === "submitting") return;
+
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    setSubmissionState("submitting");
+
+    try {
+      const response = await fetch("/api/brevo-subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: String(data.get("firstName") ?? ""),
+          email: String(data.get("email") ?? ""),
+          locale: isHebrew ? "he" : "en",
+          website: String(data.get("website") ?? ""),
+        }),
+      });
+
+      if (!response.ok) throw new Error("Subscription failed");
+
+      setSubmissionState("success");
+      window.setTimeout(() => {
+        window.location.assign(isHebrew ? "/he/resources" : "/resources");
+      }, 600);
+    } catch {
+      setSubmissionState("error");
+    }
+  };
 
   return (
     <>
@@ -97,18 +127,19 @@ const GetResources = () => {
                 </p>
               </div>
 
-              <form action={BREVO_FORM_ACTION} method="POST" className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="space-y-2 text-start">
                   <label htmlFor="resource-first-name" className="text-sm font-semibold">
                     {isHebrew ? "שם" : "Name"}
                   </label>
                   <input
                     id="resource-first-name"
-                    name="FIRSTNAME"
+                    name="firstName"
                     type="text"
                     autoComplete="given-name"
                     required
                     maxLength={200}
+                    disabled={submissionState === "submitting" || submissionState === "success"}
                     placeholder={isHebrew ? "השם שלך" : "Your name"}
                     className="h-12 w-full rounded-lg border border-border bg-background px-4 text-base outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
@@ -120,11 +151,13 @@ const GetResources = () => {
                   </label>
                   <input
                     id="resource-email"
-                    name="EMAIL"
+                    name="email"
                     type="email"
                     inputMode="email"
                     autoComplete="email"
                     required
+                    maxLength={254}
+                    disabled={submissionState === "submitting" || submissionState === "success"}
                     placeholder="you@company.com"
                     className="h-12 w-full rounded-lg border border-border bg-background px-4 text-base outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
@@ -136,23 +169,44 @@ const GetResources = () => {
                     : "By submitting, you agree to receive occasional emails about startup resources. You can unsubscribe at any time."}
                 </p>
 
-                <input
-                  type="text"
-                  name="email_address_check"
-                  value=""
-                  readOnly
-                  tabIndex={-1}
-                  autoComplete="off"
-                  className="hidden"
-                  aria-hidden="true"
-                />
-                <input type="hidden" name="locale" value="en" />
+                <div className="hidden" aria-hidden="true">
+                  <label htmlFor="resource-website">Website</label>
+                  <input id="resource-website" type="text" name="website" tabIndex={-1} autoComplete="off" />
+                </div>
+
+                {submissionState === "error" && (
+                  <div role="alert" className="flex items-start gap-2 rounded-lg border border-destructive/40 bg-destructive/10 p-3 text-start text-sm text-destructive">
+                    <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                    <span>
+                      {isHebrew
+                        ? "לא הצלחנו לשמור את הפרטים. בדקו אותם ונסו שוב."
+                        : "We couldn't save your details. Check them and try again."}
+                    </span>
+                  </div>
+                )}
+
+                {submissionState === "success" && (
+                  <div role="status" className="flex items-center justify-center gap-2 rounded-lg border border-primary/40 bg-primary/10 p-3 text-sm text-primary">
+                    <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
+                    <span>{isHebrew ? "הפרטים נשמרו. פותחים את המשאבים…" : "Saved. Opening your resources…"}</span>
+                  </div>
+                )}
 
                 <button
                   type="submit"
-                  className="h-12 w-full rounded-lg bg-primary px-6 text-base font-bold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  disabled={submissionState === "submitting" || submissionState === "success"}
+                  className="flex h-12 w-full items-center justify-center rounded-lg bg-primary px-6 text-base font-bold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {isHebrew ? "קבלת גישה בחינם" : "Get Free Access"}
+                  {submissionState === "submitting" ? (
+                    <>
+                      <Loader2 className="me-2 h-4 w-4 animate-spin" aria-hidden="true" />
+                      {isHebrew ? "שומרים…" : "Saving…"}
+                    </>
+                  ) : submissionState === "success" ? (
+                    isHebrew ? "הפרטים נשמרו" : "Saved"
+                  ) : (
+                    isHebrew ? "קבלת גישה בחינם" : "Get Free Access"
+                  )}
                 </button>
               </form>
             </div>

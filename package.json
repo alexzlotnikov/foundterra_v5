@@ -12,6 +12,7 @@
     "lint": "eslint .",
     "test:calculator": "node --experimental-strip-types --test src/utils/fundraisingCalculator.test.ts",
     "test:appsumo": "node --experimental-strip-types --test api/appsumo-deals/logic.test.ts",
+    "test:brevo": "node --experimental-strip-types --test api/brevo-subscribe/logic.test.ts",
     "test:startup": "node --experimental-strip-types --test src/utils/startup.test.ts",
     "preview": "vite preview"
   },
