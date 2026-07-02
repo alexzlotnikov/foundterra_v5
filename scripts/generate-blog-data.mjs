@@ -29,6 +29,8 @@ for (const requestedSlug of slugs) {
     excerpt: readField(frontmatter, "excerpt"),
     slug: readField(frontmatter, "slug") || requestedSlug,
     coverImage: readField(frontmatter, "coverImage") || undefined,
+    coverImageAlt: readField(frontmatter, "coverImageAlt") || undefined,
+    language: readField(frontmatter, "language") === "he" ? "he" : "en",
     author: readField(frontmatter, "author") || "Foundterra",
     content: content.trim(),
   });
@@ -38,4 +40,3 @@ posts.sort((a, b) => b.date.localeCompare(a.date));
 await fs.mkdir(outputDir, { recursive: true });
 await fs.writeFile(path.join(outputDir, "blog-posts.json"), `${JSON.stringify(posts)}\n`);
 console.log(`[generate-blog-data] Wrote ${posts.length} published posts`);
-

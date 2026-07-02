@@ -12,9 +12,12 @@ interface BlogCardProps {
 
 export default function BlogCard({ post, index = 0 }: BlogCardProps) {
   const { content } = useLanguage();
+  const isRtl = post.language === "he";
 
   return (
     <Card 
+      dir={isRtl ? "rtl" : "ltr"}
+      lang={post.language || "en"}
       className="group h-full card-elevated hover:scale-105 transition-all duration-300 animate-slide-up overflow-hidden mx-auto max-w-sm md:max-w-none"
       style={{ animationDelay: `${index * 0.1}s` }}
     >
@@ -22,8 +25,9 @@ export default function BlogCard({ post, index = 0 }: BlogCardProps) {
         <div className="relative aspect-video overflow-hidden">
           <img loading="lazy" decoding="async"
             src={post.coverImage}
-            alt={post.title}
+            alt={post.coverImageAlt || post.title}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+            onError={(event) => { event.currentTarget.parentElement?.remove(); }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
         </div>
@@ -32,7 +36,7 @@ export default function BlogCard({ post, index = 0 }: BlogCardProps) {
       <CardHeader className="space-y-3 p-4 md:p-6">
         <div className="flex items-center gap-2 text-muted-foreground text-xs md:text-sm">
           <Calendar className="h-3 w-3 md:h-4 md:w-4" />
-          <time dateTime={post.date}>{formatDate(post.date)}</time>
+          <time dateTime={post.date}>{formatDate(post.date, post.language)}</time>
         </div>
         
         <h3 className="text-lg md:text-xl font-bold leading-tight group-hover:text-primary transition-colors line-clamp-2">
@@ -47,7 +51,7 @@ export default function BlogCard({ post, index = 0 }: BlogCardProps) {
         
         <Button asChild variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors text-sm md:text-base">
           <Link to={`/blog/${post.slug}`}>
-            {content.blog?.readMore || 'Read More'}
+            {isRtl ? "קראו עוד" : (content.blog?.readMore || 'Read More')}
           </Link>
         </Button>
       </CardContent>

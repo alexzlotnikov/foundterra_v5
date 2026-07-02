@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import Header from "@/components/Header";
 import { getPostBySlugSync, formatDate } from "@/utils/blogUtils";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -24,9 +24,13 @@ export default function BlogPost() {
     );
   }
 
+  const isRtl = post.language === "he";
+  const BackIcon = isRtl ? ArrowRight : ArrowLeft;
+
   return (
     <>
       <Helmet>
+        <html lang={post.language || "en"} dir={isRtl ? "rtl" : "ltr"} />
         <title>{post.title} | Foundterra Blog</title>
         <meta name="description" content={post.excerpt} />
         <meta property="og:title" content={`${post.title} | Foundterra Blog`} />
@@ -49,25 +53,58 @@ export default function BlogPost() {
           },
           mainEntityOfPage: `https://www.foundterra.com/blog/${post.slug}`,
           image: post.coverImage || "https://www.foundterra.com/brand/foundterra-og.webp",
+          inLanguage: post.language || "en",
         })}</script>
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
         <Header />
 
-        <main className="container mx-auto px-4 py-12 md:py-16 mt-16 md:mt-20 max-w-4xl">
+        <main
+          dir={isRtl ? "rtl" : "ltr"}
+          lang={post.language || "en"}
+          className={`container mx-auto px-4 py-12 md:py-16 mt-16 md:mt-20 max-w-4xl ${isRtl ? "font-['Heebo'] text-right" : ""}`}
+        >
           <Link to="/blog" className="text-primary hover:underline inline-flex items-center gap-2 mb-8">
-            <ArrowLeft className="h-4 w-4" /> Back to Blog
+            <BackIcon className="h-4 w-4" /> {isRtl ? "חזרה לבלוג" : "Back to Blog"}
           </Link>
 
           <article>
             <header className="mb-8">
               <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">{post.title}</h1>
-              <p className="text-muted-foreground">{formatDate(post.date)}</p>
+              <p className="text-muted-foreground">{formatDate(post.date, post.language)}</p>
             </header>
 
-            <div className="prose prose-invert max-w-none prose-headings:font-serif prose-headings:text-foreground prose-h2:text-3xl prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-3 prose-p:text-muted-foreground prose-p:text-base md:prose-p:text-lg prose-p:leading-8 prose-strong:text-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-ul:my-5 prose-li:my-1.5 prose-ol:my-5 prose-blockquote:border-primary prose-blockquote:text-foreground prose-table:text-sm md:prose-table:text-base">
-              <ReactMarkdown>{post.content}</ReactMarkdown>
+            {post.coverImage && (
+              <img
+                src={post.coverImage}
+                alt={post.coverImageAlt || post.title}
+                className="mb-10 aspect-[16/9] w-full rounded-lg object-cover"
+                onError={(event) => { event.currentTarget.hidden = true; }}
+              />
+            )}
+
+            <div className={`prose prose-invert max-w-none prose-headings:font-serif prose-headings:text-foreground prose-h2:text-3xl prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-3 prose-p:text-muted-foreground prose-p:text-base md:prose-p:text-lg prose-p:leading-8 prose-strong:text-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-ul:my-5 prose-li:my-1.5 prose-ol:my-5 prose-blockquote:border-primary prose-blockquote:text-foreground prose-table:text-sm md:prose-table:text-base prose-img:rounded-lg prose-img:w-full prose-img:aspect-[16/9] prose-img:object-cover ${isRtl ? "prose-headings:font-['Heebo'] prose-headings:text-right prose-p:text-right prose-li:text-right" : ""}`}>
+              <ReactMarkdown
+                components={{
+                  table: ({ children, ...props }) => (
+                    <div className="my-8 max-w-full overflow-x-auto rounded border border-border">
+                      <table {...props} className="m-0 min-w-[640px]">{children}</table>
+                    </div>
+                  ),
+                  img: ({ alt, ...props }) => (
+                    <img
+                      {...props}
+                      alt={alt || ""}
+                      loading="lazy"
+                      decoding="async"
+                      onError={(event) => { event.currentTarget.hidden = true; }}
+                    />
+                  ),
+                }}
+              >
+                {post.content}
+              </ReactMarkdown>
             </div>
           </article>
         </main>

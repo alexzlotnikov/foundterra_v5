@@ -6,6 +6,8 @@ export interface BlogPost {
   excerpt: string;
   slug: string;
   coverImage?: string;
+  coverImageAlt?: string;
+  language?: "en" | "he";
   author?: string;
   content: string;
 }
@@ -65,10 +67,10 @@ export const getPostBySlug = async (slug: string): Promise<BlogPost | null> => {
 export const getPostBySlugSync = (slug: string): BlogPost | null =>
   (generatedPosts as BlogPost[]).find((post) => post.slug === slug) ?? null;
 
-export const formatDate = (dateString: string): string => {
+export const formatDate = (dateString: string, language: "en" | "he" = "en"): string => {
   try {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString(language === "he" ? "he-IL" : "en-US", {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
